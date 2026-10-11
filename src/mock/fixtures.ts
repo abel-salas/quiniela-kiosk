@@ -1,0 +1,85 @@
+import type { GameCode, LotteryDraw, LotteryGameConfig } from '../types';
+
+export const GAME_CONFIG: LotteryGameConfig[] = [
+  { code: 'BONO', label: 'BonoLoto', shortLabel: 'BONO', kind: 'numbers' },
+  { code: 'ELGR', label: 'Gordo de la Primitiva', shortLabel: 'ELGR', kind: 'gordo' },
+  { code: 'LAPR', label: 'La Primitiva', shortLabel: 'LAPR', kind: 'numbers' },
+  { code: 'EMIL', label: 'Euromillones', shortLabel: 'EMIL', kind: 'euromillones' },
+  { code: 'LNAC', label: 'Lotería Nacional', shortLabel: 'LNAC', kind: 'nacional' },
+  { code: 'LAQU', label: 'La Quiniela', shortLabel: 'LAQU', kind: 'quiniela' },
+];
+
+export const fixtureDraws: Record<GameCode, LotteryDraw> = {
+  BONO: {
+    id: 'BONO-20260608',
+    game: 'BONO',
+    date: '2026-06-08',
+    scheduledDate: '2026-06-08',
+    status: 'celebrado',
+    updatedAt: '2026-06-08T20:43:00Z',
+    numbers: [5, 9, 12, 15, 21, 23],
+    complementario: 31,
+    reintegro: 5,
+  },
+  ELGR: {
+    id: 'ELGR-20260607',
+    game: 'ELGR',
+    date: '2026-06-07',
+    scheduledDate: '2026-06-07',
+    status: 'celebrado',
+    updatedAt: '2026-06-07T20:05:00Z',
+    numbers: [27, 2, 3, 20, 41],
+    clave: 'G5',
+    reintegro: 8,
+  },
+  LAPR: {
+    id: 'LAPR-20260608',
+    game: 'LAPR',
+    date: '2026-06-08',
+    scheduledDate: '2026-06-08',
+    status: 'celebrado',
+    updatedAt: '2026-06-08T21:22:00Z',
+    numbers: [4, 10, 20, 25, 40, 49],
+    complementario: 29,
+    reintegro: 3,
+    joker: 12,
+  },
+  EMIL: {
+    id: 'EMIL-20260608',
+    game: 'EMIL',
+    date: '2026-06-08',
+    scheduledDate: '2026-06-08',
+    status: 'celebrado',
+    updatedAt: '2026-06-08T21:08:00Z',
+    numbers: [6, 18, 22, 32, 41],
+    stars: [8, 10],
+  },
+  LNAC: {
+    id: 'LNAC-20260608',
+    game: 'LNAC',
+    date: '2026-06-08',
+    scheduledDate: '2026-06-08',
+    status: 'celebrado',
+    updatedAt: '2026-06-08T20:00:00Z',
+    primerPremio: 37343,
+    segundoPremio: 43714,
+    reintegros: [6, 11, 17, 19, 32, 41],
+  },
+  LAQU: {
+    id: 'LAQU-20260607',
+    game: 'LAQU',
+    date: '2026-06-07',
+    scheduledDate: '2026-06-07',
+    status: 'celebrado',
+    updatedAt: '2026-06-07T22:00:00Z',
+    jornada: 34,
+    fecha: '2026-06-07',
+    signs: ['1', '2', '1', 'X', '2', '1', '2', 'X', '1', '2', '1', 'X', '2', '1'],
+    plenoAl15: 'M-1',
+  },
+};
+
+export const fallbackBoard = GAME_CONFIG.map((game) => ({
+  game,
+  draw: fixtureDraws[game.code],
+}));

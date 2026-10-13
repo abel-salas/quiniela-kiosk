@@ -20,6 +20,65 @@ const NumberStrip = ({ values, tone = 'yellow' }: { values: Array<number | strin
   </div>
 );
 
+const LotteryIcon = ({ code }: { code: GameCode }) => {
+  const commonProps = {
+    width: 18,
+    height: 18,
+    viewBox: '0 0 24 24',
+    'aria-hidden': true,
+    focusable: false,
+  } as const;
+
+  switch (code) {
+    case 'BONO':
+      return (
+        <svg {...commonProps} className="game-icon">
+          <circle cx="12" cy="12" r="8" fill="#f5d447" />
+          <circle cx="12" cy="12" r="3.5" fill="#0b2c7a" />
+        </svg>
+      );
+    case 'ELGR':
+      return (
+        <svg {...commonProps} className="game-icon">
+          <path d="M7 18h10l-1.2-8.8L12 5l-3.8 4.2L7 18Z" fill="#f5d447" />
+          <path d="M9.5 11.5h5" stroke="#0b2c7a" strokeWidth="1.4" strokeLinecap="round" />
+        </svg>
+      );
+    case 'LAPR':
+      return (
+        <svg {...commonProps} className="game-icon">
+          <circle cx="12" cy="12" r="8" fill="#f5d447" />
+          <circle cx="12" cy="12" r="3" fill="#0b2c7a" />
+          <path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="#0b2c7a" strokeWidth="1.4" strokeLinecap="round" />
+        </svg>
+      );
+    case 'EMIL':
+      return (
+        <svg {...commonProps} className="game-icon">
+          <path d="M12 2.5 14.7 8l5.8.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8L3.5 8.9l5.8-.9L12 2.5Z" fill="#f5d447" />
+        </svg>
+      );
+    case 'LNAC':
+      return (
+        <svg {...commonProps} className="game-icon">
+          <path d="M7 17.5h10l-1-8.5L12 4.5 8 9l-1 8.5Z" fill="#f5d447" />
+          <path d="M9.5 13.2h5" stroke="#0b2c7a" strokeWidth="1.4" strokeLinecap="round" />
+          <circle cx="12" cy="11" r="1.5" fill="#0b2c7a" />
+        </svg>
+      );
+    case 'LAQU':
+      return (
+        <svg {...commonProps} className="game-icon">
+          <rect x="4" y="5" width="16" height="14" rx="2" fill="#f5d447" />
+          <path d="M8 10h8M8 14h5" stroke="#0b2c7a" strokeWidth="1.4" strokeLinecap="round" />
+          <circle cx="17" cy="14" r="1.5" fill="#0b2c7a" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
+
 const renderLotteryCard = (boardItem: LotteryBoardItem) => {
   const { draw, game } = boardItem;
 
@@ -90,8 +149,8 @@ const renderLotteryCard = (boardItem: LotteryBoardItem) => {
         : [];
 
     const primitivaWeek = [
-      { day: 'JUEVES', date: '10/Oct', numbers: [7, 18, 23, 31, 40, 49], complementario: 15, reintegro: 4, joker: jokerValues.length ? jokerValues : [12] },
-      { day: 'SÁBADO', date: '12/Oct', numbers: [2, 10, 21, 30, 38, 47], complementario: 24, reintegro: 7, joker: jokerValues.length ? jokerValues : [9] },
+      { day: 'JUEVES', date: '10/Oct', numbers: (draw as any).numbers ?? [], complementario: (draw as any).complementario, reintegro: (draw as any).reintegro, joker: jokerValues },
+      { day: 'SÁBADO', date: '12/Oct', numbers: [], complementario: undefined, reintegro: undefined, joker: [] },
     ];
 
     return (
@@ -102,19 +161,23 @@ const renderLotteryCard = (boardItem: LotteryBoardItem) => {
               <span className="bonoloto-day-name">{slot.date} - {slot.day}</span>
               <div className="bonoloto-day-main">
                 <div className="bonoloto-day-numbers">
-                  {slot.numbers.map((number: number, idx: number) => (
+                  {slot.numbers.length > 0 && slot.numbers.map((number: number, idx: number) => (
                     <span key={`lapr-num-${slot.day}-${number}-${idx}`} className="bonoloto-ball">{number}</span>
                   ))}
                 </div>
                 <div className="bonoloto-day-meta">
-                  <span className="bonoloto-meta-item">
-                    <span className="bonoloto-meta-text">Comp.</span>
-                    <span className="bonoloto-meta-number">{slot.complementario}</span>
-                  </span>
-                  <span className="bonoloto-meta-item">
-                    <span className="bonoloto-meta-text">Reint.</span>
-                    <span className="bonoloto-meta-number">{slot.reintegro}</span>
-                  </span>
+                  {slot.complementario !== undefined && (
+                    <span className="bonoloto-meta-item">
+                      <span className="bonoloto-meta-text">Comp.</span>
+                      <span className="bonoloto-meta-number">{slot.complementario}</span>
+                    </span>
+                  )}
+                  {slot.reintegro !== undefined && (
+                    <span className="bonoloto-meta-item">
+                      <span className="bonoloto-meta-text">Reint.</span>
+                      <span className="bonoloto-meta-number">{slot.reintegro}</span>
+                    </span>
+                  )}
                   {slot.joker.length > 0 && (
                     <span className="bonoloto-meta-item primitiva-meta-item">
                       <span className="bonoloto-meta-text">JOKER</span>
@@ -133,8 +196,8 @@ const renderLotteryCard = (boardItem: LotteryBoardItem) => {
   if (game.kind === 'euromillones') {
     const edraw = draw as any;
     const euroWeek = [
-      { day: 'MARTES', date: '11/Oct', numbers: edraw.numbers ?? [6, 18, 22, 32, 41], stars: edraw.stars ?? [8, 10] },
-      { day: 'JUEVES', date: '13/Oct', numbers: [9, 17, 28, 31, 46], stars: [5, 12] },
+      { day: 'MARTES', date: '11/Oct', numbers: edraw.numbers ?? [], stars: edraw.stars ?? [] },
+      { day: 'JUEVES', date: '13/Oct', numbers: [], stars: [] },
     ];
 
     return (
@@ -145,19 +208,21 @@ const renderLotteryCard = (boardItem: LotteryBoardItem) => {
               <span className="bonoloto-day-name">{slot.date} - {slot.day}</span>
               <div className="bonoloto-day-main">
                 <div className="bonoloto-day-numbers">
-                  {slot.numbers.map((number: number, idx: number) => (
+                  {slot.numbers.length > 0 && slot.numbers.map((number: number, idx: number) => (
                     <span key={`euro-num-${slot.day}-${number}-${idx}`} className="bonoloto-ball">{number}</span>
                   ))}
                 </div>
                 <div className="bonoloto-day-meta">
-                  <span className="bonoloto-meta-item">
-                    <span className="bonoloto-meta-text">Estrellas</span>
-                    <span className="bonoloto-meta-number-group">
-                      {slot.stars.map((star: number, idx: number) => (
-                        <span key={`euro-star-${slot.day}-${star}-${idx}`} className="bonoloto-meta-number">{star}</span>
-                      ))}
+                  {slot.stars.length > 0 && (
+                    <span className="bonoloto-meta-item">
+                      <span className="bonoloto-meta-text">Estrellas</span>
+                      <span className="bonoloto-meta-number-group">
+                        {slot.stars.map((star: number, idx: number) => (
+                          <span key={`euro-star-${slot.day}-${star}-${idx}`} className="bonoloto-meta-number">{star}</span>
+                        ))}
+                      </span>
                     </span>
-                  </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -205,13 +270,13 @@ const renderLotteryCard = (boardItem: LotteryBoardItem) => {
 
   if (game.code === 'BONO') {
     const bonoWeek = [
-      { day: 'LUNES', date: '5/Oct', numbers: [5, 9, 12, 15, 21, 23], complementario: 31, reintegro: 5 },
-      { day: 'MARTES', date: '6/Oct', numbers: [7, 14, 18, 31, 35, 40], complementario: 22, reintegro: 9 },
-      { day: 'MIÉRCOLES', date: '7/Oct', numbers: [2, 11, 17, 29, 33, 45], complementario: 14, reintegro: 3 },
-      { day: 'JUEVES', date: '8/Oct', numbers: [6, 16, 23, 25, 31, 42], complementario: 18, reintegro: 8 },
-      { day: 'VIERNES', date: '9/Oct', numbers: [8, 13, 24, 27, 36, 39], complementario: 26, reintegro: 4 },
-      { day: 'SÁBADO', date: '10/Oct', numbers: [4, 12, 19, 28, 32, 41], complementario: 17, reintegro: 6 },
-      { day: 'DOMINGO', date: '11/Oct', numbers: [3, 10, 15, 21, 30, 44], complementario: 28, reintegro: 7 },
+      { day: 'LUNES', date: '5/Oct', numbers: [], complementario: undefined, reintegro: undefined },
+      { day: 'MARTES', date: '6/Oct', numbers: [], complementario: undefined, reintegro: undefined },
+      { day: 'MIÉRCOLES', date: '7/Oct', numbers: [], complementario: undefined, reintegro: undefined },
+      { day: 'JUEVES', date: '8/Oct', numbers: [], complementario: undefined, reintegro: undefined },
+      { day: 'VIERNES', date: '9/Oct', numbers: [], complementario: undefined, reintegro: undefined },
+      { day: 'SÁBADO', date: '10/Oct', numbers: [], complementario: undefined, reintegro: undefined },
+      { day: 'DOMINGO', date: '11/Oct', numbers: [], complementario: undefined, reintegro: undefined },
     ];
 
     return (
@@ -222,13 +287,17 @@ const renderLotteryCard = (boardItem: LotteryBoardItem) => {
               <span className="bonoloto-day-name">{slot.date} - {slot.day}</span>
               <div className="bonoloto-day-main">
                 <div className="bonoloto-day-numbers">
-                  {slot.numbers.map((number) => (
+                  {slot.numbers.length > 0 && slot.numbers.map((number) => (
                     <span key={`${slot.day}-${number}`} className="bonoloto-ball">{number}</span>
                   ))}
                 </div>
                 <div className="bonoloto-day-meta">
-                  <span className="bonoloto-meta-item"><span className="bonoloto-meta-text">Comp.</span> <span className="bonoloto-meta-number">{slot.complementario}</span></span>
-                  <span className="bonoloto-meta-item"><span className="bonoloto-meta-text">Reint.</span> <span className="bonoloto-meta-number">{slot.reintegro}</span></span>
+                  {slot.complementario !== undefined && (
+                    <span className="bonoloto-meta-item"><span className="bonoloto-meta-text">Comp.</span> <span className="bonoloto-meta-number">{slot.complementario}</span></span>
+                  )}
+                  {slot.reintegro !== undefined && (
+                    <span className="bonoloto-meta-item"><span className="bonoloto-meta-text">Reint.</span> <span className="bonoloto-meta-number">{slot.reintegro}</span></span>
+                  )}
                 </div>
               </div>
             </div>
@@ -294,7 +363,10 @@ function App() {
     if (!item) {
       return (
         <div key={`empty-${code}`} className={`board-item empty-slot ${className}`}>
-          <div className="game-name empty-name">{code}</div>
+          <div className="game-title-row">
+            <span className="game-icon-wrap"><LotteryIcon code={code} /></span>
+            <span className="game-name empty-name">{code}</span>
+          </div>
           <div className="board-card empty-card">
             <div className="placeholder-line" />
             <div className="placeholder-line short" />
@@ -307,7 +379,10 @@ function App() {
     const { game, draw } = item;
     return (
       <div key={game.code} className={`board-item ${className}`}>
-        <div className="game-name">{game.label}</div>
+        <div className="game-title-row">
+          <span className="game-icon-wrap"><LotteryIcon code={game.code} /></span>
+          <span className="game-name">{game.label}</span>
+        </div>
         {renderLotteryCard({ game, draw })}
       </div>
     );
@@ -345,6 +420,7 @@ function App() {
         <span className="notice">Resultados informativos; compruebe su boleto en el terminal.</span>
         {loading && <span className="loading-dot" />}
       </footer>
+      <div className="admin-footer">Administració de Loteria Nº 1 de Malgrat de Mar</div>
     </main>
   );
 }

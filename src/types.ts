@@ -20,7 +20,7 @@ export type NumberOnlyDraw = DrawBase & {
   numbers: number[];
   complementario?: number;
   reintegro?: number;
-  joker?: number;
+  joker?: number | number[];
 };
 
 export type GordoDraw = DrawBase & {
@@ -40,6 +40,12 @@ export type NacionalDraw = DrawBase & {
   reintegros?: number[];
 };
 
+export type QuinielaMatch = {
+  local: string;
+  visitor: string;
+  result: '1' | 'X' | '2';
+};
+
 export type QuinielaSign = {
   jornada: number;
   fecha: string;
@@ -51,6 +57,7 @@ export type QuinielaDraw = DrawBase & {
   jornada: number;
   fecha: string;
   signs: Array<'1' | 'X' | '2'>;
+  matches?: QuinielaMatch[];
   plenoAl15?: string;
 };
 

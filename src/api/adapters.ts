@@ -37,7 +37,11 @@ export const normalizeDraw = (payload: any, game: GameCode): LotteryDraw => {
         numbers: Array.isArray(payload.numeros) ? payload.numeros.map(Number) : [],
         complementario: payload.complementario !== undefined ? Number(payload.complementario) : undefined,
         reintegro: payload.reintegro !== undefined ? Number(payload.reintegro) : undefined,
-        joker: payload.joker !== undefined ? Number(payload.joker) : undefined,
+        joker: Array.isArray(payload.joker)
+          ? payload.joker.map(Number)
+          : payload.joker !== undefined
+            ? Number(payload.joker)
+            : undefined,
       };
     case 'EMIL':
       return {

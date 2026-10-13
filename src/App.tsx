@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { fallbackBoard } from './mock/fixtures';
 import { fetchBoard, getLastUpdated } from './api/service';
-import type { LotteryBoardItem } from './types';
+import type { GameCode, LotteryBoardItem } from './types';
 
 const formatShortDate = (date: string) => {
   if (!date) return '—';
@@ -25,23 +25,39 @@ const renderLotteryCard = (boardItem: LotteryBoardItem) => {
 
   if (game.kind === 'quiniela') {
     const qdraw = draw as any;
-    const signs = Array.isArray(qdraw.signs) ? qdraw.signs : ['1', 'X', '2'];
+    const matches = Array.isArray(qdraw.matches) && qdraw.matches.length > 0
+      ? qdraw.matches
+      : (Array.isArray(qdraw.signs) ? qdraw.signs.map((sign: string, idx: number) => ({
+          local: `Partido ${idx + 1}`,
+          visitor: '—',
+          result: sign,
+        })) : []);
+
     return (
       <article className="board-card quiniela-card">
-        <div className="mini-head">
-          <span className="mini-label">Jornada</span>
-          <span className="mini-value">{qdraw.jornada ?? '—'}</span>
-          <span className="mini-label">Fecha</span>
-          <span className="mini-value">{qdraw.fecha ? formatShortDate(qdraw.fecha) : '—'}</span>
+        <div className="mini-head quiniela-head">
+          <div className="mini-line">
+            <span className="mini-label">Jornada</span>
+            <span className="mini-value">{qdraw.jornada ?? '—'}</span>
+          </div>
+          <div className="mini-line">
+            <span className="mini-label">Fecha</span>
+            <span className="mini-value">{qdraw.fecha ? formatShortDate(qdraw.fecha) : '—'}</span>
+          </div>
         </div>
-        <div className="quiniela-grid">
-          {signs.map((sign: string, idx: number) => (
-            <div key={`${game.code}-${idx}`} className={`quiniela-cell sign-${sign}`}>{sign}</div>
+
+        <div className="quiniela-list">
+          {matches.map((match: { local: string; visitor: string; result: '1' | 'X' | '2' }, idx: number) => (
+            <div key={`${game.code}-${idx}`} className="quiniela-row">
+              <span className="quiniela-match">{match.local} - {match.visitor}</span>
+              <span className={`quiniela-sign sign-${match.result}`}>{match.result}</span>
+            </div>
           ))}
         </div>
-        <div className="mini-foot">
-          <span className="mini-label">Pleno al 15</span>
-          <span className="mini-value strong">{qdraw.plenoAl15 ?? '—'}</span>
+
+        <div className="quiniela-foot">
+          <span className="quiniela-foot-label">Pleno al 15</span>
+          <span className="quiniela-foot-value">{qdraw.plenoAl15 ?? '—'}</span>
         </div>
       </article>
     );
@@ -65,17 +81,87 @@ const renderLotteryCard = (boardItem: LotteryBoardItem) => {
     );
   }
 
+  if (game.code === 'LAPR') {
+    const jokerRaw = (draw as any).joker;
+    const jokerValues = Array.isArray(jokerRaw)
+      ? jokerRaw.map((value: number | string) => Number(value))
+      : jokerRaw !== undefined && jokerRaw !== null
+        ? [Number(jokerRaw)]
+        : [];
+
+    const primitivaWeek = [
+      { day: 'JUEVES', date: '10/Oct', numbers: [7, 18, 23, 31, 40, 49], complementario: 15, reintegro: 4, joker: jokerValues.length ? jokerValues : [12] },
+      { day: 'SÁBADO', date: '12/Oct', numbers: [2, 10, 21, 30, 38, 47], complementario: 24, reintegro: 7, joker: jokerValues.length ? jokerValues : [9] },
+    ];
+
+    return (
+      <article className="board-card bonoloto-card">
+        <div className="bonoloto-days-list">
+          {primitivaWeek.map((slot) => (
+            <div key={slot.day} className="bonoloto-day-row">
+              <span className="bonoloto-day-name">{slot.date} - {slot.day}</span>
+              <div className="bonoloto-day-main">
+                <div className="bonoloto-day-numbers">
+                  {slot.numbers.map((number: number, idx: number) => (
+                    <span key={`lapr-num-${slot.day}-${number}-${idx}`} className="bonoloto-ball">{number}</span>
+                  ))}
+                </div>
+                <div className="bonoloto-day-meta">
+                  <span className="bonoloto-meta-item">
+                    <span className="bonoloto-meta-text">Comp.</span>
+                    <span className="bonoloto-meta-number">{slot.complementario}</span>
+                  </span>
+                  <span className="bonoloto-meta-item">
+                    <span className="bonoloto-meta-text">Reint.</span>
+                    <span className="bonoloto-meta-number">{slot.reintegro}</span>
+                  </span>
+                  {slot.joker.length > 0 && (
+                    <span className="bonoloto-meta-item primitiva-meta-item">
+                      <span className="bonoloto-meta-text">JOKER</span>
+                      <span className="bonoloto-meta-number primitiva-meta-number">{slot.joker.join(', ')}</span>
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </article>
+    );
+  }
+
   if (game.kind === 'euromillones') {
     const edraw = draw as any;
+    const euroWeek = [
+      { day: 'MARTES', date: '11/Oct', numbers: edraw.numbers ?? [6, 18, 22, 32, 41], stars: edraw.stars ?? [8, 10] },
+      { day: 'JUEVES', date: '13/Oct', numbers: [9, 17, 28, 31, 46], stars: [5, 12] },
+    ];
+
     return (
       <article className="board-card euro-card">
-        <div className="mini-head compact">
-          <span className="mini-label">Números</span>
-          <NumberStrip values={edraw.numbers ?? []} tone="yellow" />
-        </div>
-        <div className="mini-head compact">
-          <span className="mini-label">Estrellas</span>
-          <NumberStrip values={edraw.stars ?? []} tone="blue" />
+        <div className="bonoloto-days-list">
+          {euroWeek.map((slot) => (
+            <div key={slot.day} className="bonoloto-day-row">
+              <span className="bonoloto-day-name">{slot.date} - {slot.day}</span>
+              <div className="bonoloto-day-main">
+                <div className="bonoloto-day-numbers">
+                  {slot.numbers.map((number: number, idx: number) => (
+                    <span key={`euro-num-${slot.day}-${number}-${idx}`} className="bonoloto-ball">{number}</span>
+                  ))}
+                </div>
+                <div className="bonoloto-day-meta">
+                  <span className="bonoloto-meta-item">
+                    <span className="bonoloto-meta-text">Estrellas</span>
+                    <span className="bonoloto-meta-number-group">
+                      {slot.stars.map((star: number, idx: number) => (
+                        <span key={`euro-star-${slot.day}-${star}-${idx}`} className="bonoloto-meta-number">{star}</span>
+                      ))}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </article>
     );
@@ -83,18 +169,70 @@ const renderLotteryCard = (boardItem: LotteryBoardItem) => {
 
   if (game.kind === 'gordo') {
     const gdraw = draw as any;
+    const gordoRow = {
+      day: 'DOMINGO',
+      date: '11/Oct',
+      numbers: gdraw.numbers ?? [27, 2, 3, 20, 41],
+      reintegro: gdraw.reintegro ?? 8,
+      clave: gdraw.clave ?? 'G5',
+    };
+
     return (
       <article className="board-card gordo-card">
-        <div className="mini-head compact">
-          <span className="mini-label">Día</span>
-          <span className="mini-value">{formatShortDate(gdraw.date || '')}</span>
-          <span className="mini-label">Reint.</span>
-          <span className="mini-value">{gdraw.reintegro ?? '—'}</span>
+        <div className="bonoloto-day-row">
+          <span className="bonoloto-day-name">{gordoRow.date} - {gordoRow.day}</span>
+          <div className="bonoloto-day-main">
+            <div className="bonoloto-day-numbers">
+              {gordoRow.numbers.map((number: number, idx: number) => (
+                <span key={`gordo-${number}-${idx}`} className="bonoloto-ball">{number}</span>
+              ))}
+            </div>
+            <div className="bonoloto-day-meta">
+              <span className="bonoloto-meta-item">
+                <span className="bonoloto-meta-text">Reint.</span>
+                <span className="bonoloto-meta-number">{gordoRow.reintegro}</span>
+              </span>
+              <span className="bonoloto-meta-item gordo-meta-item">
+                <span className="bonoloto-meta-text">CLAVE</span>
+                <span className="bonoloto-meta-number gordo-meta-number">{gordoRow.clave}</span>
+              </span>
+            </div>
+          </div>
         </div>
-        <NumberStrip values={gdraw.numbers ?? []} tone="yellow" />
-        <div className="mini-foot">
-          <span className="mini-label">Clave</span>
-          <span className="mini-value strong">{gdraw.clave ?? '—'}</span>
+      </article>
+    );
+  }
+
+  if (game.code === 'BONO') {
+    const bonoWeek = [
+      { day: 'LUNES', date: '5/Oct', numbers: [5, 9, 12, 15, 21, 23], complementario: 31, reintegro: 5 },
+      { day: 'MARTES', date: '6/Oct', numbers: [7, 14, 18, 31, 35, 40], complementario: 22, reintegro: 9 },
+      { day: 'MIÉRCOLES', date: '7/Oct', numbers: [2, 11, 17, 29, 33, 45], complementario: 14, reintegro: 3 },
+      { day: 'JUEVES', date: '8/Oct', numbers: [6, 16, 23, 25, 31, 42], complementario: 18, reintegro: 8 },
+      { day: 'VIERNES', date: '9/Oct', numbers: [8, 13, 24, 27, 36, 39], complementario: 26, reintegro: 4 },
+      { day: 'SÁBADO', date: '10/Oct', numbers: [4, 12, 19, 28, 32, 41], complementario: 17, reintegro: 6 },
+      { day: 'DOMINGO', date: '11/Oct', numbers: [3, 10, 15, 21, 30, 44], complementario: 28, reintegro: 7 },
+    ];
+
+    return (
+      <article className="board-card bonoloto-card">
+        <div className="bonoloto-days-list">
+          {bonoWeek.map((slot) => (
+            <div key={slot.day} className="bonoloto-day-row">
+              <span className="bonoloto-day-name">{slot.date} - {slot.day}</span>
+              <div className="bonoloto-day-main">
+                <div className="bonoloto-day-numbers">
+                  {slot.numbers.map((number) => (
+                    <span key={`${slot.day}-${number}`} className="bonoloto-ball">{number}</span>
+                  ))}
+                </div>
+                <div className="bonoloto-day-meta">
+                  <span className="bonoloto-meta-item"><span className="bonoloto-meta-text">Comp.</span> <span className="bonoloto-meta-number">{slot.complementario}</span></span>
+                  <span className="bonoloto-meta-item"><span className="bonoloto-meta-text">Reint.</span> <span className="bonoloto-meta-number">{slot.reintegro}</span></span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </article>
     );
@@ -143,9 +281,37 @@ function App() {
 
   const board = useMemo(() => items, [items]);
 
-  const leftGames = board.filter(({ game }) => ['BONO', 'ELGR', 'LAPR'].includes(game.code));
-  const centerGames = board.filter(({ game }) => ['EMIL', 'LNAC'].includes(game.code));
-  const rightGames = board.filter(({ game }) => game.code === 'LAQU');
+  const leftGameCodes: GameCode[] = ['BONO', 'ELGR', 'LAPR'];
+  const rightGameCodes: GameCode[] = ['LAQU'];
+
+  const gameMap = new Map<GameCode, { game: LotteryBoardItem['game']; draw: LotteryBoardItem['draw'] }>(
+    board.map(({ game, draw }) => [game.code, { game, draw }]),
+  );
+
+  const renderGameSlot = (code: GameCode, className = '') => {
+    const item = gameMap.get(code);
+
+    if (!item) {
+      return (
+        <div key={`empty-${code}`} className={`board-item empty-slot ${className}`}>
+          <div className="game-name empty-name">{code}</div>
+          <div className="board-card empty-card">
+            <div className="placeholder-line" />
+            <div className="placeholder-line short" />
+            <div className="placeholder-line" />
+          </div>
+        </div>
+      );
+    }
+
+    const { game, draw } = item;
+    return (
+      <div key={game.code} className={`board-item ${className}`}>
+        <div className="game-name">{game.label}</div>
+        {renderLotteryCard({ game, draw })}
+      </div>
+    );
+  };
 
   return (
     <main className="board-shell">
@@ -154,33 +320,23 @@ function App() {
       </header>
 
       <div className="board-layout">
-        <div className="board-layout__main">
-          <section className="board-column left-column">
-            {leftGames.map(({ game, draw }) => (
-              <div key={game.code} className="board-item">
-                <div className="game-name">{game.label}</div>
-                {renderLotteryCard({ game, draw })}
-              </div>
-            ))}
-          </section>
+        <section className="board-left-stack">
+          <div className="mini-panel mini-panel--bono">
+            {renderGameSlot('BONO', 'left-slot')}
+          </div>
+          <div className="mini-panel mini-panel--euromillones">
+            {renderGameSlot('EMIL', 'center-slot')}
+          </div>
+          <div className="mini-panel mini-panel--gordo">
+            {renderGameSlot('ELGR', 'left-slot')}
+          </div>
+          <div className="mini-panel mini-panel--primitiva">
+            {renderGameSlot('LAPR', 'left-slot')}
+          </div>
+        </section>
 
-          <section className="board-column center-column">
-            {centerGames.map(({ game, draw }) => (
-              <div key={game.code} className="board-item">
-                <div className="game-name">{game.label}</div>
-                {renderLotteryCard({ game, draw })}
-              </div>
-            ))}
-          </section>
-        </div>
-
-        <aside className="board-layout__aside">
-          {rightGames.map(({ game, draw }) => (
-            <div key={game.code} className="board-item quiniela-box">
-              <div className="game-name">{game.label}</div>
-              {renderLotteryCard({ game, draw })}
-            </div>
-          ))}
+        <aside className="board-column right-column">
+          {rightGameCodes.map((code) => renderGameSlot(code, 'quiniela-box'))}
         </aside>
       </div>
 

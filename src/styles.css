@@ -38,7 +38,7 @@ button, input, select {
 }
 
 .board-shell {
-  width: min(96vw, 1500px);
+  width: min(96vw, 2300px);
   max-width: 100%;
   background: linear-gradient(180deg, #0a2d7a 0%, #0d2b79 100%);
   border: 9px solid #1d2430;
@@ -68,7 +68,7 @@ button, input, select {
 
 .board-layout {
   display: grid;
-  grid-template-columns: 1.72fr 0.88fr;
+  grid-template-columns: 16fr 12fr;
   gap: 1rem;
   flex: 0 1 auto;
   min-height: 0;

@@ -36,6 +36,8 @@ const formatMatchDateTime = (date: string) => {
   }
 };
 
+const cleanTeamName = (name: string) => name.replace(/\s*\(m\)\s*$/i, '').trim();
+
 const getCurrentWeekDates = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -171,7 +173,7 @@ const renderLotteryCard = (boardItem: LotteryBoardItem) => {
               >
                 <div className="quiniela-match-block">
                   <span className="quiniela-match">
-                    {match.local} - {match.visitor}
+                    {cleanTeamName(match.local)} - {cleanTeamName(match.visitor)}
                     {isPleno && qdraw.plenoAl15 !== undefined && qdraw.plenoAl15 !== null && (
                       <span className="quiniela-pleno-label">Pleno</span>
                     )}

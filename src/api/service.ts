@@ -158,7 +158,7 @@ const getPreviousValidDraw = (game: GameCode): LotteryDraw | null => {
     : null);
 };
 
-const inflightRequests = new Map<GameCode, Promise<LotteryDraw | null>>();
+const inflightRequests = new Map<GameCode, Promise<LotteryDraw[]>>();
 
 const resolveGameHistory = async (game: GameCode): Promise<LotteryDraw[]> => {
   const range = game === 'LAQU'
@@ -196,9 +196,13 @@ const resolveGameHistory = async (game: GameCode): Promise<LotteryDraw[]> => {
       }
 
       const raw = await response.json();
-      const rows = Array.isArray(raw) ? raw : (raw && typeof raw === 'object' && 'resultado' in raw ? (raw as any).resultado : [])
-        ?? (raw && typeof raw === 'object' && 'sorteos' in raw ? (raw as any).sorteos : [])
-        ?? [];
+      const rows: unknown[] = Array.isArray(raw)
+        ? raw
+        : raw && typeof raw === 'object' && 'resultado' in raw && Array.isArray(raw.resultado)
+          ? raw.resultado
+          : raw && typeof raw === 'object' && 'sorteos' in raw && Array.isArray(raw.sorteos)
+            ? raw.sorteos
+            : [];
 
       const normalized = rows
         .map((row: any) => normalizeDraw(row, game))
@@ -218,7 +222,7 @@ const resolveGameHistory = async (game: GameCode): Promise<LotteryDraw[]> => {
     }
   })();
 
-  inflightRequests.set(game, request as any);
+  inflightRequests.set(game, request);
   return request;
 };
 
@@ -241,7 +245,7 @@ export const fetchBoard = async (): Promise<LotteryBoardItem[]> => {
     }),
   );
 
-  return items.filter((item): item is LotteryBoardItem => item !== null);
+  return items.filter((item) => item !== null);
 };
 
 export const getLastUpdated = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });

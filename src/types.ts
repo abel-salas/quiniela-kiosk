@@ -14,6 +14,8 @@ export type DrawBase = {
   scheduledDate: string;
   status: 'celebrado' | 'pendiente';
   updatedAt: string;
+  combinacion?: string;
+  combinacionActa?: string;
 };
 
 export type NumberOnlyDraw = DrawBase & {
@@ -44,6 +46,7 @@ export type QuinielaMatch = {
   local: string;
   visitor: string;
   result: '1' | 'X' | '2';
+  fecha_completa?: string;
 };
 
 export type QuinielaSign = {
@@ -56,6 +59,7 @@ export type QuinielaSign = {
 export type QuinielaDraw = DrawBase & {
   jornada: number;
   fecha: string;
+  fecha_completa?: string;
   signs: Array<'1' | 'X' | '2'>;
   matches?: QuinielaMatch[];
   plenoAl15?: string;
@@ -71,4 +75,5 @@ export type LotteryDraw =
 export type LotteryBoardItem = {
   game: LotteryGameConfig;
   draw: LotteryDraw;
+  history?: LotteryDraw[];
 };

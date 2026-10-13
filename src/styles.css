@@ -239,7 +239,7 @@ button, input, select {
   min-height: 1.9rem;
   padding: 0.04rem 0.7rem;
   justify-content: center;
-  font-size: calc(clamp(0.62rem, 0.85vw, 0.9rem) + 2px);
+  font-size: 0.8rem;
   font-weight: 500;
 }
 
@@ -399,6 +399,23 @@ button, input, select {
   line-height: 1;
 }
 
+.combination-pill {
+  max-width: min(16rem, 100%);
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 0.22rem 0.4rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.combination-pill .bonoloto-meta-number {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.2;
+}
+
 .bonoloto-meta-text {
   font-size: 0.7rem;
 }
@@ -531,30 +548,77 @@ button, input, select {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.42rem;
+  gap: 0.6rem;
   margin: 0.2rem 0 0.3rem;
+  padding-top: 0.18rem;
+  padding-bottom: 0.18rem;
 }
 
 .quiniela-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.6rem;
   width: 100%;
   min-height: 2.05rem;
+  margin: 0;
   border-radius: 0.2rem;
   background: rgba(255,255,255,0.08);
-  padding: 0.15rem 1.25rem;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid transparent;
+}
+
+.quiniela-row--pleno {
+  border-color: rgba(255,255,255,0.95);
+  background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16), 0 0 0 1px rgba(255,214,102,0.2);
+}
+
+.quiniela-match-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.08rem;
+  min-width: 0;
 }
 
 .quiniela-match {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.38rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: calc(clamp(0.62rem, 0.95vw, 0.92rem) + 2px);
   letter-spacing: 0.02em;
   color: #f5f6fb;
+}
+
+.quiniela-date-time {
+  display: block;
+  margin-top: 0.1rem;
+  font-size: 0.54rem;
+  line-height: 1.2;
+  color: rgba(255,255,255,0.72);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.quiniela-pleno-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.2rem;
+  padding: 0.08rem 0.42rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.9);
+  background: linear-gradient(180deg, rgba(252,211,77,0.35), rgba(251,191,36,0.14));
+  color: #fff8d6;
+  font-size: 0.56rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 0 0 1px rgba(255,214,102,0.18);
 }
 
 .quiniela-sign {
@@ -662,8 +726,43 @@ button, input, select {
     padding: 0.5rem 0.6rem 0.5rem;
   }
 
-  .board-grid {
+  .board-layout {
     grid-template-columns: 1fr;
+  }
+
+  .board-left-stack,
+  .right-column {
+    width: 100%;
+  }
+
+  .right-column {
+    order: 2;
+  }
+
+  .board-left-stack {
+    order: 1;
+  }
+
+  .bonoloto-day-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .bonoloto-day-main {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .bonoloto-day-numbers {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .bonoloto-day-meta {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .footer-bar {

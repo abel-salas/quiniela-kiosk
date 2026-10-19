@@ -1,7 +1,12 @@
-import type { GameCode, LotteryDraw } from '../types';
+import type { GameCode, LotteryDraw } from '../../../types/lottery';
 
-const normalizeQuinielaSign = (raw: string): '1' | 'X' | '2' => {
-  const value = String(raw ?? '').trim().toUpperCase().replace(/\s+/g, '');
+const normalizeQuinielaSign = (raw: string, matchDate?: string): '1' | 'X' | '2' | null => {
+  const value = String(raw ?? '').trim().toUpperCase();
+
+  // Si no hay valor explícito, devolver null (no mostrar signo)
+  if (!value || value === '') {
+    return null;
+  }
 
   if (value === '1' || value === 'X' || value === '2') {
     return value as '1' | 'X' | '2';
@@ -9,13 +14,13 @@ const normalizeQuinielaSign = (raw: string): '1' | 'X' | '2' => {
 
   if (value.includes('-')) {
     const [local, visitor] = value.split('-').map((part) => Number(part));
-    if (Number.isNaN(local) || Number.isNaN(visitor)) return 'X';
+    if (Number.isNaN(local) || Number.isNaN(visitor)) return null;
     if (local > visitor) return '1';
     if (local < visitor) return '2';
     return 'X';
   }
 
-  return 'X';
+  return null;
 };
 
 const parseCombination = (value: unknown) => {
@@ -161,22 +166,24 @@ export const normalizeDraw = (payload: any, game: GameCode): LotteryDraw => {
         scheduledDate: payload.fecha ?? payload.date ?? '',
         status: payload.estado === 'celebrado' || payload.celebrado ? 'celebrado' : 'pendiente',
         updatedAt: payload.updatedAt ?? new Date().toISOString(),
-        primerPremio: payload.primerPremio ?? payload.premio1,
-        segundoPremio: payload.segundoPremio ?? payload.premio2,
-        reintegros: Array.isArray(payload.reintegros) ? payload.reintegros.map(Number) : [],
+        primerPremio: typeof payload.primerPremio === 'object' ? payload.primerPremio.decimo : payload.primerPremio ?? payload.premio1,
+        segundoPremio: typeof payload.segundoPremio === 'object' ? payload.segundoPremio.decimo : payload.segundoPremio ?? payload.premio2,
+        reintegros: Array.isArray(payload.reintegros)
+          ? payload.reintegros.map((r: any) => typeof r === 'object' ? r.decimo : r)
+          : [],
       };
     case 'LAQU': {
-      const matches: Array<{ local: string; visitor: string; result: '1' | 'X' | '2'; fecha_completa?: string }> = Array.isArray(payload.partidos)
+      const matches: Array<{ local: string; visitor: string; result: '1' | 'X' | '2' | null; fecha_completa?: string }> = Array.isArray(payload.partidos)
         ? payload.partidos.map((partido: any) => ({
             local: String(partido.local ?? '').replace(/\s*\(m\)\s*$/i, '').trim(),
             visitor: String(partido.visitante ?? '').replace(/\s*\(m\)\s*$/i, '').trim(),
-            result: normalizeQuinielaSign(partido.signo ?? 'X'),
+            result: normalizeQuinielaSign(partido.signo ?? '', partido.fecha_completa ?? partido.fecha ?? partido.hora ?? ''),
             fecha_completa: partido.fecha_completa ?? partido.fecha ?? partido.hora ?? '',
           }))
         : [];
 
       const signs = matches.length > 0
-        ? matches.map((match: { result: '1' | 'X' | '2' }) => match.result)
+        ? matches.map((match: { result: '1' | 'X' | '2' | null }) => match.result).filter((r): r is '1' | 'X' | '2' => r !== null)
         : Array.isArray(payload.signos)
           ? payload.signos
           : Array.isArray(payload.signs)

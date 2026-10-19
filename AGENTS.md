@@ -1,117 +1,234 @@
-# AGENTS.md
+# AGENTS.md - Documentación del Proyecto Quiniela
 
-## Contexto del proyecto
+## Contexto del Proyecto
+App React + Vite + TypeScript para tablón de resultados de loterías españolas con integración Sanity.
 
-Este repositorio es una app React + Vite + TypeScript para un tablón tipo kiosko de resultados de loterías españolas.
+## Documentación Principal
 
-## Contrato real del proveedor
+### 1. Plan Arquitectónico
+**Archivo:** [ARCHITECTURE_PLAN.md](./ARCHITECTURE_PLAN.md)
+- Visión general del proyecto con las 3 rutas
+- APIs disponibles y su estado funcional
+- Arquitectura de capas completa
+- Implementación por ruta
+- Tipos de dominio
+- Adaptadores por juego
+- Ventanas de tiempo
+- Estrategia de caché
+- Pasos de implementación en 6 fases
 
-La app debe consultar este endpoint base:
+### 2. Decisiones Técnicas
+**Archivo:** [DECISIONES_TECNICAS.md](./DECISIONES_TECNICAS.md)
+- Framework y tecnologías seleccionadas
+- APIs a usar y a NO usar
+- Arquitectura de separación de capas
+- Componentes por tipo de juego
+- Detalle de las 3 rutas (`/`, `/quini`, `/slide`)
+- Estrategia de caché
+- Ventanas de tiempo por juego
+- Reutilización de componentes
+- Tipos TypeScript
+- Orden de implementación
 
-https://www.loteriasyapuestas.es/servicios/buscadorSorteos
+### 3. Pendientes Generales
+**Archivo:** [PENDIENTE.md](./PENDIENTE.md)
+- Datos de API pendientes (5 JSONs de proximosv3)
+- Configuración Sanity pendiente
+- Decisión de styling pendiente
+- Checklist de implementación por fases
+- Prioridades (alta, media, baja)
+- Referencia a archivos existentes y su estado
 
-Parámetros usados por la app:
-- game_id
-- fechaInicioInclusiva
-- fechaFinInclusiva
-- celebrados=true
+### 4. Tareas Específicas
+**Archivo:** [PENDING_TASKS.md](./PENDING_TASKS.md)
+- Lista detallada de JSONs de proximosv3 pendientes
+- Instrucciones para obtener cada JSON
+- Schemas de Sanity a definir
+- Próximos pasos para la siguiente sesión
 
-Ejemplos actuales generados por la lógica de `src/api/service.ts` (antes de la corrección):
+## Estructura del Proyecto
 
-BONO
-https://www.loteriasyapuestas.es/servicios/buscadorSorteos?game_id=BONO&fechaInicioInclusiva=20261013&fechaFinInclusiva=20261013&celebrados=true
+### Rutas
+- `/` - Resultados de API (buscadorSorteos) - Landscape TV 27"
+- `/quini` - Resultados de Sanity (mismo layout que `/`) - Landscape TV 27"
+- `/slide` - Slider de próximos sorteos + botes + slides de Sanity - Tablet landscape
 
-ELGR
-https://www.loteriasyapuestas.es/servicios/buscadorSorteos?game_id=ELGR&fechaInicioInclusiva=20261013&fechaFinInclusiva=20261013&celebrados=true
+### APIs
+- **buscadorSorteos** ✅ - Resultados actuales (funciona correctamente)
+- **proximosv3** ⚠️ - Próximos sorteos con botes (1 ejemplo disponible, 5 pendientes)
+- **resultados1** ❌ - NO usar (ignora game_id)
 
-LAPR
-https://www.loteriasyapuestas.es/servicios/buscadorSorteos?game_id=LAPR&fechaInicioInclusiva=20261013&fechaFinInclusiva=20261013&celebrados=true
+### Ejemplos de API Disponibles
 
-EMIL
-https://www.loteriasyapuestas.es/servicios/buscadorSorteos?game_id=EMIL&fechaInicioInclusiva=20261013&fechaFinInclusiva=20261013&celebrados=true
+#### buscadorSorteos (✅ Funciona)
+- `api-examples/bono-buscador.json` ✓
+- `api-examples/elgr-buscador.json` ✓
+- `api-examples/lapr-buscador.json` ✓
+- `api-examples/emil-buscador.json` ✓
+- `api-examples/lnac-buscador.json` ✓
+- `api-examples/laqu-buscador.json` ✓
 
-LNAC
-https://www.loteriasyapuestas.es/servicios/buscadorSorteos?game_id=LNAC&fechaInicioInclusiva=20261013&fechaFinInclusiva=20261013&celebrados=true
+#### proximosv3 (⚠️ Parcial)
+- `api-examples/lapr-proximosv3.json` ✓
+- `api-examples/bono-proximosv3.json` ❌ (incorrecto, necesita el correcto)
+- `api-examples/elgr-proximosv3.json` ⏳ pendiente
+- `api-examples/emil-proximosv3.json` ⏳ pendiente
+- `api-examples/lnac-proximosv3.json` ⏳ pendiente
+- `api-examples/laqu-proximosv3.json` ⏳ pendiente
 
-LAQU
-https://www.loteriasyapuestas.es/servicios/buscadorSorteos?game_id=LAQU&fechaInicioInclusiva=20261013&fechaFinInclusiva=20261013&celebrados=true
+#### resultados1 (❌ No funciona)
+- Todos los ejemplos son idénticos y de Lotería Nacional
+- NO usar esta API
 
-## Regla que hemos validado
+## Instrucciones para Futuros Chats
 
-1. Esto no es un problema de formato de fecha simple `YYYYMMDD`; el problema real está en el adaptador del payload y en la ventana de consulta.
-2. Para sorteos diarios, la consulta no debe limitarse solo al día actual; debe pedirse una ventana real de varios días (por ejemplo, 7 días para Bonoloto).
-3. Para La Quiniela, la regla correcta es usar una ventana viernes-viernes.
-4. Si el día actual aún no tiene resultado, se debe mostrar el último válido disponible.
-5. No se debe saltar a una fecha futura sin tener extracción real del proveedor.
-6. La app debe respetar el orden cronológico real del proveedor y renderizar repetidamente el mismo bloque por fila cuando haya historial.
+### Cuando me digas "dame las respuestas que nos faltan"
+1. El usuario proporcionará los 5 JSONs de `proximosv3` restantes
+2. Guardar cada JSON en `api-examples/` con formato:
+   ```json
+   {
+     "url": "la url completa",
+     "response": { ...el json... }
+   }
+   ```
+3. Archivos a crear:
+   - `api-examples/bono-proximosv3.json`
+   - `api-examples/elgr-proximosv3.json`
+   - `api-examples/emil-proximosv3.json`
+   - `api-examples/lnac-proximosv3.json`
+   - `api-examples/laqu-proximosv3.json`
 
-## Estructura de la API real observada
+### Cuando me digas "continúa con la implementación"
+1. Verificar que tenemos los 5 JSONs de `proximosv3`
+2. Si están todos, comenzar Fase 1 de `ARCHITECTURE_PLAN.md`
+3. Crear proyecto nuevo con Vite + React + TypeScript
+4. Configurar estructura de carpetas
+5. Implementar según el orden en `DECISIONES_TECNICAS.md`
 
-Los JSON reales del proveedor suelen incluir claves como:
-- fecha_sorteo
-- dia_semana
-- id_sorteo
-- game_id
-- anyo
-- numero
-- combinacion
-- combinacion_acta
-- premios
-- escrutinio
-- contenidosRelacionados
+### Cuando necesites contexto del proyecto
+1. Leer `AGENTS.md` (este archivo)
+2. Leer `ARCHITECTURE_PLAN.md` para visión general
+3. Leer `DECISIONES_TECNICAS.md` para decisiones tomadas
+4. Leer `PENDIENTE.md` para tareas pendientes
 
-En Bonoloto, la combinación real se entrega como cadena, por ejemplo:
-- "11 - 13 - 28 - 31 - 41 - 42 C(20) R(0)"
+## Reglas Importantes
 
-Es decir, no viene como un array plano `numeros` ni como un JSON de esquema uniforme para todos los juegos.
+### APIs
+- ✅ **USAR:** `buscadorSorteos` para resultados
+- ✅ **USAR:** `proximosv3` para próximos sorteos
+- ❌ **NO USAR:** `resultados1` (no funciona)
 
-## Mapeo real que debemos asumir
+### Arquitectura
+- Cada juego debe tener su propio adapter
+- Cada juego debe tener su propio card component
+- Separar lógica de negocio en `services/`
+- Separar UI en `components/`
+- Separar types en `types/`
 
-- Bonoloto / La Primitiva / El Gordo / Euromillones / Lotería Nacional: la estructura real tiene que extraerse desde `combinacion`, `combinacion_acta`, `escrutinio`, `millon`, etc.
-- La Quiniela usa `partidos`, `signo`, `signos`, `jornada`, `fecha_sorteo`, `plenoAl15` o variantes equivalentes.
-- Hay que limpiar sufijos como `(m)` en nombres de equipos antes de mostrar.
-- Debe manejarse la diferencia entre sorteos normales, extraordinarios, recuperados y actualizaciones tardías según el valor real de `fecha_sorteo` y el último sorteo válido disponible.
+### Reutilización
+- `BoardLayout` se usa en `/` y `/quini`
+- Componentes UI atómicos se reutilizan
+- Cards son específicos por juego
 
-## Mocks y almacenamiento local
+### Sanity
+- Usar para quiniela en `/quini`
+- Usar para slides personalizados en `/slide`
+- Schema `lotteryDraw` para resultados
+- Schema `slide` para imágenes
 
-Los mocks actuales viven en:
-- `src/mock/fixtures.ts`
+## Estado Actual
+- ✅ Plan arquitectónico completo
+- ✅ Decisiones técnicas documentadas
+- ✅ Ejemplos de `buscadorSorteos` para todos los juegos
+- ✅ Todos los JSONs de `proximosv3` completados
+- ✅ Styling decidido: CSS tradicional
+- ✅ Proyecto Vite + React + TypeScript creado
+- ✅ Estructura de carpetas organizada
+- ✅ Types básicos implementados
+- ✅ HttpClient centralizado
+- ✅ DateWindowCalculator implementado
+- ✅ Adaptadores de buscadorSorteos implementados
+- ✅ LotteryService implementado
+- ✅ CacheService implementado
+- ✅ Componentes UI atómicos creados
+- ✅ Componentes de cards por juego creados
+- ✅ BoardLayout reutilizable creado
+- ✅ Hook useLotteryBoard implementado
+- ✅ Routing con react-router-dom configurado (rutas `/`, `/quini`, `/slide`)
+- ✅ Proxy Vite configurado para resolver CORS
+- ✅ Adaptador de Lotería Nacional arreglado (maneja objetos complejos)
+- ✅ Adaptador de Quiniela arreglado (maneja espacios en signos)
+- ✅ QuinielaCard actualizada para mostrar hora en partidos pendientes (sin X por defecto)
+- ✅ Sanity client configurado con todas las credenciales
+- ✅ Queries GROQ implementadas
+- ✅ Hook useSanityBoard implementado
+- ✅ QuiniPage usando Sanity (muestra todos los juegos, no solo LAQU)
+- ✅ HomePage usando API (sin fallback)
+- ✅ Sanity instalado como dependencia
+- ✅ Schemas de Sanity creados localmente (lotteryDraw, slide)
+- ✅ Schemas corregidos: añadidos `updatedAt`, `combinacion`, `combinacionActa`, `fecha_completa`
+- ✅ Tipos Sanity actualizados con todos los campos explícitos
+- ✅ Credenciales de Sanity configuradas en .env
+- ✅ Diseño visual adaptado a loteriasyapuestas.es (más compacto)
+- ✅ BoardLayout actualizado para mostrar 6 juegos (3 izquierda, 3 derecha)
+- ✅ Type UpcomingDraw añadido para proximosv3
+- ✅ UpcomingService implementado
+- ✅ useUpcomingDraws hook implementado
+- ✅ UpcomingDrawCard component creado
+- ✅ SlidePage implementada con grid de próximos sorteos
+- ✅ Estilos CSS para slider completados
+- ✅ Documentos de prueba creados en Sanity (6 juegos: BONO, ELGR, LAPR, EMIL, LNAC, LAQU)
+- ⏳ Deployar schemas a Sanity dashboard (pendiente)
+- ⏳ Implementar rotación automática de slides en `/slide` (pendiente)
 
-La lógica de caché y fallback vive en:
-- `src/api/service.ts`
+## Juegos Adicionales Pendientes (para futura implementación)
 
-Las claves del caché se construyen con el prefijo:
-- `draw:`
+Según la web oficial de loteriasyapuestas.es, existen 3 juegos adicionales que podrían añadirse:
 
-Ejemplo de patrón:
-- `draw:BONO:20261013`
-- `draw:LAQU:20261009:20261016`
+### 1. Eurodreams
+- **Probable game_id:** EDRE
+- **Descripción:** Sorteo europeo con premios mensuales de por vida (20.000€ durante 30 años)
+- **Formato:** 6 números (1-40) + 1 Dream (1-5)
+- **Días:** Lunes y jueves a las 21:00h
+- **Estado:** Pendiente de verificar game_id y obtener ejemplos de API
 
-El modo mock se activa con:
-- `VITE_USE_MOCK=true`
+### 2. Lototurf
+- **Probable game_id:** LTTF
+- **Descripción:** Combina lotería con apuestas hípicas
+- **Formato:** 6 números (1-31) + 1 caballo ganador
+- **Días:** Domingos a las 11:30h
+- **Estado:** Pendiente de verificar game_id y obtener ejemplos de API
 
-## Punto de atención actual
+### 3. Quinigol
+- **Probable game_id:** QLGL
+- **Descripción:** Pronóstico del número exacto de goles en 6 partidos de fútbol
+- **Formato:** Goles de cada partido (más específico que La Quiniela)
+- **Días:** Martes a las 21:00h (según jornada)
+- **Estado:** Pendiente de verificar game_id y obtener ejemplos de API
 
-El error recurrente es asumir un esquema uniforme para todos los juegos cuando el proveedor entrega payloads distintos por `game_id`.
+### Pasos para implementar:
+1. Verificar game_id correcto en la API (buscadorSorteos y proximosv3)
+2. Obtener ejemplos de JSON de la API para cada juego
+3. Añadir game_id a GAME_CONFIG en `src/config/gameConfig.ts`
+4. Crear adaptador específico en `src/services/adapters/normalize/index.ts`
+5. Crear card component en `src/components/cards/`
+6. Actualizar DateWindowCalculator para ventanas de tiempo
+7. Actualizar BoardLayout para incluir los nuevos juegos
+8. Actualizar tipos TypeScript en `src/types/lottery.ts`
 
-La app debe:
-- adaptar cada `game_id` con su parser real
-- no inventar fechas ni forzar un único día en la request
-- renderizar una fila por día cuando la API devuelva un histórico
-- guardar el último sorteo válido por fecha real y recargar solo cuando llegue el siguiente sorteo real
+## Checklist Rápido
 
-## Reglas para futuras modificaciones
+Fases Completadas:
+- [x] Fase 1: Estructura base
+- [x] Fase 2: Adaptadores y servicios
+- [x] Fase 3: Componentes UI base
+- [x] Fase 4: Ruta `/`
+- [x] Fase 5: Integración Sanity (código, falta deploy de schemas)
+- [x] Fase 6: Ruta `/slide` con proximosv3
+- [x] Diseño visual adaptado a loteriasyapuestas.es
+- [x] Arreglo Quiniela (hora en partidos pendientes, sin X por defecto)
 
-- No asumir `payload.numeros` salvo que el JSON real lo traiga.
-- No hardcodear una ventana de `hoy` para juegos diarios.
-- No renderizar un único bloque para un conjunto de sorteos históricos.
-- Cuando la API devuelva un array de días, preparar un array de filas y hacer `map` sobre él.
-- Para La Quiniela, la lógica de negocio debe seguir la ventana viernes-viernes.
-
-## Archivos clave
-
-- `src/api/service.ts`
-- `src/api/adapters.ts`
-- `src/types.ts`
-- `src/mock/fixtures.ts`
-- `src/App.tsx`
+Fases Pendientes:
+- [ ] Fase 5 completa: Deployar schemas y crear documentos en Sanity (posterior)
+- [ ] Desplegar a producción
+- [ ] Opcional: Añadir juegos adicionales (Eurodreams, Lototurf, Quinigol) - ver sección "Juegos Adicionales Pendientes"

@@ -45,7 +45,7 @@ export type NacionalDraw = DrawBase & {
 export type QuinielaMatch = {
   local: string;
   visitor: string;
-  result: '1' | 'X' | '2';
+  result: '1' | 'X' | '2' | null;
   fecha_completa?: string;
 };
 
@@ -76,4 +76,25 @@ export type LotteryBoardItem = {
   game: LotteryGameConfig;
   draw: LotteryDraw;
   history?: LotteryDraw[];
+};
+
+export type UpcomingDraw = {
+  fecha: string;
+  dia_semana: string;
+  id_sorteo: string;
+  game_id: GameCode;
+  apertura: string;
+  cierre: string;
+  anyo: string;
+  premio_bote: number | null;
+  destacar_bote: string;
+  cdc: string;
+  recaudacion: number | null;
+  estado: 'abierto' | 'cerrado';
+  joker?: {
+    gameid: string;
+    relsorteoid_asociado: string;
+    bote_joker: number;
+    activo: string;
+  };
 };

@@ -1,0 +1,45 @@
+{
+  "url": "https://www.loteriasyapuestas.es/servicios/proximosv3?game_id=LAPR&num=2",
+  "response": [
+    {
+      "fecha": "2026-10-17 00:00:00",
+      "dia_semana": "sábado",
+      "id_sorteo": "1325804125",
+      "game_id": "LAPR",
+      "apertura": "2026-10-15 21:25:00",
+      "cierre": "2026-10-17 21:15:00",
+      "anyo": "2026",
+      "premio_bote": "37500000",
+      "destacar_bote": "0",
+      "cdc": "13258",
+      "recaudacion": null,
+      "estado": "abierto",
+      "joker": {
+        "gameid": "LAJO",
+        "relsorteoid_asociado": "1325810125",
+        "bote_joker": 1000000,
+        "activo": "1"
+      }
+    },
+    {
+      "fecha": "2026-10-19 00:00:00",
+      "dia_semana": "lunes",
+      "id_sorteo": "1326004126",
+      "game_id": "LAPR",
+      "apertura": "2026-10-17 21:25:00",
+      "cierre": "2026-10-19 21:15:00",
+      "anyo": "2026",
+      "premio_bote": null,
+      "destacar_bote": "0",
+      "cdc": "13260",
+      "recaudacion": null,
+      "estado": "cerrado",
+      "joker": {
+        "gameid": "LAJO",
+        "relsorteoid_asociado": "1326010126",
+        "bote_joker": 1000000,
+        "activo": "1"
+      }
+    }
+  ]
+}

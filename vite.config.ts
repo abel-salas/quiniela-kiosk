@@ -6,9 +6,23 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 4173,
+    proxy: {
+      '/servicios': {
+        target: 'https://www.loteriasyapuestas.es',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
   },
   preview: {
     host: '0.0.0.0',
     port: 4173,
+    proxy: {
+      '/servicios': {
+        target: 'https://www.loteriasyapuestas.es',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
   },
 });

@@ -1,0 +1,33 @@
+{
+  "url": "https://www.loteriasyapuestas.es/servicios/proximosv3?game_id=ELGR&num=2",
+  "response": [
+    {
+      "fecha": "2026-10-18 00:00:00",
+      "dia_semana": "domingo",
+      "id_sorteo": "1325905042",
+      "game_id": "ELGR",
+      "apertura": "2026-10-11 21:25:00",
+      "cierre": "2026-10-18 21:15:00",
+      "anyo": "2026",
+      "premio_bote": "19300000",
+      "destacar_bote": "0",
+      "cdc": "13259",
+      "recaudacion": null,
+      "estado": "abierto"
+    },
+    {
+      "fecha": "2026-10-25 00:00:00",
+      "dia_semana": "domingo",
+      "id_sorteo": "1326605043",
+      "game_id": "ELGR",
+      "apertura": "2026-10-18 21:10:00",
+      "cierre": "2026-10-25 21:00:00",
+      "anyo": "2026",
+      "premio_bote": null,
+      "destacar_bote": "0",
+      "cdc": "13266",
+      "recaudacion": null,
+      "estado": "cerrado"
+    }
+  ]
+}

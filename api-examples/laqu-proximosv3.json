@@ -1,0 +1,35 @@
+{
+  "url": "https://www.loteriasyapuestas.es/servicios/proximosv3?game_id=LAQU&num=2",
+  "response": [
+    {
+      "fecha": "2026-10-18 00:00:00",
+      "dia_semana": "domingo",
+      "id_sorteo": "1325906059",
+      "game_id": "LAQU",
+      "apertura": "2026-10-14 00:00:00",
+      "cierre": "2026-10-17 14:00:00",
+      "anyo": "2026",
+      "premio_bote": "2000000",
+      "destacar_bote": "0",
+      "cdc": "13259",
+      "recaudacion": null,
+      "estado": "abierto",
+      "jornada": 14
+    },
+    {
+      "fecha": "2026-10-21 00:00:00",
+      "dia_semana": "miércoles",
+      "id_sorteo": "1326206060",
+      "game_id": "LAQU",
+      "apertura": null,
+      "cierre": null,
+      "anyo": "2026",
+      "premio_bote": null,
+      "destacar_bote": "0",
+      "cdc": "13262",
+      "recaudacion": null,
+      "estado": "cerrado",
+      "jornada": 15
+    }
+  ]
+}

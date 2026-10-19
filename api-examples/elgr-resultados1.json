@@ -1,0 +1,373 @@
+{
+  "url": "https://www.loteriasyapuestas.es/servicios/resultados1?game_id=ELGR&num=2",
+  "response": {
+    "tipoSorteo": "J",
+    "tipoSorteoGeneral": "J",
+    "fechaSorteo": "2026-10-15T21:00:00.000Z",
+    "literalFechaSorteo": {
+      "es": "jueves 15 de octubre de 2026",
+      "ca": "dijous, 15 / d'octubre / 2026",
+      "en": "Thursday, 15 October 2026",
+      "eu": "osteguna, 2026 urria 15",
+      "gl": "xoves 15 octubre 2026",
+      "va": "dijous, 15 / d'octubre / 2026"
+    },
+    "drawIdSorteo": "1325609083",
+    "drawIdSorteoSiguiente": "1325809084",
+    "drawIdSorteoAnterior": "1325309082",
+    "nombreDelSorteo": "SORTEO DEL JUEVES",
+    "premioEspecial": null,
+    "primerPremio": {
+      "decimo": "17873",
+      "tabla": null,
+      "alambre": null,
+      "literalPremio": {
+        "es": "1er Premio",
+        "ca": "1r Premi",
+        "en": "1st Prize",
+        "eu": "1&#x00ba; Saria",
+        "gl": "1&#x00ba; Premio",
+        "va": "1r Premi"
+      },
+      "ordenFila": 1,
+      "fila": 1,
+      "orden": 1,
+      "prize": 3000000,
+      "prizeType": "G",
+      "showFolded": false
+    },
+    "segundoPremio": {
+      "decimo": "73147",
+      "tabla": null,
+      "alambre": null,
+      "literalPremio": {
+        "es": "2&#x00ba; Premio",
+        "ca": "2n Premi",
+        "en": "2&#x00ba; Prize",
+        "eu": "2&#x00ba; Saria",
+        "gl": "2&#x00ba; Premio",
+        "va": "2n Premi"
+      },
+      "ordenFila": 1,
+      "fila": 1,
+      "orden": 2,
+      "prize": 600600,
+      "prizeType": "Z",
+      "showFolded": false
+    },
+    "tercerosPremios": [],
+    "cuartosPremios": [],
+    "quintosPremios": [],
+    "extraccionesDeCuatroCifras": [
+      {
+        "decimo": "2573",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 7500,
+        "prizeType": "P4",
+        "showFolded": false
+      },
+      {
+        "decimo": "5263",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 7500,
+        "prizeType": "P4",
+        "showFolded": false
+      },
+      {
+        "decimo": "7861",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 7500,
+        "prizeType": "P4",
+        "showFolded": false
+      },
+      {
+        "decimo": "9663",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 7500,
+        "prizeType": "P4",
+        "showFolded": false
+      }
+    ],
+    "extraccionesDeTresCifras": [
+      {
+        "decimo": "230",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 1500,
+        "prizeType": "P3",
+        "showFolded": false
+      },
+      {
+        "decimo": "289",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 1500,
+        "prizeType": "P3",
+        "showFolded": false
+      },
+      {
+        "decimo": "455",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 1500,
+        "prizeType": "P3",
+        "showFolded": false
+      },
+      {
+        "decimo": "632",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 1500,
+        "prizeType": "P3",
+        "showFolded": false
+      },
+      {
+        "decimo": "646",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 1500,
+        "prizeType": "P3",
+        "showFolded": false
+      },
+      {
+        "decimo": "796",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 1500,
+        "prizeType": "P3",
+        "showFolded": false
+      },
+      {
+        "decimo": "917",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 1500,
+        "prizeType": "P3",
+        "showFolded": false
+      }
+    ],
+    "extraccionesDeDosCifras": [
+      {
+        "decimo": "09",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 600,
+        "prizeType": "P2",
+        "showFolded": false
+      },
+      {
+        "decimo": "15",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 600,
+        "prizeType": "P2",
+        "showFolded": false
+      },
+      {
+        "decimo": "29",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 600,
+        "prizeType": "P2",
+        "showFolded": false
+      },
+      {
+        "decimo": "44",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 600,
+        "prizeType": "P2",
+        "showFolded": false
+      },
+      {
+        "decimo": "47",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 600,
+        "prizeType": "P2",
+        "showFolded": false
+      },
+      {
+        "decimo": "57",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 600,
+        "prizeType": "P2",
+        "showFolded": false
+      },
+      {
+        "decimo": "68",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 600,
+        "prizeType": "P2",
+        "showFolded": false
+      },
+      {
+        "decimo": "85",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 600,
+        "prizeType": "P2",
+        "showFolded": false
+      },
+      {
+        "decimo": "98",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": null,
+        "ordenFila": 0,
+        "fila": 0,
+        "orden": 0,
+        "prize": 600,
+        "prizeType": "P2",
+        "showFolded": false
+      }
+    ],
+    "reintegros": [
+      {
+        "decimo": "3",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": {
+          "es": "Reintegro",
+          "ca": "Reintegre",
+          "en": "Refund",
+          "eu": "Itzultzea",
+          "gl": "Reintegro",
+          "va": "Reintegrament"
+        },
+        "ordenFila": 13,
+        "fila": 13,
+        "orden": 14,
+        "prize": 300,
+        "prizeType": "1",
+        "showFolded": false
+      },
+      {
+        "decimo": "5",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": {
+          "es": "Reintegro",
+          "ca": "Reintegre",
+          "en": "Refund",
+          "eu": "Itzultzea",
+          "gl": "Reintegro",
+          "va": "Reintegrament"
+        },
+        "ordenFila": 13,
+        "fila": 13,
+        "orden": 14,
+        "prize": 300,
+        "prizeType": "1",
+        "showFolded": false
+      },
+      {
+        "decimo": "6",
+        "tabla": null,
+        "alambre": null,
+        "literalPremio": {
+          "es": "Reintegro",
+          "ca": "Reintegre",
+          "en": "Refund",
+          "eu": "Itzultzea",
+          "gl": "Reintegro",
+          "va": "Reintegrament"
+        },
+        "ordenFila": 13,
+        "fila": 13,
+        "orden": 14,
+        "prize": 300,
+        "prizeType": "1",
+        "showFolded": false
+      }
+    ],
+    "urlListadoOficial": "/f/loterias/documentos/Lotería Nacional/listas de premios/SM_LISTAOFICIAL.A2026.S083.pdf",
+    "modelDraw": 88,
+    "mostrarVentas": false,
+    "mostrarConsignacion": false,
+    "extraccionesDeCincoCifras": [],
+    "precioDecimo": 3
+  }
+}

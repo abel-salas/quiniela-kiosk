@@ -9,8 +9,15 @@
     "preview": "vite preview --host 0.0.0.0 --port 4173"
   },
   "dependencies": {
+    "@sanity/client": "^7.27.0",
+    "@sanity/schema": "^4.22.1",
+    "@sanity/types": "^4.22.1",
+    "playwright": "^1.64.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.4",
+    "sanity": "^4.3.0",
+    "styled-components": "^6.6.0"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",

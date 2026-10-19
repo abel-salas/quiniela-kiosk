@@ -1,0 +1,567 @@
+{
+  "url": "https://www.loteriasyapuestas.es/servicios/buscadorSorteos?game_id=LAQU&fechaInicioInclusiva=20261010&fechaFinInclusiva=20261017&celebrados=true",
+  "response": [
+    {
+      "fecha_sorteo": "2026-10-14 22:54:00",
+      "dia_semana": "miércoles",
+      "id_sorteo": "1325506058",
+      "game_id": "LAQU",
+      "anyo": "2026",
+      "numero": 58,
+      "premio_bote": "0",
+      "cdc": "13255",
+      "apuestas": "1328920",
+      "recaudacion": "99669000",
+      "combinacion": "1 - 1 - 1 - 2 - 2 - X - 1 - 2 - 1 - 1 - 2 - X - 2 - X - MM",
+      "premios": "54817950",
+      "fondo_bote": "0",
+      "escrutinio": [
+        {
+          "tipo": "Pleno al 15 ",
+          "categoria": 1,
+          "premio": "0",
+          "ganadores": "0"
+        },
+        {
+          "tipo": "1ª (14 Aciertos) ",
+          "categoria": 2,
+          "premio": "0",
+          "ganadores": "0"
+        },
+        {
+          "tipo": "2ª (13 Aciertos) ",
+          "categoria": 3,
+          "premio": "6795,61",
+          "ganadores": "11"
+        },
+        {
+          "tipo": "3ª (12 Aciertos) ",
+          "categoria": 4,
+          "premio": "322,21",
+          "ganadores": "232"
+        },
+        {
+          "tipo": "4ª (11 Aciertos) ",
+          "categoria": 5,
+          "premio": "23,43",
+          "ganadores": "3191"
+        },
+        {
+          "tipo": "5ª (10 Aciertos) ",
+          "categoria": 6,
+          "premio": "3,93",
+          "ganadores": "22828"
+        }
+      ],
+      "partidos": [
+        {
+          "posicion": 1,
+          "idLocal": 20,
+          "local": "Villarreal (m)",
+          "idVisitante": 291,
+          "visitante": "Nápoles (m)",
+          "signo": "1 ",
+          "marcador": "3 - 1",
+          "fecha": "13-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-13 21:00:00"
+        },
+        {
+          "posicion": 2,
+          "idLocal": 3,
+          "local": "At. Madrid (m)",
+          "idVisitante": 4633,
+          "visitante": "Manchester United (m)",
+          "signo": "1 ",
+          "marcador": "2 - 0",
+          "fecha": "13-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-13 21:00:00"
+        },
+        {
+          "posicion": 3,
+          "idLocal": 86,
+          "local": "Arsenal (m)",
+          "idVisitante": 628,
+          "visitante": "Lille (m)",
+          "signo": "1 ",
+          "marcador": "3 - 0",
+          "fecha": "13-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-13 21:00:00"
+        },
+        {
+          "posicion": 4,
+          "idLocal": 468,
+          "local": "Galatasaray (m)",
+          "idVisitante": 4,
+          "visitante": "Barcelona (m)",
+          "signo": "2 ",
+          "marcador": "1 - 4",
+          "fecha": "13-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-13 21:00:00"
+        },
+        {
+          "posicion": 5,
+          "idLocal": 84,
+          "local": "Inter De Milán (m)",
+          "idVisitante": 3370,
+          "visitante": "Brujas (m)",
+          "signo": "2 ",
+          "marcador": "3 - 4",
+          "fecha": "13-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-13 21:00:00"
+        },
+        {
+          "posicion": 6,
+          "idLocal": 4645,
+          "local": "Viking Fk (m)",
+          "idVisitante": 4119,
+          "visitante": "Bayern Múnich (m)",
+          "signo": "X ",
+          "marcador": "3 - 3",
+          "fecha": "13-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-13 21:00:00"
+        },
+        {
+          "posicion": 7,
+          "idLocal": 439,
+          "local": "Feyenoord (m)",
+          "idVisitante": 4644,
+          "visitante": "Como (m)",
+          "signo": "1 ",
+          "marcador": "3 - 2",
+          "fecha": "14-10-2026",
+          "hora": "18:45",
+          "fecha_completa": "2026-10-14 18:45:00"
+        },
+        {
+          "posicion": 8,
+          "idLocal": 4643,
+          "local": "Lask (m)",
+          "idVisitante": 73,
+          "visitante": "Liverpool (m)",
+          "signo": "2 ",
+          "marcador": "3 - 6",
+          "fecha": "14-10-2026",
+          "hora": "18:45",
+          "fecha_completa": "2026-10-14 18:45:00"
+        },
+        {
+          "posicion": 9,
+          "idLocal": 11,
+          "local": "Betis (m)",
+          "idVisitante": 3305,
+          "visitante": "Oporto (m)",
+          "signo": "1 ",
+          "marcador": "3 - 2",
+          "fecha": "14-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-14 21:00:00"
+        },
+        {
+          "posicion": 10,
+          "idLocal": 1853,
+          "local": "Bodo Glimt (m)",
+          "idVisitante": 3898,
+          "visitante": "Borussia Dortmund (m)",
+          "signo": "1 ",
+          "marcador": "1 - 0",
+          "fecha": "14-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-14 21:00:00"
+        },
+        {
+          "posicion": 11,
+          "idLocal": 4128,
+          "local": "Manchester City (m)",
+          "idVisitante": 416,
+          "visitante": "Psg (m)",
+          "signo": "2 ",
+          "marcador": "2 - 4",
+          "fecha": "14-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-14 21:00:00"
+        },
+        {
+          "posicion": 12,
+          "idLocal": 4638,
+          "local": "Union Sg (m)",
+          "idVisitante": 125,
+          "visitante": "Real Sociedad (m)",
+          "signo": "X ",
+          "marcador": "1 - 1",
+          "fecha": "15-10-2026",
+          "hora": "18:45",
+          "fecha_completa": "2026-10-15 18:45:00"
+        },
+        {
+          "posicion": 13,
+          "idLocal": 111,
+          "local": "Celta (m)",
+          "idVisitante": 335,
+          "visitante": "Juventus (m)",
+          "signo": "2 ",
+          "marcador": "1 - 2",
+          "fecha": "15-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-15 21:00:00"
+        },
+        {
+          "posicion": 14,
+          "idLocal": 4639,
+          "local": "U. Craiova (m)",
+          "idVisitante": 5,
+          "visitante": "Getafe (m)",
+          "signo": "X ",
+          "marcador": "1 - 1",
+          "fecha": "15-10-2026",
+          "hora": "18:45",
+          "fecha_completa": "2026-10-15 18:45:00"
+        },
+        {
+          "posicion": 15,
+          "idLocal": 83,
+          "local": "Roma (m)",
+          "idVisitante": 12,
+          "visitante": "Real Madrid (m)",
+          "signo": "M-M",
+          "marcador": "3 - 4",
+          "fecha": "14-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-14 21:00:00"
+        }
+      ],
+      "temporada": "2026-2027",
+      "jornada": "13",
+      "contenidosRelacionados": {
+        "noticias": [
+          {
+            "tituloRelacion": "Resultado Automatico",
+            "tituloContenido": "La Quiniela: resultados del 14 de octubre de 2026",
+            "urlContenido": "/la-quiniela/resultados/la-quiniela-resultados-del-14-de-octubre-de-2026"
+          },
+          {
+            "tituloRelacion": "Escrutinio Automatico",
+            "tituloContenido": "La Quiniela: premios y ganadores del 14 de octubre de 2026",
+            "urlContenido": "/la-quiniela/escrutinios/la-quiniela-premios-y-ganadores-del-14-de-octubre-de-2026"
+          }
+        ],
+        "enlaces": [],
+        "puntosDeVenta": [],
+        "documentos": [
+          {
+            "tituloRelacion": null,
+            "tituloContenido": "Nota de prensa del sorteo del 14/10/2026 Quiniela",
+            "urlContenido": "/f/loterias/documentos/Quiniela/Notas de prensa/NOTA_DE_PRENSA_LA_QUINIELA_14_10_26.pdf"
+          }
+        ],
+        "imagenes": [],
+        "preguntasFrecuentes": [],
+        "paginasLibres": []
+      },
+      "elige8": {
+        "gameid": "ELG8",
+        "relsorteoid_asociado": "1325513058",
+        "activo": "1"
+      },
+      "escrutinioElige8": [
+        {
+          "tipo": "8 Acertados 8 ",
+          "categoria": 1,
+          "premio": "849,19",
+          "ganadores": "29"
+        }
+      ]
+    },
+    {
+      "fecha_sorteo": "2026-10-11 23:03:00",
+      "dia_semana": "domingo",
+      "id_sorteo": "1325206057",
+      "game_id": "LAQU",
+      "anyo": "2026",
+      "numero": 57,
+      "premio_bote": "1500000",
+      "cdc": "13252",
+      "apuestas": "4666866",
+      "recaudacion": "350014950",
+      "combinacion": "X - 2 - 1 - X - 1 - 1 - X - X - 1 - 1 - 1 - 1 - 2 - 1 - 10",
+      "premios": "192508223",
+      "fondo_bote": "72552554",
+      "escrutinio": [
+        {
+          "tipo": "Pleno al 15 ",
+          "categoria": 1,
+          "premio": "0",
+          "ganadores": "0"
+        },
+        {
+          "tipo": "1ª (14 Aciertos) ",
+          "categoria": 2,
+          "premio": "17500,75",
+          "ganadores": "32"
+        },
+        {
+          "tipo": "2ª (13 Aciertos) ",
+          "categoria": 3,
+          "premio": "254,13",
+          "ganadores": "1033"
+        },
+        {
+          "tipo": "3ª (12 Aciertos) ",
+          "categoria": 4,
+          "premio": "23,25",
+          "ganadores": "11292"
+        },
+        {
+          "tipo": "4ª (11 Aciertos) ",
+          "categoria": 5,
+          "premio": "3,91",
+          "ganadores": "67200"
+        },
+        {
+          "tipo": "5ª (10 Aciertos) ",
+          "categoria": 6,
+          "premio": "0",
+          "ganadores": "240653"
+        }
+      ],
+      "partidos": [
+        {
+          "posicion": 1,
+          "idLocal": 156,
+          "local": "Rayo Vallecano (m)",
+          "idVisitante": 1,
+          "visitante": "Athletic Club (m)",
+          "signo": "X ",
+          "marcador": "0 - 0",
+          "fecha": "10-10-2026",
+          "hora": "14:00",
+          "fecha_completa": "2026-10-10 14:00:00"
+        },
+        {
+          "posicion": 2,
+          "idLocal": 374,
+          "local": "Alavés (m)",
+          "idVisitante": 3,
+          "visitante": "At. Madrid (m)",
+          "signo": "2 ",
+          "marcador": "1 - 2",
+          "fecha": "10-10-2026",
+          "hora": "16:15",
+          "fecha_completa": "2026-10-10 16:15:00"
+        },
+        {
+          "posicion": 3,
+          "idLocal": 4,
+          "local": "Barcelona (m)",
+          "idVisitante": 5,
+          "visitante": "Getafe (m)",
+          "signo": "1 ",
+          "marcador": "3 - 0",
+          "fecha": "10-10-2026",
+          "hora": "18:30",
+          "fecha_completa": "2026-10-10 18:30:00"
+        },
+        {
+          "posicion": 4,
+          "idLocal": 131,
+          "local": "Elche (m)",
+          "idVisitante": 111,
+          "visitante": "Celta (m)",
+          "signo": "X ",
+          "marcador": "0 - 0",
+          "fecha": "11-10-2026",
+          "hora": "14:00",
+          "fecha_completa": "2026-10-11 14:00:00"
+        },
+        {
+          "posicion": 5,
+          "idLocal": 125,
+          "local": "Real Sociedad (m)",
+          "idVisitante": 7,
+          "visitante": "Deportivo (m)",
+          "signo": "1 ",
+          "marcador": "3 - 2",
+          "fecha": "11-10-2026",
+          "hora": "16:15",
+          "fecha_completa": "2026-10-11 16:15:00"
+        },
+        {
+          "posicion": 6,
+          "idLocal": 11,
+          "local": "Betis (m)",
+          "idVisitante": 2,
+          "visitante": "Osasuna (m)",
+          "signo": "1 ",
+          "marcador": "5 - 2",
+          "fecha": "11-10-2026",
+          "hora": "18:30",
+          "fecha_completa": "2026-10-11 18:30:00"
+        },
+        {
+          "posicion": 7,
+          "idLocal": 4641,
+          "local": "Racing Santander (m)",
+          "idVisitante": 19,
+          "visitante": "Valencia (m)",
+          "signo": "X ",
+          "marcador": "2 - 2",
+          "fecha": "11-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-11 21:00:00"
+        },
+        {
+          "posicion": 8,
+          "idLocal": 6,
+          "local": "Levante (m)",
+          "idVisitante": 17,
+          "visitante": "Sevilla (m)",
+          "signo": "X ",
+          "marcador": "3 - 3",
+          "fecha": "12-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-12 21:00:00"
+        },
+        {
+          "posicion": 9,
+          "idLocal": 3855,
+          "local": "Eldense (m)",
+          "idVisitante": 104,
+          "visitante": "Córdoba (m)",
+          "signo": "1 ",
+          "marcador": "2 - 1",
+          "fecha": "10-10-2026",
+          "hora": "18:30",
+          "fecha_completa": "2026-10-10 18:30:00"
+        },
+        {
+          "posicion": 10,
+          "idLocal": 3319,
+          "local": "Andorra (m)",
+          "idVisitante": 130,
+          "visitante": "Castellón (m)",
+          "signo": "1 ",
+          "marcador": "1 - 0",
+          "fecha": "11-10-2026",
+          "hora": "14:00",
+          "fecha_completa": "2026-10-11 14:00:00"
+        },
+        {
+          "posicion": 11,
+          "idLocal": 18,
+          "local": "Almería (m)",
+          "idVisitante": 1151,
+          "visitante": "Leganés (m)",
+          "signo": "1 ",
+          "marcador": "3 - 0",
+          "fecha": "11-10-2026",
+          "hora": "16:15",
+          "fecha_completa": "2026-10-11 16:15:00"
+        },
+        {
+          "posicion": 12,
+          "idLocal": 10,
+          "local": "Mallorca (m)",
+          "idVisitante": 126,
+          "visitante": "Las Palmas (m)",
+          "signo": "1 ",
+          "marcador": "3 - 1",
+          "fecha": "11-10-2026",
+          "hora": "18:30",
+          "fecha_completa": "2026-10-11 18:30:00"
+        },
+        {
+          "posicion": 13,
+          "idLocal": 939,
+          "local": "Burgos (m)",
+          "idVisitante": 564,
+          "visitante": "Granada (m)",
+          "signo": "2 ",
+          "marcador": "0 - 1",
+          "fecha": "12-10-2026",
+          "hora": "16:15",
+          "fecha_completa": "2026-10-12 16:15:00"
+        },
+        {
+          "posicion": 14,
+          "idLocal": 1000,
+          "local": "R. Oviedo (m)",
+          "idVisitante": 124,
+          "visitante": "Eibar (m)",
+          "signo": "1 ",
+          "marcador": "3 - 1",
+          "fecha": "12-10-2026",
+          "hora": "18:30",
+          "fecha_completa": "2026-10-12 18:30:00"
+        },
+        {
+          "posicion": 15,
+          "idLocal": 12,
+          "local": "Real Madrid (m)",
+          "idVisitante": 20,
+          "visitante": "Villarreal (m)",
+          "signo": "1-0",
+          "marcador": "1 - 0",
+          "fecha": "10-10-2026",
+          "hora": "21:00",
+          "fecha_completa": "2026-10-10 21:00:00"
+        }
+      ],
+      "temporada": "2026-2027",
+      "jornada": "12",
+      "contenidosRelacionados": {
+        "noticias": [
+          {
+            "tituloRelacion": "Resultado Automatico",
+            "tituloContenido": "La Quiniela: resultados del 11 de octubre de 2026",
+            "urlContenido": "/la-quiniela/resultados/la-quiniela-resultados-del-11-de-octubre-de-2026"
+          },
+          {
+            "tituloRelacion": "Escrutinio Automatico",
+            "tituloContenido": "La Quiniela: premios y ganadores del 11 de octubre de 2026",
+            "urlContenido": "/la-quiniela/escrutinios/la-quiniela-premios-y-ganadores-del-11-de-octubre-de-2026"
+          },
+          {
+            "tituloRelacion": "Bote Automatico",
+            "tituloContenido": "La Quiniela: bote de 1.500.000€",
+            "urlContenido": "/la-quiniela/botes/la-quiniela-bote-de-1-500-000euro-11-de-octubre-de-2026"
+          },
+          {
+            "tituloRelacion": "Premio Automatico 2",
+            "tituloContenido": "Premio de 14 aciertos de La Quiniela del 11 de octubre de 2026",
+            "urlContenido": "/premios/premio-de-14-aciertos-de-la-quiniela-del-11-de-octubre-de-2026"
+          }
+        ],
+        "enlaces": [],
+        "puntosDeVenta": [],
+        "documentos": [
+          {
+            "tituloRelacion": null,
+            "tituloContenido": "Nota de prensa del sorteo del 11/10/2026 Quiniela",
+            "urlContenido": "/f/loterias/documentos/Quiniela/Notas de prensa/NOTA_DE_PRENSA_LA_QUINIELA_11_10_26.pdf"
+          }
+        ],
+        "imagenes": [],
+        "preguntasFrecuentes": [],
+        "paginasLibres": []
+      },
+      "elige8": {
+        "gameid": "ELG8",
+        "relsorteoid_asociado": "1325213057",
+        "activo": "1"
+      },
+      "escrutinioElige8": [
+        {
+          "tipo": "8 Acertados 8 ",
+          "categoria": 1,
+          "premio": "36,52",
+          "ganadores": "1623"
+        }
+      ]
+    }
+  ]
+}

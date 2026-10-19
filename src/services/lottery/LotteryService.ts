@@ -1,65 +1,15 @@
-import { fallbackBoard, GAME_CONFIG } from '../mock/fixtures';
-import type { GameCode, LotteryBoardItem, LotteryDraw } from '../types';
-import { normalizeDraw } from './adapters';
+import { fallbackBoard, GAME_CONFIG } from '../../config/gameConfig';
+import type { GameCode, LotteryBoardItem, LotteryDraw } from '../../types/lottery';
+import { normalizeDraw } from '../adapters/normalize/index';
+import { getDateWindowForGame } from './DateWindowCalculator';
+import { CacheService } from '../cache/CacheService';
+import { HttpClient } from '../http/HttpClient';
+import { API_ENDPOINTS } from '../../config/constants';
 
 const useMock = import.meta.env.VITE_USE_MOCK === 'true';
 const storagePrefix = 'draw:';
 
 const toDateKey = (date: string) => date.replace(/-/g, '').slice(0, 8);
-
-const toApiDate = (date: Date) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}${month}${day}`;
-};
-
-const getDailyWindow = (daysBack = 7) => {
-  const end = new Date();
-  end.setHours(0, 0, 0, 0);
-
-  const start = new Date(end);
-  start.setDate(end.getDate() - daysBack);
-
-  return {
-    start: toApiDate(start),
-    end: toApiDate(end),
-  };
-};
-
-const getGordoWindow = (daysBack = 15) => {
-  const end = new Date();
-  end.setHours(0, 0, 0, 0);
-
-  const start = new Date(end);
-  start.setDate(end.getDate() - daysBack);
-
-  return {
-    start: toApiDate(start),
-    end: toApiDate(end),
-  };
-};
-
-const getFridayOffset = (date: Date) => {
-  const day = date.getDay();
-  return (day + 2) % 7;
-};
-
-const getQuinielaWindow = () => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const friday = new Date(today);
-  friday.setDate(today.getDate() - getFridayOffset(today));
-
-  const nextFriday = new Date(friday);
-  nextFriday.setDate(friday.getDate() + 7);
-
-  return {
-    start: toApiDate(friday),
-    end: toApiDate(nextFriday),
-  };
-};
 
 const getLatestRow = (raw: unknown): any => {
   const rows = Array.isArray(raw) ? raw : [];
@@ -161,11 +111,7 @@ const getPreviousValidDraw = (game: GameCode): LotteryDraw | null => {
 const inflightRequests = new Map<GameCode, Promise<LotteryDraw[]>>();
 
 const resolveGameHistory = async (game: GameCode): Promise<LotteryDraw[]> => {
-  const range = game === 'LAQU'
-    ? getQuinielaWindow()
-    : game === 'ELGR'
-      ? getGordoWindow()
-      : getDailyWindow(7);
+  const range = getDateWindowForGame(game);
 
   const cached = readFromCache(game, range);
 
@@ -186,16 +132,8 @@ const resolveGameHistory = async (game: GameCode): Promise<LotteryDraw[]> => {
 
   const request = (async () => {
     try {
-      const response = await fetch(
-        `https://www.loteriasyapuestas.es/servicios/buscadorSorteos?game_id=${game}&fechaInicioInclusiva=${range.start}&fechaFinInclusiva=${range.end}&celebrados=true`,
-        { mode: 'cors' },
-      );
-
-      if (!response.ok) {
-        throw new Error(`Network error: ${response.status}`);
-      }
-
-      const raw = await response.json();
+      const url = `${API_ENDPOINTS.BUSCADOR_SORTEOS}?game_id=${game}&fechaInicioInclusiva=${range.start}&fechaFinInclusiva=${range.end}&celebrados=true`;
+      const raw = await HttpClient.get(url);
       const rows: unknown[] = Array.isArray(raw)
         ? raw
         : raw && typeof raw === 'object' && 'resultado' in raw && Array.isArray(raw.resultado)

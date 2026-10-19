@@ -61,9 +61,9 @@ export const fixtureDraws: Record<GameCode, LotteryDraw> = {
     scheduledDate: '2026-06-08',
     status: 'celebrado',
     updatedAt: '2026-06-08T20:00:00Z',
-    primerPremio: '37343',
-    segundoPremio: '43714',
-    reintegros: ['6', '11', '17', '19', '32', '41'],
+    primerPremio: 37343,
+    segundoPremio: 43714,
+    reintegros: [6, 11, 17, 19, 32, 41],
   },
   LAQU: {
     id: 'LAQU-20261011',

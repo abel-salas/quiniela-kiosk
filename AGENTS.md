@@ -178,7 +178,7 @@ App React + Vite + TypeScript para tablón de resultados de loterías españolas
 - ✅ SlidePage implementada con grid de próximos sorteos
 - ✅ Estilos CSS para slider completados
 - ✅ Documentos de prueba creados en Sanity (6 juegos: BONO, ELGR, LAPR, EMIL, LNAC, LAQU)
-- ⏳ Deployar schemas a Sanity dashboard (pendiente)
+- ✅ Schemas `lotteryDraw` y `slide` desplegados al dataset `production` de Sanity
 - ✅ Slider en `/slide` rota automáticamente cada 10 segundos entre próximos sorteos y los slides publicados en Sanity
 
 ## Juegos Adicionales Pendientes (para futura implementación)
@@ -223,12 +223,12 @@ Fases Completadas:
 - [x] Fase 2: Adaptadores y servicios
 - [x] Fase 3: Componentes UI base
 - [x] Fase 4: Ruta `/`
-- [x] Fase 5: Integración Sanity (código, falta deploy de schemas)
+- [x] Fase 5: Integración Sanity y deploy de schemas
 - [x] Fase 6: Ruta `/slide` con proximosv3
 - [x] Diseño visual adaptado a loteriasyapuestas.es
 - [x] Arreglo Quiniela (hora en partidos pendientes, sin X por defecto)
 
 Fases Pendientes:
-- [ ] Fase 5 completa: Deployar schemas y crear documentos en Sanity (posterior)
+- [ ] Verificar la integración de `/quini` en el entorno desplegado
 - [ ] Desplegar a producción
 - [ ] Opcional: Añadir juegos adicionales (Eurodreams, Lototurf, Quinigol) - ver sección "Juegos Adicionales Pendientes"

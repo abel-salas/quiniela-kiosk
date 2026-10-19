@@ -1,6 +1,6 @@
 # Estado de Implementación - Quiniela Project
 
-## Última actualización: 17/10/2026
+## Última actualización: 19/10/2026
 
 ## ✅ Completado
 
@@ -37,6 +37,8 @@
 - Cliente configurado con credenciales
 - Queries GROQ implementadas
 - Schemas creados localmente (lotteryDraw, slide)
+- Schemas desplegados al dataset `production` de Sanity
+- Configuración del proyecto para Sanity CLI en `sanity.cli.ts`
 - QuiniPage usando Sanity
 - Credenciales configuradas en .env
 
@@ -47,15 +49,13 @@
 ## ⏳ Pendiente
 
 ### 1. Sanity
-- [ ] Deployar schemas a Sanity dashboard (necesita ejecutar `npx sanity schema deploy`)
-- [ ] Crear documentos de prueba en Sanity
 - [ ] Probar integración completa de `/quini`
 
 ### 2. Ruta `/slide`
-- [ ] Implementar adaptadores de `proximosv3`
-- [ ] Implementar UpcomingService
-- [ ] Implementar Slider y slides
-- [ ] Integrar con Sanity slides
+- [x] Implementar adaptadores de `proximosv3`
+- [x] Implementar UpcomingService
+- [x] Implementar Slider y slides
+- [x] Integrar con Sanity slides
 
 ### 3. Diseño Visual
 - [ ] Adaptar diseño de cards a los ejemplos visuales proporcionados
@@ -72,6 +72,7 @@
 - `.env.example` - Template de variables de entorno
 - `vite.config.ts` - Configuración Vite con proxy
 - `sanity.config.ts` - Configuración Sanity
+- `sanity.cli.ts` - Configuración del proyecto para comandos CLI de Sanity
 - `src/config/constants.ts` - Constantes de API
 - `src/config/gameConfig.ts` - Configuración de juegos
 
@@ -142,15 +143,7 @@ Configuradas en `.env`:
 
 ## Próximos Pasos
 
-1. **Deployar schemas de Sanity**
-   - Ejecutar `npx sanity schema deploy`
-   - Verificar que los schemas aparezcan en el dashboard
-
-2. **Crear documentos de prueba**
-   - Crear un lotteryDraw de prueba para LAQU
-   - Crear un slide de prueba
-
-3. **Probar ruta `/quini`**
+1. **Probar ruta `/quini`**
    - Verificar que carga datos de Sanity
    - Verificar que se muestra correctamente
 

@@ -302,7 +302,7 @@ class CacheService {
 - ✅ Project ID (lkywbgau)
 - ✅ API configuration (configurado en .env)
 - ✅ Documentos de prueba creados (6 juegos)
-- ⏳ Deployar schemas a dashboard
+- ✅ Deployar schemas al dataset `production` de Sanity
 - ✅ Implementar rotación automática de slides en `/slide`
 
 ## Decisiones Técnicas

@@ -43,8 +43,9 @@ Usar para slides personalizados en `/slide`
 - Juegos: BONO, ELGR, LAPR, EMIL, LNAC, LAQU
 - Datos basados en ejemplos de API reales
 
-### 4. ⏳ Pendiente
-- Deployar schemas a Sanity dashboard
+### 4. ✅ Despliegue completado
+- Schemas `lotteryDraw` y `slide` desplegados al dataset `production` de Sanity
+- Configuración CLI del proyecto en `sanity.cli.ts`
 
 ## Decisión de Styling
 
@@ -150,7 +151,7 @@ Usar para slides personalizados en `/slide`
 1. ✅ Configurar Sanity
 2. ✅ Definir schemas en Sanity
 3. ✅ Implementar rotación automática de slides en `/slide`
-4. ⏳ Deployar schemas a Sanity dashboard
+4. ✅ Deployar schemas a Sanity dashboard
 
 ### Baja Prioridad
 1. Configurar pruebas (puede ser más adelante)

@@ -134,12 +134,12 @@ npx sanity deploy           # Deployar studio completo
 
 ## Variables de Entorno
 
-Configuradas en `.env`:
+Configuradas en `.env` y en Vercel para los entornos de despliegue:
 - `VITE_SANITY_PROJECT_ID=lkywbgau`
 - `VITE_SANITY_DATASET=production`
-- `VITE_SANITY_TOKEN=<token>`
-- `VITE_SANITY_ORGANIZATION_ID=oKyCSPzzO`
 - `VITE_USE_MOCK=false`
+
+El dataset se consulta públicamente desde el navegador. No configurar tokens de Sanity con prefijo `VITE_`: esas variables se incorporan al bundle público.
 
 ## Próximos Pasos
 

@@ -179,7 +179,7 @@ App React + Vite + TypeScript para tablón de resultados de loterías españolas
 - ✅ Estilos CSS para slider completados
 - ✅ Documentos de prueba creados en Sanity (6 juegos: BONO, ELGR, LAPR, EMIL, LNAC, LAQU)
 - ⏳ Deployar schemas a Sanity dashboard (pendiente)
-- ⏳ Implementar rotación automática de slides en `/slide` (pendiente)
+- ✅ Slider en `/slide` rota automáticamente cada 10 segundos entre próximos sorteos y los slides publicados en Sanity
 
 ## Juegos Adicionales Pendientes (para futura implementación)
 

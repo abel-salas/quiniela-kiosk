@@ -45,7 +45,6 @@ Usar para slides personalizados en `/slide`
 
 ### 4. ⏳ Pendiente
 - Deployar schemas a Sanity dashboard
-- Implementar rotación automática de slides en `/slide`
 
 ## Decisión de Styling
 
@@ -107,7 +106,7 @@ Usar para slides personalizados en `/slide`
 - [x] Implementar `UpcomingSlide` en `components/slider/`
 - [x] Implementar `SanitySlide` en `components/slider/`
 - [x] Implementar ruta `/slide`
-- [ ] Configurar rotación automática del slider (pendiente)
+- [x] Configurar rotación automática del slider (diapositiva de próximos sorteos + slides de Sanity)
 
 ## Archivos de Referencia
 
@@ -150,7 +149,7 @@ Usar para slides personalizados en `/slide`
 ### Media Prioridad
 1. ✅ Configurar Sanity
 2. ✅ Definir schemas en Sanity
-3. ⏳ Implementar rotación automática de slides en `/slide`
+3. ✅ Implementar rotación automática de slides en `/slide`
 4. ⏳ Deployar schemas a Sanity dashboard
 
 ### Baja Prioridad

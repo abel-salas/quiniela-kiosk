@@ -12,6 +12,12 @@ export const fetchLotteryDrawByGame = async (game: string): Promise<SanityLotter
 };
 
 export const fetchSlides = async (): Promise<SanitySlide[]> => {
-  const query = `*[_type == "slide"] | order(order asc)`;
+  const query = `*[_type == "slide" && defined(image.asset)] | order(order asc) {
+    _id,
+    _type,
+    title,
+    order,
+    "image": image.asset->url
+  }`;
   return sanityClient.fetch(query);
 };

@@ -131,7 +131,7 @@ Flujo:
 1. `UpcomingService.fetchAllUpcoming()` - Obtiene próximos sorteos de `proximosv3`
 2. `UpcomingAdapters` normalizan a `UpcomingDraw` type
 3. `SanityClient.fetchSlides()` - Obtiene slides de Sanity
-4. `Slider` combina y rota: [UpcomingSlide, SanitySlide1, SanitySlide2, ...]
+4. `Slider` combina y rota: [UpcomingSlide, SanitySlide1, SanitySlide2, ...]; las imágenes de Sanity se resuelven a su URL de asset
 5. Rotación automática cada 10 segundos
 
 ### Footer de próximos sorteos (en `/` y `/quini`)
@@ -303,7 +303,7 @@ class CacheService {
 - ✅ API configuration (configurado en .env)
 - ✅ Documentos de prueba creados (6 juegos)
 - ⏳ Deployar schemas a dashboard
-- ⏳ Implementar rotación automática de slides en `/slide`
+- ✅ Implementar rotación automática de slides en `/slide`
 
 ## Decisiones Técnicas
 

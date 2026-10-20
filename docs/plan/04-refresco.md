@@ -95,7 +95,7 @@ Tests en tabla con instantes fijos, al menos:
 - `GameState.next` de cada juego de resultados es el primer elemento de esa lista con su `gameId`. Excepción: si el resultado del `next` anterior aún no ha llegado y su fecha es de los últimos 2 días, se conserva para seguir buscándolo (`refresh/next-pick.ts`).
 - Entre dos rondas del mismo juego pasan al menos 60 s, y los próximos sorteos no se vuelven a pedir antes de 60 s tras un éxito: así las decisiones "consultar ya" no entran en bucle.
 - Un temporizador que vence siempre ejecuta su ronda. Las replanificaciones (nuevos próximos sorteos, `online`, `visibilitychange`, 00:05) solo pueden adelantar una ronda, nunca retrasarla.
-- Cola global: máximo 2 peticiones simultáneas a SELAE y 500 ms entre arranques.
+- Cola global: una petición a SELAE cada vez y 1,5 s entre arranques (con 2 simultáneas y 500 ms, Akamai bloqueaba a ratos con 406).
 - Reprogramar todo en: evento `online`, cambio de día (00:05) y `visibilitychange` a visible.
 - Recarga completa de la página a las 05:00 (constante `DAILY_RELOAD_AT` en `app/config.ts`) para evitar fugas de memoria del kiosko.
 

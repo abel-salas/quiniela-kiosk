@@ -6,7 +6,7 @@ describe('createRequestQueue', () => {
   afterEach(() => vi.useRealTimers());
 
   it('runs at most 2 tasks at once and spaces starts by 500 ms', async () => {
-    const queue = createRequestQueue();
+    const queue = createRequestQueue({ concurrency: 2, spacingMs: 500 });
     const starts: number[] = [];
     let active = 0;
     let maxActive = 0;

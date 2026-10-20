@@ -84,7 +84,7 @@ Estrategia: el código actual (`src/services`, `src/components`, `src/hooks`, `s
 
 **T25 ✅ · Borrar código antiguo** — Eliminar `src/services`, `src/components`, `src/hooks`, `src/pages`, `src/types`, `src/config`, `src/sanity`, `src/styles.css` y `VITE_USE_MOCK`, comprobando que nada los importa.
 
-**T26 · Documentación** — Reescribir `README.md` (rutas, Sanity, mock, despliegue, kiosko con extensión anti-CORS) y revisar `AGENTS.md`.
+**T26 ✅ · Documentación** — Reescribir `README.md` (rutas, Sanity, mock, despliegue, kiosko con extensión anti-CORS) y revisar `AGENTS.md`.
 
 **T27 · Validación en la TV y la tablet** — Legibilidad a 3–4 m, nombres largos de equipos, paso de provisional a definitivo, caída simulada de SELAE (bloquear el dominio en el navegador) y forzado desde el Studio.
 

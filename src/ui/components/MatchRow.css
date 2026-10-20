@@ -13,10 +13,13 @@
   font-weight: var(--font-semibold);
 }
 
+/* Long team names wrap to a second line instead of being cut. */
 .match-row__teams {
+  display: -webkit-box;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.1;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .match-row__detail {

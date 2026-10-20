@@ -18,8 +18,10 @@ describe('fetchJson', () => {
     expect(fetcher).toHaveBeenCalledOnce();
   });
 
-  it('classifies 403 as blocked and other HTTP errors as network failures', async () => {
+  it('classifies 403 and 406 as blocked and other HTTP errors as network failures', async () => {
     await expect(fetchJson('https://example.test', { fetcher: async () => response('', 403) }))
+      .rejects.toHaveProperty('kind', 'blocked');
+    await expect(fetchJson('https://example.test', { fetcher: async () => response('', 406) }))
       .rejects.toHaveProperty('kind', 'blocked');
     await expect(fetchJson('https://example.test', { fetcher: async () => response('', 500) }))
       .rejects.toHaveProperty('kind', 'network');

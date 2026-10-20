@@ -123,4 +123,4 @@ export interface ManualRepository extends ResultsRepository {
 ```
 
 - "Sin registros" no es error: `[]` o `null`.
-- 403 → `blocked`; fallo de red → `network`; timeout → `timeout`; respuesta no interpretable → `invalid`.
+- 403 o 406 → `blocked`; fallo de red → `network`; timeout → `timeout`; respuesta no interpretable → `invalid`.

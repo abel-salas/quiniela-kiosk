@@ -7,8 +7,15 @@ export interface QueueOptions {
   spacingMs?: number;
 }
 
-/** Limits concurrent requests and spaces their starts (SELAE: 2 at a time, 500 ms apart). */
-export const createRequestQueue = ({ concurrency = 2, spacingMs = 500 }: QueueOptions = {}): RequestQueue => {
+/** SELAE: one request at a time, 1.5 s between starts, to avoid Akamai's burst blocking (403/406). */
+export const SELAE_CONCURRENCY = 1;
+export const SELAE_SPACING_MS = 1_500;
+
+/** Limits concurrent requests and spaces their starts. */
+export const createRequestQueue = ({
+  concurrency = SELAE_CONCURRENCY,
+  spacingMs = SELAE_SPACING_MS,
+}: QueueOptions = {}): RequestQueue => {
   const pending: (() => void)[] = [];
   let active = 0;
   let lastStartMs = Number.NEGATIVE_INFINITY;

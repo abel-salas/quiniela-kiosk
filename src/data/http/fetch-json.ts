@@ -5,6 +5,9 @@ export interface FetchJsonOptions {
   fetcher?: typeof fetch;
 }
 
+/** Akamai blocks intermittently with 403 and, at times, 406. */
+const BLOCKED_STATUSES = new Set([403, 406]);
+
 const errorMessage = (error: unknown): string =>
   error instanceof Error ? error.message : String(error);
 
@@ -37,8 +40,8 @@ export const fetchJson = async (
       throw new ProviderError('network', `SELAE request failed: ${errorMessage(error)}`);
     }
 
-    if (response.status === 403) {
-      throw new ProviderError('blocked', 'SELAE blocked the request (403)');
+    if (BLOCKED_STATUSES.has(response.status)) {
+      throw new ProviderError('blocked', `SELAE blocked the request (${response.status})`);
     }
     if (!response.ok) {
       throw new ProviderError('network', `SELAE responded with status ${response.status}`);

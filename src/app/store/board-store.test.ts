@@ -50,7 +50,8 @@ describe('createBoardStore', () => {
     const listener = vi.fn();
     store.subscribe(listener);
     store.start();
-    await vi.advanceTimersByTimeAsync(10_000);
+    // 8 SELAE requests, one at a time and 1.5 s apart.
+    await vi.advanceTimersByTimeAsync(15_000);
     const snapshot = store.getSnapshot();
 
     expect(selae.getRecentDraws).toHaveBeenCalledTimes(7);
@@ -69,7 +70,7 @@ describe('createBoardStore', () => {
     const selae = spySelae(['BONO']);
     const { store } = setup({ selae });
     store.start();
-    await vi.advanceTimersByTimeAsync(20_000);
+    await vi.advanceTimersByTimeAsync(30_000);
 
     const bono = store.getSnapshot().results.BONO;
     expect(selae.getRecentDraws.mock.calls.filter(([id]) => id === 'BONO')).toHaveLength(3);
@@ -77,7 +78,7 @@ describe('createBoardStore', () => {
     expect(sources(store, 'BONO')).toEqual(['sanity']);
     expect(sources(store, 'EMIL').every((source) => source === 'selae')).toBe(true);
 
-    await vi.advanceTimersByTimeAsync(80_000);
+    await vi.advanceTimersByTimeAsync(90_000);
     expect(store.getSnapshot().results.BONO.errorCount).toBe(2);
     store.stop();
   });

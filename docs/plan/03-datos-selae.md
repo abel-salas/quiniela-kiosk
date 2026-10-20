@@ -35,7 +35,7 @@ data/selae/fixture-repository.ts   createSelaeFixtureRepository() con import de 
 
 - `fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-cache', credentials: 'omit', signal })`.
 - Timeout de 15 s con `AbortController`.
-- Status 403 → `blocked`. Otro status no 2xx → `network`. Cuerpo no JSON → `invalid`.
+- Status 403 o 406 → `blocked`. Otro status no 2xx → `network`. Cuerpo no JSON → `invalid`.
 - No intentar fijar `User-Agent` ni `Referer`: el navegador los prohíbe y ya envía los suyos.
 
 ## Reglas de parseo

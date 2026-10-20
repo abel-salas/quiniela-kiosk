@@ -25,6 +25,10 @@ const openJornada = (date: string, kickoffs: (string | null)[]): FootballDraw =>
   matches: kickoffs.map((kickoff, index) => match(index + 1, kickoff)),
 });
 
+const finalJornada = (date: string): FootballDraw => ({
+  ...openJornada(date, []), drawId: `LAQU-${date}`, jornada: 12, status: 'final',
+});
+
 const next = (gameId: ResultGameId, date: string, salesCloseAt: string | null = null): NextDraw => ({
   gameId, date, drawAt: null, salesCloseAt, salesOpen: true, jackpot: null, addOn: null, jornada: null,
   nacionalFirstPrize: null, nacionalSpecialPrize: null,
@@ -39,6 +43,7 @@ const decide = (gameId: ResultGameId, now: string, gameState: GameState) =>
 
 const BONO_NEXT_14 = next('BONO', '2026-10-14', '2026-10-14T21:00:00');
 const LAQU_NEXT = next('LAQU', '2026-10-18', '2026-10-17T14:00:00');
+const LAQU_NEXT_21 = next('LAQU', '2026-10-21', '2026-10-20T21:00:00');
 
 describe('decideNextCheck (mandatory cases)', () => {
   it.each([
@@ -122,6 +127,24 @@ describe('decideNextCheck (edges)', () => {
   });
 });
 
+describe('decideNextCheck (football after sales close)', () => {
+  const laquState = state([finalJornada('2026-10-18')], LAQU_NEXT_21);
+
+  it('stays up to date between sales close and midnight of the draw date', () => {
+    expect(decide('LAQU', '2026-10-20T23:00', laquState)).toEqual({
+      at: at('2026-10-21T00:00'), phase: 'upToDate', fetchResults: true, fetchUpcoming: false,
+    });
+    expect(decide('LAQU', '2026-10-20T21:30', laquState).at).toEqual(at('2026-10-21T00:00'));
+    expect(decide('LAQU', '2026-10-20T12:00', laquState).at).toEqual(at('2026-10-20T18:00'));
+  });
+
+  it('awaits the jornada from midnight of its date', () => {
+    expect(decide('LAQU', '2026-10-21T00:30', laquState)).toEqual({
+      at: at('2026-10-21T00:35'), phase: 'awaitingResult', fetchResults: true, fetchUpcoming: false,
+    });
+  });
+});
+
 describe('expectedResultAt', () => {
   it('uses drawAt, then the game results time', () => {
     expect(expectedResultAt(GAMES.BONO, BONO_NEXT_14)).toEqual(at('2026-10-14T21:15'));
@@ -129,8 +152,11 @@ describe('expectedResultAt', () => {
       .toEqual(at('2026-10-14T20:00'));
   });
 
-  it('for football uses sales close, else midnight of the draw date', () => {
-    expect(expectedResultAt(GAMES.LAQU, LAQU_NEXT)).toEqual(at('2026-10-17T14:00'));
+  it('for football uses the later of sales close and midnight of the draw date', () => {
+    expect(expectedResultAt(GAMES.LAQU, LAQU_NEXT)).toEqual(at('2026-10-18T00:00'));
+    expect(expectedResultAt(GAMES.LAQU, LAQU_NEXT_21)).toEqual(at('2026-10-21T00:00'));
+    expect(expectedResultAt(GAMES.QGOL, next('QGOL', '2026-10-18', '2026-10-18T14:00:00')))
+      .toEqual(at('2026-10-18T14:00'));
     expect(expectedResultAt(GAMES.QGOL, next('QGOL', '2026-10-18'))).toEqual(at('2026-10-18T00:00'));
   });
 });

@@ -18,10 +18,9 @@ const parseCalendarDate = (value: string): Date => {
 
 export const formatBall = (value: number): string => String(value).padStart(2, '0');
 
-export const formatLineDate = (value: string): string => {
-  const date = parseCalendarDate(value);
-  return `${WEEKDAYS[date.getUTCDay()]} ${value.slice(8, 10)}/${value.slice(5, 7)}`;
-};
+/** `'2026-10-14'` → `"miércoles 14/10"` (full weekday, as SELAE's `dia_semana`). */
+export const formatLineDate = (value: string): string =>
+  `${formatWeekdayName(value)} ${value.slice(8, 10)}/${value.slice(5, 7)}`;
 
 export const formatHeaderDate = (value: string): string => {
   const date = parseCalendarDate(value);
@@ -68,4 +67,10 @@ export const formatCountdown = (from: Date | string, to: Date | string): string 
     hours > 0 ? `${hours}h` : null,
     minutes > 0 ? `${minutes}m` : null,
   ].filter((part): part is string => part !== null).join(' ');
+};
+
+/** `'2026-10-25'` → `"dom 25/10"`; with local ISO `drawAt` → `"dom 25/10 · 21:30"`. */
+export const formatDrawDate = (date: string, drawAt: string | null): string => {
+  const day = `${WEEKDAYS[parseCalendarDate(date).getUTCDay()]} ${date.slice(8, 10)}/${date.slice(5, 7)}`;
+  return drawAt ? `${day} · ${drawAt.slice(11, 16)}` : day;
 };

@@ -1,11 +1,11 @@
 .match-row {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) 104px 56px;
+  grid-template-columns: 34px minmax(0, 1fr) 104px 60px;
   align-items: center;
   gap: 12px;
-  min-height: 40px;
+  min-height: 41px;
   padding: 2px 10px;
-  font-size: 17px;
+  font-size: 18px;
 }
 
 .match-row__position {
@@ -17,14 +17,14 @@
 .match-row__teams {
   display: -webkit-box;
   overflow: hidden;
-  line-height: 1.1;
+  line-height: 1.05;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
 
 .match-row__detail {
   text-align: center;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .match-row--highlight {

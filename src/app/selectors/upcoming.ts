@@ -1,6 +1,6 @@
 import { GAMES, type GameId } from '../../domain/games';
 import type { NextDraw } from '../../domain/next-draw';
-import { formatAmount, formatCountdown, formatWeekdayName } from '../format/format';
+import { formatAmount, formatCountdown, formatDrawDate, formatWeekdayName } from '../format/format';
 import { parseLocalIso } from '../refresh/time';
 import type { UpcomingTileView } from './types';
 
@@ -60,7 +60,9 @@ const toTile = (shown: NextDraw, draws: NextDraw[], now: Date): UpcomingTileView
     color: game.color,
     amount: prize ? formatAmount(prize.amount) : null,
     note: noteFor(shown.gameId, prize, shown),
-    countdown: shown.salesCloseAt ? formatCountdown(now, shown.salesCloseAt) : null,
+    countdown: shown.salesCloseAt
+      ? formatCountdown(now, shown.salesCloseAt)
+      : formatDrawDate(shown.date, shown.drawAt),
   };
 };
 

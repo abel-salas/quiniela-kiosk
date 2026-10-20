@@ -122,7 +122,7 @@ Contexto (observado el 2026-10-20 en Vercel): al cargar el tablero, 3 o 4 juegos
 
 `T32` (solo CSS y formato) y `T33` (política y selector) son independientes y pueden ir en paralelo.
 
-**T32 · Ajustes de maqueta del tablero** — Validar siempre con `?mock=1&now=2026-10-14T22:00` en 1920×1080 (captura antes y después) y comprobar que no hay desbordes ni texto cortado.
+**T32 ✅ · Ajustes de maqueta del tablero** — Validar siempre con `?mock=1&now=2026-10-14T22:00` en 1920×1080 (captura antes y después) y comprobar que no hay desbordes ni texto cortado.
 - **Fecha de las líneas**: el día lo abreviamos nosotros (`formatLineDate` → `"mié 14/10"`); SELAE manda el nombre completo (`dia_semana: "miércoles"`). Pasar a día completo: `"miércoles 14/10"`. Actualizar `formatLineDate`, su test y el ejemplo de [05-ui-sistema.md](05-ui-sistema.md) § Formato. En `DrawLine.css`, cambiar la primera columna fija de `92px` a un ancho que quepa en "miércoles 14/10" con la fuente nueva; mejor un ancho común a todas las líneas (por ejemplo, `max-content` de la más larga, o un valor fijo medido) para que las bolas sigan alineadas entre tarjetas.
 - **Separación fecha → bolas**: más hueco entre la fecha y la fila de bolas en cada línea (`gap`/columna de `DrawLine`).
 - **Escala general**: subir de forma proporcional, en torno a un 10–15 %, los tamaños de texto y sus espaciados en las tarjetas de resultados: `GameHeader`, `DrawLine`, `Ball`, `ExtraBall`, `AddOnBox`, `MatchRow`, `SignBox`, `result-card__pleno` y `result-card__empty`. Si ayuda, centralizar en variables de `tokens.css` (`--text-*`, `--space-*`) en lugar de valores sueltos. La columna de próximos y la barra de estado no se tocan.
@@ -132,7 +132,7 @@ Contexto (observado el 2026-10-20 en Vercel): al cargar el tablero, 3 o 4 juegos
 - Peor caso que debe caber sin cortes: una semana con 6 Bonolotos, 3 Primitivas, 2 Euromillones, 2 EuroDreams y 1 Gordo. Si con el mock no se da, añadir un caso temporal en local para medirlo, sin subirlo a los fixtures.
 - Hecho cuando: capturas antes/después adjuntas en la PR o en la sesión, y pasan `typecheck`, `test` y `build`.
 
-**T33 · Quiniela y Quinigol: falso "Resultado de hoy pendiente"** — Causa confirmada con `TODOS.next.json`:
+**T33 ✅ · Quiniela y Quinigol: falso "Resultado de hoy pendiente"** — Causa confirmada con `TODOS.next.json`:
 - El próximo de LAQU/QGOL tiene `fecha: "2026-10-21 00:00:00"` y `cierre: "2026-10-20 21:00:00"`. `toLocalIso` devuelve `null` para las 00:00, así que `drawAt` es `null`; el fútbol no tiene `resultsFromTime`, y `expectedResultAt` acaba usando `salesCloseAt`.
 - En consecuencia, desde el cierre de ventas (martes 21:00) la política pone `awaitingResult` y la tarjeta muestra "Resultado de hoy pendiente" sobre una jornada que ya está terminada (la del lunes). Además consulta SELAE cada 5 min durante 3 h y después cada 30 min, sin motivo: más peticiones y más 403/406.
 
@@ -141,7 +141,7 @@ Cambios:
 - `app/selectors/results.ts` → `footballCard`: no mostrar `AWAITING_BADGE`. En fútbol solo existe la etiqueta `PROVISIONAL` (jornada abierta). Mientras no llegue la nueva jornada, la tarjeta sigue mostrando la última, sin chip. Actualizar la tabla de § Estados de [06-ui-resultados.md](06-ui-resultados.md) (el chip solo aplica a juegos de números).
 - Tests en `policy.test.ts`: LAQU con `next` del 21/10 (`cierre` 20/10 21:00), última jornada final del 18/10 y `now = 2026-10-20T23:00` → `upToDate`, siguiente ronda a las 00:00 del 21/10 (o antes por el tope de 6 h). El 21/10 a las 00:30 sin jornada del 21/10 → `awaitingResult`, 5 min. En `results.test.ts`: tarjeta de fútbol con `phase: 'awaitingResult'` → `badge: null`; con jornada `open` → `PROVISIONAL`.
 
-**T34 · Próximos sorteos: tiles vacíos de Quiniela, Quinigol y Quíntuple Plus** — Independiente de `T32` y `T33`; solo toca la columna de próximos. La cuenta atrás (cada minuto) se queda como está.
+**T34 ✅ · Próximos sorteos: tiles vacíos de Quiniela, Quinigol y Quíntuple Plus** — Independiente de `T32` y `T33`; solo toca la columna de próximos. La cuenta atrás (cada minuto) se queda como está.
 - Causa (`TODOS.next.json`): al pasar el cierre (QUPL martes 18:15; LAQU/QGOL martes 21:00), el siguiente sorteo de esos juegos (25/10) llega con `estado: "cerrado"`, `apertura: null` y `cierre: null`: aún no está a la venta. Sin `salesCloseAt` no hay cuenta atrás, y como `pickPrize` exige `salesOpen`, tampoco importe. El tile se queda solo con el nombre.
 - Cambio: si el tile no tiene cuenta atrás (`salesCloseAt` `null`), mostrar en su lugar la fecha del sorteo, por ejemplo `"dom 25/10"`, y la hora si hay `drawAt` (`"dom 25/10 · 21:30"`). Nueva función `formatDrawDate` en `app/format/format.ts` con tests. En el view model, `countdown` pasa a ser el texto de arriba a la derecha (cuenta atrás o fecha); no hace falta un campo nuevo.
 - La regla del importe no cambia (se replica la web de SELAE: solo sorteos con `salesOpen`).

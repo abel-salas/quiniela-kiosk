@@ -32,8 +32,8 @@ TV horizontal, lienzo 1920×1080. `/quini` usa exactamente el mismo layout con l
 
 Contenido máximo: 15 líneas (Bonoloto 7, EuroDreams 2, El Gordo 1, La Primitiva 3, Euromillones 2) y 5 cabeceras.
 - Dos subcolumnas no caben a lo ancho: cada una quedaría en ~440 px y una línea de La Primitiva (bolas, C, R y Joker) necesita ~720 px.
-- Una sola columna de ~890 px sí cabe con tamaños compactos: cabeceras de 44 px, líneas de ~49 px, bolas de 38 px y extras de 32 px. Medido con 15 líneas: sobran 21 px de los 1008 disponibles.
-- Columna 2 con filas de partido de 40 px: Quiniela (664 px) + Quinigol (284 px) caben en la misma altura.
+- Una sola columna de ~880 px sí cabe con tamaños compactos (ajustados en T32): cabeceras de 44 px, líneas de 50 px, bolas de 42 px y extras de 34 px. Calculado con 15 líneas: 1002 de los 1008 px disponibles; el sobrante se reparte entre tarjetas (`space-between`).
+- Columna 2 con filas de partido de 41 px y 6 px entre cabecera y primer partido: Quiniela + Quinigol suman ~991 px y caben en la misma altura.
 
 ## Semana en curso (pila)
 
@@ -48,7 +48,7 @@ Selector `selectWeekDraws(draws)`:
 
 Estilo de la tarjeta de SELAE (`docs/referencia/card-primitiva.png`), sin elementos interactivos:
 - `GameHeader`: barra del color del juego con logo y nombre. Sin fecha (la fecha va en cada línea).
-- Una `DrawLine` por sorteo: fecha a la izquierda (`lun 19/10`), bolas rellenas con dos cifras (`04`) y, a la derecha y en la misma línea, los extras:
+- Una `DrawLine` por sorteo: fecha a la izquierda (`lunes 19/10`, en una columna de ancho fijo común a todas las líneas), bolas rellenas con dos cifras (`04`) y, a la derecha y en la misma línea, los extras:
 
 | Juego | Extras a la derecha |
 |---|---|
@@ -90,15 +90,16 @@ Referencia: `docs/referencia/proximos-sorteos.png` (solo en local).
   - La Quiniela: jornada 15 sin bote y jornada 16 con `salesOpen: false` → sin importe.
   - Quinigol: `120.000 €`. Lotería Nacional: `300.000 €` (jueves).
   - EuroDreams: `50.000 €` + "al mes durante 30 años" (SELAE envía `premio_bote: "50000"`).
-- Cuenta atrás hasta `salesCloseAt` (`formatCountdown`), actualizada cada minuto. Sin `salesCloseAt`, no se muestra cuenta atrás.
+- Cuenta atrás hasta `salesCloseAt` (`formatCountdown`), actualizada cada minuto. Sin `salesCloseAt` (sorteo aún no a la venta: `estado: "cerrado"`, `apertura` y `cierre` nulos), en su lugar se muestra la fecha del sorteo con `formatDrawDate`: `"dom 25/10"`, o `"dom 25/10 · 21:30"` si hay `drawAt`. Es el mismo campo `countdown` del view model (texto de arriba a la derecha).
+- Test con `TODOS.next.json` y `now = 2026-10-20T23:00`: LAQU, QGOL y QUPL (sorteo del 25/10 sin `cierre`) muestran `"dom 25/10"` y sin importe; EMIL sigue con cuenta atrás.
 
 ## Estados
 
 | Estado | Qué se pinta |
 |---|---|
 | Sin datos | Tarjeta con cabecera y "Pendiente de resultado" |
-| `awaitingResult` | Semana actual + chip "Resultado de hoy pendiente" en la cabecera |
-| `provisional` | Datos parciales + etiqueta "PROVISIONAL" |
+| `awaitingResult` | Solo juegos de números: semana actual + chip "Resultado de hoy pendiente" en la cabecera. En fútbol no hay chip: sigue la última jornada tal cual |
+| `provisional` | Fútbol, jornada abierta: datos parciales + etiqueta "PROVISIONAL" |
 | Llega el definitivo | Fundido de 400 ms; desaparecen chip y etiqueta |
 
 ## Selector (`app/selectors/results.ts`)

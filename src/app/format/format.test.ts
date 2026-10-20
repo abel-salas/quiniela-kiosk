@@ -10,6 +10,7 @@ import {
   formatTime,
   formatWeekdayName,
 } from './format';
+import { formatDrawDate } from './format';
 
 describe('formatBall', () => {
   it('pads values to two digits', () => {
@@ -19,7 +20,8 @@ describe('formatBall', () => {
 
 describe('date formatting', () => {
   it('formats line and header dates in Spanish', () => {
-    expect(formatLineDate('2026-10-19')).toBe('lun 19/10');
+    expect(formatLineDate('2026-10-19')).toBe('lunes 19/10');
+    expect(formatLineDate('2026-10-14')).toBe('miércoles 14/10');
     expect(formatHeaderDate('2026-10-19')).toBe('lun - 19/10/2026');
   });
 
@@ -65,5 +67,12 @@ describe('formatCountdown', () => {
     expect(formatCountdown(from, from)).toBeNull();
     expect(formatCountdown(new Date(from.getTime() + 1), from)).toBeNull();
     expect(formatCountdown(from, new Date(from.getTime() + 30_000))).toBe('1m');
+  });
+});
+
+describe('formatDrawDate', () => {
+  it('formats the draw day and, when known, its time', () => {
+    expect(formatDrawDate('2026-10-25', null)).toBe('dom 25/10');
+    expect(formatDrawDate('2026-10-25', '2026-10-25T21:30:00')).toBe('dom 25/10 · 21:30');
   });
 });

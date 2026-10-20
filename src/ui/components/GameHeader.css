@@ -5,13 +5,13 @@
   min-height: 44px;
   padding: 4px 16px;
   color: var(--color-on-brand);
-  font-size: 22px;
+  font-size: 24px;
   font-weight: var(--font-bold);
 }
 
 .game-header__logo {
-  width: 44px;
-  height: 34px;
+  width: 46px;
+  height: 36px;
   object-fit: contain;
 }
 
@@ -21,7 +21,7 @@
 
 .game-header__date {
   margin-left: auto;
-  font-size: 20px;
+  font-size: 21px;
   font-weight: var(--font-semibold);
 }
 
@@ -29,7 +29,7 @@
   padding: 4px 10px;
   border-radius: 999px;
   background: var(--color-card);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: var(--font-bold);
   letter-spacing: 0.04em;
   white-space: nowrap;

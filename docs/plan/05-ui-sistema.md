@@ -91,7 +91,7 @@ Reciben view models ya formateados; no formatean ni calculan.
 
 Funciones puras con tests, usadas por los selectores:
 - `formatBall(4)` → `"04"` (dos cifras).
-- `formatLineDate('2026-10-19')` → `"lun 19/10"`.
+- `formatLineDate('2026-10-19')` → `"lunes 19/10"` (día completo, como `dia_semana` de SELAE).
 - `formatHeaderDate('2026-10-19')` → `"lun - 19/10/2026"`.
 - `formatJoker('2240325')` → `"2 240 325"` (grupos de 3 desde la derecha, separados por espacio).
 - `formatAmount(1400000)` → `"1.400.000 €"`.

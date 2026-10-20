@@ -54,7 +54,7 @@ stateDiagram-v2
   provisional --> upToDate: llega resultado definitivo
 ```
 
-- `expectedAt` = `next.drawAt ?? next.date + game.resultsFromTime`. En fútbol (`resultsFromTime: null`): `next.salesCloseAt`, y si falta, las 00:00 de `next.date`.
+- `expectedAt` = `next.drawAt ?? next.date + game.resultsFromTime`. En fútbol (`resultsFromTime: null`): el instante más tardío entre `next.salesCloseAt` y las 00:00 de `next.date` (la jornada solo aparece en `buscadorSorteos`, como abierta, a partir de su fecha); si falta el cierre, las 00:00 de `next.date`. Así, entre el cierre de ventas y el día de la jornada el juego sigue `upToDate`.
 - **Definitivo**: números con `combinacion` completa; fútbol con `status: 'final'`.
 - **Provisional**: fútbol con `status: 'open'`.
 - Al pasar a definitivo, en la misma ronda se pide también `next` (nuevo bote y fecha). La tarjeta cambia con un fundido de 400 ms.

@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: minmax(0, 3fr) minmax(0, 2fr) 384px;
   grid-template-rows: minmax(0, 1fr) 48px;
-  gap: 12px;
+  gap: 12px 20px;
   width: var(--stage-width);
   height: var(--stage-height);
   padding: 12px 12px 0;
@@ -13,13 +13,10 @@
 .board-page__football {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 8px;
   min-height: 0;
   overflow: hidden;
-}
-
-.board-page__football {
-  gap: 12px;
 }
 
 .board-page__upcoming {

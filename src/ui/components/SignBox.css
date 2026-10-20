@@ -2,13 +2,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  min-height: 34px;
+  width: 60px;
+  min-height: 36px;
   padding: 2px 4px;
   border: 2px solid;
   border-radius: 4px;
   color: white;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: var(--font-bold);
   line-height: 1;
   white-space: nowrap;

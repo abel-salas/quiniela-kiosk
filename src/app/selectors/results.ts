@@ -35,12 +35,11 @@ const numbersCard = (gameId: ResultGameId, state: GameState): NumbersCardView =>
 
 const footballCard = (gameId: ResultGameId, state: GameState): FootballCardView => {
   const jornada = selectWeekDraws(state.draws).filter(isFootball)[0] ?? null;
-  const awaiting = state.phase === 'awaitingResult' ? AWAITING_BADGE : null;
   return {
     kind: 'football',
     gameId,
     header: headerOf(gameId, jornada ? `Jornada ${jornada.jornada}ª` : undefined),
-    badge: jornada?.status === 'open' ? PROVISIONAL_BADGE : awaiting,
+    badge: jornada?.status === 'open' ? PROVISIONAL_BADGE : null,
     emptyText: jornada ? null : PENDING_TEXT,
     contentKey: jornada ? `${jornada.drawId}-${jornada.status}` : 'empty',
     matches: jornada ? toMatchRows(jornada) : [],

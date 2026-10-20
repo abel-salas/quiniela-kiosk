@@ -17,7 +17,7 @@ describe('selectBoardView', () => {
 
   it('formats a Bonoloto line with padded balls and plain extras', () => {
     expect(numbers('BONO')?.lines[2]).toMatchObject({
-      dateText: 'mié 14/10',
+      dateText: 'miércoles 14/10',
       balls: ['08', '11', '21', '41', '47', '48'],
       color: '#7a8634',
       extras: [
@@ -62,6 +62,15 @@ describe('selectBoardView', () => {
     expect(result.numbers.find((item) => item.gameId === 'ELGR')).toMatchObject({ emptyText: PENDING_TEXT, lines: [], contentKey: 'empty' });
     expect(result.numbers.find((item) => item.gameId === 'BONO')?.badge).toBe(AWAITING_BADGE);
     expect(card('BONO')?.badge).toBeNull();
+  });
+
+  it('never shows the awaiting chip on football cards', () => {
+    const finalLaqu = fixtureSnapshot().results.LAQU.draws.map((draw) =>
+      draw.kind === 'football' ? { ...draw, status: 'final' as const } : draw);
+    const awaiting = withGame(fixtureSnapshot(), 'LAQU', { phase: 'awaitingResult', draws: finalLaqu });
+    expect(selectBoardView(awaiting, NOW).football[0]).toMatchObject({ badge: null, emptyText: null });
+    const open = withGame(fixtureSnapshot(), 'LAQU', { phase: 'awaitingResult' });
+    expect(selectBoardView(open, NOW).football[0].badge).toBe(PROVISIONAL_BADGE);
   });
 
   it('changes the content key when a new result arrives', () => {

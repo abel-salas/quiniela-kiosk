@@ -70,6 +70,7 @@ export interface UpcomingTileView {
   color: string;
   amount: string | null;
   note?: string;
+  /** Top-right text: countdown to the close of sales or, without `salesCloseAt`, the draw date. */
   countdown: string | null;
 }
 

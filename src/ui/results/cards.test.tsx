@@ -20,7 +20,7 @@ describe('NumbersCard', () => {
     const html = renderToStaticMarkup(<NumbersCard card={numbers('BONO')} />);
     expect(count(html, 'class="draw-line"')).toBe(3);
     expect(html).toContain('Bonoloto');
-    expect(html).toContain('mié 14/10');
+    expect(html).toContain('miércoles 14/10');
     expect(html).not.toContain('result-card__empty');
   });
 

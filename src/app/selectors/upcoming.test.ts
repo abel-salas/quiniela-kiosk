@@ -6,6 +6,7 @@ import { selectUpcomingTiles } from './upcoming';
 const upcoming = mapUpcoming(todosFixture);
 const NOON = new Date(2026, 9, 20, 12, 0);
 const EVENING = new Date(2026, 9, 20, 19, 0);
+const NIGHT = new Date(2026, 9, 20, 23, 0);
 
 const byName = (now: Date) => new Map(selectUpcomingTiles(upcoming, now).map((tile) => [tile.name, tile]));
 
@@ -37,7 +38,22 @@ describe('selectUpcomingTiles', () => {
     const tiles = byName(EVENING);
     // Real elapsed time: the clocks go back one hour on 2026-10-25.
     expect(tiles.get('Lototurf')).toMatchObject({ amount: null, countdown: '4d 16h 45m' });
-    expect(tiles.get('Quíntuple Plus')).toMatchObject({ amount: null, countdown: null });
+    expect(tiles.get('Quíntuple Plus')).toMatchObject({ amount: null, countdown: 'dom 25/10' });
+  });
+
+  it('draws not yet on sale show the draw date instead of a countdown', () => {
+    const tiles = byName(NIGHT);
+    expect(tiles.get('La Quiniela')).toMatchObject({ key: 'LAQU-2026-10-25', amount: null, countdown: 'dom 25/10' });
+    expect(tiles.get('El Quinigol')).toMatchObject({ key: 'QGOL-2026-10-25', amount: null, countdown: 'dom 25/10' });
+    expect(tiles.get('Quíntuple Plus')).toMatchObject({ key: 'QUPL-2026-10-25', amount: null, countdown: 'dom 25/10' });
+    expect(tiles.get('Euromillones')?.countdown).toBe('2d 21h 30m');
+  });
+
+  it('adds the draw time to the date when drawAt is known', () => {
+    const timed = upcoming.map((draw) =>
+      draw.gameId === 'LAQU' && draw.date === '2026-10-25' ? { ...draw, drawAt: '2026-10-25T21:30:00' } : draw);
+    const tile = selectUpcomingTiles(timed, NIGHT).find((item) => item.name === 'La Quiniela');
+    expect(tile?.countdown).toBe('dom 25/10 · 21:30');
   });
 
   it('counts down to the close of sales', () => {

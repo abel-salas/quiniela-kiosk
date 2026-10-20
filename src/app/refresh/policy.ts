@@ -29,12 +29,16 @@ const IDLE_MAX_MIN = 6 * 60;
 
 /**
  * When the result of `next` may be available: provider draw time, else the game's results time,
- * else (football) sales close, else midnight of the draw date.
+ * else (football) the later of sales close and midnight of the draw date, since the jornada only
+ * shows up in the results as open from its date on.
  */
 export const expectedResultAt = (game: GameInfo, next: NextDraw): Date | null => {
   if (next.drawAt) return parseLocalIso(next.drawAt);
   if (game.resultsFromTime) return atLocalTime(next.date, game.resultsFromTime);
-  return (next.salesCloseAt ? parseLocalIso(next.salesCloseAt) : null) ?? parseLocalIso(next.date);
+  const midnight = parseLocalIso(next.date);
+  const salesClose = next.salesCloseAt ? parseLocalIso(next.salesCloseAt) : null;
+  if (!midnight || !salesClose) return midnight ?? salesClose;
+  return salesClose > midnight ? salesClose : midnight;
 };
 
 const isDefinitive = (draw: Draw): boolean => draw.kind === 'numbers' || draw.status === 'final';

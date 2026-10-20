@@ -15,16 +15,21 @@
   animation: result-card-fade var(--fade-duration) ease-out;
 }
 
+/* Air between the header and the first match (La Quiniela must still fit 15 rows + "Pleno al 15"). */
+.result-card--football .result-card__body {
+  padding-top: 6px;
+}
+
 .result-card__empty {
   margin: 0;
-  padding: 16px 20px;
-  font-size: 18px;
+  padding: 18px 22px;
+  font-size: 20px;
   font-weight: var(--font-semibold);
 }
 
 .result-card__pleno {
   padding: 4px 10px 0 66px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: var(--font-bold);
   text-transform: uppercase;
 }

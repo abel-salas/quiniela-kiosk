@@ -35,16 +35,19 @@ Estrategia: el código actual (`src/services`, `src/components`, `src/hooks`, `s
 
 **T08 ✅ · Próximos y despachador** — `mappers/next-draw.ts` y `mappers/results.ts`. Hecho cuando pasan todos los casos de la tabla "Tests obligatorios".
 
-**T09 · Cliente y repositorio SELAE** — `data/http/fetch-json.ts`, `endpoints.ts`, `selae-repository.ts`. Tests con `fetch` simulado (200, 403, timeout, cuerpo string).
+**T09 ✅ · Cliente y repositorio SELAE** — `data/http/fetch-json.ts`, `endpoints.ts`, `selae-repository.ts`. Tests con `fetch` simulado (200, 403, timeout, cuerpo string).
 
-**T10 · Repositorio de fixtures SELAE** — `fixture-repository.ts` con los JSON de `__fixtures__` y los mismos mappers.
+**T10 ✅ · Repositorio de fixtures SELAE** — `fixture-repository.ts` con los JSON de `__fixtures__` y los mismos mappers.
 
 ## Fase 3: Sanity
 
-**T11 · Esquemas** — [07-sanity.md](07-sanity.md) § Esquemas y Configuración. Reescribir `sanity/schemas/` (`lotteryDraw`, `kioskSettings`, `slide`), `sanity.config.ts` sin `basePath` y con documento único, `sanity.cli.ts` con `studioHost`, `.env.example`.
+**T11 ✅ · Esquemas** — [07-sanity.md](07-sanity.md) § Esquemas y Configuración. Reescribir `sanity/schemas/` (`lotteryDraw`, `kioskSettings`, `slide`), `sanity.config.ts` sin `basePath` y con documento único, `sanity.cli.ts` con `studioHost`, `.env.example`.
 - Después, una persona ejecuta `npx sanity deploy` y añade los CORS origins.
 
-**T12 · Datos Sanity** — `src/data/sanity/`: cliente, consultas, mapper, fixtures a mano, `createSanityRepository()` y `createSanityFixtureRepository()` (ambos `ManualRepository`). Tests del mapper.
+**T11b ✅ · React 19** — `sanity` 4 espera React 19 y avisa al compilar el Studio. Actualizar `react`, `react-dom`, `@types/react` y `@types/react-dom` a la 19 y comprobar que `react-router-dom` y `@sanity/client` siguen siendo compatibles. Añadir `styled-components` como `devDependency` (dependencia peer del Studio; la app no la importa).
+- Hecho cuando: `npx sanity build` no muestra avisos de versiones, la app (`/`, `/quini`, `/slide`) se ve igual que antes y pasan `typecheck`, `test` y `build`.
+
+**T12 ✅ · Datos Sanity** — `src/data/sanity/`: cliente, consultas, mapper, fixtures a mano, `createSanityRepository()` y `createSanityFixtureRepository()` (ambos `ManualRepository`). Tests del mapper.
 
 ## Fase 4: Aplicación
 

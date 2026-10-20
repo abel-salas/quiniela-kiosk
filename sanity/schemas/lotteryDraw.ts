@@ -1,172 +1,103 @@
-export default {
+import { defineArrayMember, defineField, defineType } from 'sanity';
+import { exactLengthFor, hiddenUnless, requiredFor, RESULT_GAME_OPTIONS } from './game-fields';
+import { matchesField } from './matches-field';
+
+export const lotteryDraw = defineType({
   name: 'lotteryDraw',
-  title: 'Sorteo de Lotería',
+  title: 'Sorteo',
   type: 'document',
   fields: [
-    {
+    defineField({
       name: 'game',
       title: 'Juego',
       type: 'string',
-      options: {
-        list: [
-          { title: 'Bonoloto', value: 'BONO' },
-          { title: 'El Gordo de la Primitiva', value: 'ELGR' },
-          { title: 'La Primitiva', value: 'LAPR' },
-          { title: 'Euromillones', value: 'EMIL' },
-          { title: 'Lotería Nacional', value: 'LNAC' },
-          { title: 'La Quiniela', value: 'LAQU' },
-        ],
-      },
-      validation: (Rule) => Rule.required(),
-    },
-    {
+      options: { list: RESULT_GAME_OPTIONS },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'date',
       title: 'Fecha del sorteo',
       type: 'date',
-      validation: (Rule) => Rule.required(),
-    },
-    {
-      name: 'scheduledDate',
-      title: 'Fecha programada',
-      type: 'date',
-    },
-    {
-      name: 'status',
-      title: 'Estado',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Celebrado', value: 'celebrado' },
-          { title: 'Pendiente', value: 'pendiente' },
-        ],
-      },
-      initialValue: 'celebrado',
-    },
-    {
-      name: 'updatedAt',
-      title: 'Fecha de actualización',
-      type: 'datetime',
-      initialValue: () => new Date().toISOString(),
-    },
-    {
-      name: 'combinacion',
-      title: 'Combinación',
-      type: 'string',
-    },
-    {
-      name: 'combinacionActa',
-      title: 'Combinación Acta',
-      type: 'string',
-    },
-    // Campos para juegos de números (BONO, LAPR)
-    {
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'numbers',
       title: 'Números',
       type: 'array',
-      of: [{ type: 'number' }],
-      hidden: ({ document }) => document?.game !== 'BONO' && document?.game !== 'LAPR',
-    },
-    {
+      of: [defineArrayMember({ type: 'number', validation: (rule) => rule.integer() })],
+      hidden: hiddenUnless(['BONO', 'LAPR', 'EDMS', 'ELGR', 'EMIL']),
+      validation: (rule) =>
+        rule.custom(exactLengthFor({ BONO: 6, LAPR: 6, EDMS: 6, ELGR: 5, EMIL: 5 })),
+    }),
+    defineField({
       name: 'complementario',
       title: 'Complementario',
       type: 'number',
-      hidden: ({ document }) => document?.game !== 'BONO' && document?.game !== 'LAPR',
-    },
-    {
+      hidden: hiddenUnless(['BONO', 'LAPR']),
+      validation: (rule) => rule.integer(),
+    }),
+    defineField({
       name: 'reintegro',
       title: 'Reintegro',
       type: 'number',
-      hidden: ({ document }) => document?.game !== 'BONO' && document?.game !== 'LAPR' && document?.game !== 'ELGR',
-    },
-    {
+      hidden: hiddenUnless(['BONO', 'LAPR']),
+      validation: (rule) => rule.integer().min(0).max(9),
+    }),
+    defineField({
       name: 'joker',
       title: 'Joker',
       type: 'string',
-      hidden: ({ document }) => document?.game !== 'LAPR',
-    },
-    // Campos para Euromillones
-    {
-      name: 'stars',
+      hidden: hiddenUnless(['LAPR']),
+      validation: (rule) => rule.regex(/^\d{7}$/, { name: '7 dígitos' }),
+    }),
+    defineField({
+      name: 'clave',
+      title: 'Número clave',
+      type: 'number',
+      hidden: hiddenUnless(['ELGR']),
+      validation: (rule) => rule.integer().min(0).max(9),
+    }),
+    defineField({
+      name: 'estrellas',
       title: 'Estrellas',
       type: 'array',
-      of: [{ type: 'number' }],
-      hidden: ({ document }) => document?.game !== 'EMIL',
-    },
-    // Campos para El Gordo
-    {
-      name: 'clave',
-      title: 'Clave',
+      of: [defineArrayMember({ type: 'number', validation: (rule) => rule.integer() })],
+      hidden: hiddenUnless(['EMIL']),
+      validation: (rule) => rule.custom(exactLengthFor({ EMIL: 2 })),
+    }),
+    defineField({
+      name: 'millon',
+      title: 'El Millón',
       type: 'string',
-      hidden: ({ document }) => document?.game !== 'ELGR',
-    },
-    // Campos para Lotería Nacional
-    {
-      name: 'primerPremio',
-      title: 'Primer Premio',
-      type: 'string',
-      hidden: ({ document }) => document?.game !== 'LNAC',
-    },
-    {
-      name: 'segundoPremio',
-      title: 'Segundo Premio',
-      type: 'string',
-      hidden: ({ document }) => document?.game !== 'LNAC',
-    },
-    {
-      name: 'reintegros',
-      title: 'Reintegros',
-      type: 'array',
-      of: [{ type: 'string' }],
-      hidden: ({ document }) => document?.game !== 'LNAC',
-    },
-    // Campos para La Quiniela
-    {
+      hidden: hiddenUnless(['EMIL']),
+    }),
+    defineField({
+      name: 'sueno',
+      title: 'Número sueño',
+      type: 'number',
+      hidden: hiddenUnless(['EDMS']),
+      validation: (rule) => rule.integer(),
+    }),
+    defineField({
       name: 'jornada',
       title: 'Jornada',
       type: 'number',
-      hidden: ({ document }) => document?.game !== 'LAQU',
-    },
-    {
-      name: 'fecha',
-      title: 'Fecha (Quiniela)',
-      type: 'date',
-      hidden: ({ document }) => document?.game !== 'LAQU',
-    },
-    {
-      name: 'fecha_completa',
-      title: 'Fecha completa',
-      type: 'datetime',
-      hidden: ({ document }) => document?.game !== 'LAQU',
-    },
-    {
-      name: 'signs',
-      title: 'Signos',
-      type: 'array',
-      of: [{ type: 'string' }],
-      hidden: ({ document }) => document?.game !== 'LAQU',
-    },
-    {
-      name: 'matches',
-      title: 'Partidos',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'local', title: 'Local', type: 'string' },
-            { name: 'visitor', title: 'Visitante', type: 'string' },
-            { name: 'result', title: 'Resultado', type: 'string' },
-            { name: 'fecha_completa', title: 'Fecha completa', type: 'datetime' },
-          ],
-        },
-      ],
-      hidden: ({ document }) => document?.game !== 'LAQU',
-    },
-    {
-      name: 'plenoAl15',
-      title: 'Pleno al 15',
-      type: 'string',
-      hidden: ({ document }) => document?.game !== 'LAQU',
-    },
+      hidden: hiddenUnless(['LAQU', 'QGOL']),
+      validation: (rule) => rule.integer().custom(requiredFor(['LAQU', 'QGOL'])),
+    }),
+    defineField({
+      name: 'finalizada',
+      title: 'Jornada finalizada',
+      type: 'boolean',
+      initialValue: false,
+      hidden: hiddenUnless(['LAQU', 'QGOL']),
+    }),
+    matchesField,
   ],
-};
+  preview: {
+    select: { game: 'game', date: 'date' },
+    prepare: ({ game, date }: { game?: string; date?: string }) => ({
+      title: `${game ?? '—'} · ${date ?? '—'}`,
+    }),
+  },
+});

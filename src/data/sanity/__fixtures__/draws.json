@@ -1,0 +1,270 @@
+[
+  {
+    "_id": "draw-bono-2026-10-14",
+    "_type": "lotteryDraw",
+    "game": "BONO",
+    "date": "2026-10-14",
+    "numbers": [
+      8,
+      11,
+      21,
+      41,
+      47,
+      48
+    ],
+    "complementario": 34,
+    "reintegro": 4
+  },
+  {
+    "_id": "draw-edms-2026-10-12",
+    "_type": "lotteryDraw",
+    "game": "EDMS",
+    "date": "2026-10-12",
+    "numbers": [
+      3,
+      4,
+      6,
+      19,
+      30,
+      36
+    ],
+    "sueno": 2
+  },
+  {
+    "_id": "draw-elgr-2026-10-11",
+    "_type": "lotteryDraw",
+    "game": "ELGR",
+    "date": "2026-10-11",
+    "numbers": [
+      5,
+      27,
+      43,
+      49,
+      52
+    ],
+    "clave": 4
+  },
+  {
+    "_id": "draw-lapr-2026-10-12",
+    "_type": "lotteryDraw",
+    "game": "LAPR",
+    "date": "2026-10-12",
+    "numbers": [
+      2,
+      5,
+      26,
+      40,
+      42,
+      45
+    ],
+    "complementario": 23,
+    "reintegro": 9,
+    "joker": "4781884"
+  },
+  {
+    "_id": "draw-emil-2026-10-13",
+    "_type": "lotteryDraw",
+    "game": "EMIL",
+    "date": "2026-10-13",
+    "numbers": [
+      21,
+      23,
+      39,
+      44,
+      49
+    ],
+    "estrellas": [
+      4,
+      11
+    ],
+    "millon": "GRF94523"
+  },
+  {
+    "_id": "draw-laqu-j12",
+    "_type": "lotteryDraw",
+    "game": "LAQU",
+    "date": "2026-10-11",
+    "jornada": 12,
+    "finalizada": true,
+    "matches": [
+      {
+        "_key": "m1",
+        "home": "Rayo Vallecano (M)",
+        "away": "Athletic Club (M)",
+        "kickoff": "2026-10-10T12:00:00.000Z",
+        "score": "0-0",
+        "sign": "X"
+      },
+      {
+        "_key": "m2",
+        "home": "Alavés (M)",
+        "away": "At. Madrid (M)",
+        "kickoff": "2026-10-10T14:15:00.000Z",
+        "score": "1-2",
+        "sign": "2"
+      },
+      {
+        "_key": "m3",
+        "home": "Barcelona (M)",
+        "away": "Getafe (M)",
+        "kickoff": "2026-10-10T16:30:00.000Z",
+        "score": "3-0",
+        "sign": "1"
+      },
+      {
+        "_key": "m4",
+        "home": "Elche (M)",
+        "away": "Celta (M)",
+        "kickoff": "2026-10-11T12:00:00.000Z",
+        "score": "0-0",
+        "sign": "X"
+      },
+      {
+        "_key": "m5",
+        "home": "Real Sociedad (M)",
+        "away": "Deportivo (M)",
+        "kickoff": "2026-10-11T14:15:00.000Z",
+        "score": "3-2",
+        "sign": "1"
+      },
+      {
+        "_key": "m6",
+        "home": "Betis (M)",
+        "away": "Osasuna (M)",
+        "kickoff": "2026-10-11T16:30:00.000Z",
+        "score": "5-2",
+        "sign": "1"
+      },
+      {
+        "_key": "m7",
+        "home": "Racing Santander (M)",
+        "away": "Valencia (M)",
+        "kickoff": "2026-10-11T19:00:00.000Z",
+        "score": "2-2",
+        "sign": "X"
+      },
+      {
+        "_key": "m8",
+        "home": "Levante (M)",
+        "away": "Sevilla (M)",
+        "kickoff": "2026-10-12T19:00:00.000Z",
+        "score": "3-3",
+        "sign": "X"
+      },
+      {
+        "_key": "m9",
+        "home": "Eldense (M)",
+        "away": "Córdoba (M)",
+        "kickoff": "2026-10-10T16:30:00.000Z",
+        "score": "2-1",
+        "sign": "1"
+      },
+      {
+        "_key": "m10",
+        "home": "Andorra (M)",
+        "away": "Castellón (M)",
+        "kickoff": "2026-10-11T12:00:00.000Z",
+        "score": "1-0",
+        "sign": "1"
+      },
+      {
+        "_key": "m11",
+        "home": "Almería (M)",
+        "away": "Leganés (M)",
+        "kickoff": "2026-10-11T14:15:00.000Z",
+        "score": "3-0",
+        "sign": "1"
+      },
+      {
+        "_key": "m12",
+        "home": "Mallorca (M)",
+        "away": "Las Palmas (M)",
+        "kickoff": "2026-10-11T16:30:00.000Z",
+        "score": "3-1",
+        "sign": "1"
+      },
+      {
+        "_key": "m13",
+        "home": "Burgos (M)",
+        "away": "Granada (M)",
+        "kickoff": "2026-10-12T14:15:00.000Z",
+        "score": "0-1",
+        "sign": "2"
+      },
+      {
+        "_key": "m14",
+        "home": "R. Oviedo (M)",
+        "away": "Eibar (M)",
+        "kickoff": "2026-10-12T16:30:00.000Z",
+        "score": "3-1",
+        "sign": "1"
+      },
+      {
+        "_key": "m15",
+        "home": "Real Madrid (M)",
+        "away": "Villarreal (M)",
+        "kickoff": "2026-10-10T19:00:00.000Z",
+        "score": "1-0",
+        "sign": "1-0"
+      }
+    ]
+  },
+  {
+    "_id": "draw-qgol-j13",
+    "_type": "lotteryDraw",
+    "game": "QGOL",
+    "date": "2026-10-11",
+    "jornada": 13,
+    "finalizada": true,
+    "matches": [
+      {
+        "_key": "m1",
+        "home": "Rayo Vallecano",
+        "away": "Athletic Club",
+        "kickoff": "2026-10-10T12:00:00.000Z",
+        "score": "0-0",
+        "sign": "0-0"
+      },
+      {
+        "_key": "m2",
+        "home": "Alavés",
+        "away": "At. Madrid",
+        "kickoff": "2026-10-10T14:15:00.000Z",
+        "score": "1-2",
+        "sign": "1-2"
+      },
+      {
+        "_key": "m3",
+        "home": "Barcelona",
+        "away": "Getafe",
+        "kickoff": "2026-10-10T16:30:00.000Z",
+        "score": "3-0",
+        "sign": "M-0"
+      },
+      {
+        "_key": "m4",
+        "home": "Real Sociedad",
+        "away": "Deportivo",
+        "kickoff": "2026-10-11T14:15:00.000Z",
+        "score": "3-2",
+        "sign": "M-2"
+      },
+      {
+        "_key": "m5",
+        "home": "Betis",
+        "away": "Osasuna",
+        "kickoff": "2026-10-11T16:30:00.000Z",
+        "score": "5-2",
+        "sign": "M-2"
+      },
+      {
+        "_key": "m6",
+        "home": "Real Madrid",
+        "away": "Villarreal",
+        "kickoff": "2026-11-10T20:00:00.000Z",
+        "score": "1-0",
+        "sign": "1-0"
+      }
+    ]
+  }
+]

@@ -1,6 +1,7 @@
-import lotteryDrawSchema from './lotteryDraw';
-import slideSchema from './slide';
+import { kioskSettings } from './kioskSettings';
+import { lotteryDraw } from './lotteryDraw';
+import { slide } from './slide';
 
-export const schema = {
-  types: [lotteryDrawSchema, slideSchema],
-};
+export { KIOSK_SETTINGS_ID } from './kioskSettings';
+
+export const schemaTypes = [lotteryDraw, kioskSettings, slide];

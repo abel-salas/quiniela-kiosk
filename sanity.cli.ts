@@ -5,4 +5,5 @@ export default defineCliConfig({
     projectId: 'lkywbgau',
     dataset: 'production',
   },
+  studioHost: 'quini',
 });

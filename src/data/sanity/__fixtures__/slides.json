@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "slide-1",
+    "title": "Promoción 1",
+    "order": 1,
+    "imageUrl": "/favicon.svg"
+  },
+  {
+    "_id": "slide-2",
+    "title": null,
+    "order": 2,
+    "imageUrl": "/favicon.svg"
+  }
+]

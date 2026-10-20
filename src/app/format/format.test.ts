@@ -5,7 +5,10 @@ import {
   formatCountdown,
   formatHeaderDate,
   formatJoker,
+  formatKickoff,
   formatLineDate,
+  formatTime,
+  formatWeekdayName,
 } from './format';
 
 describe('formatBall', () => {
@@ -28,6 +31,15 @@ describe('date formatting', () => {
 describe('formatJoker', () => {
   it('groups digits by thousands from the right', () => {
     expect(formatJoker('2240325')).toBe('2 240 325');
+  });
+});
+
+describe('weekday and time formatting', () => {
+  it('formats the full weekday name, the kickoff and the time of day', () => {
+    expect(formatWeekdayName('2026-10-22')).toBe('jueves');
+    expect(formatWeekdayName('2026-10-24')).toBe('sábado');
+    expect(formatKickoff('2026-10-17T18:30:00')).toBe('sáb 18:30');
+    expect(formatTime('2026-10-14T21:45:10')).toBe('21:45');
   });
 });
 

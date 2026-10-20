@@ -81,7 +81,7 @@ Referencia: `docs/referencia/proximos-sorteos.png` (solo en local).
   3. `nacionalFirstPrize` no nulo.
   Si ninguno cumple, la fila va **sin importe** (solo nombre y cuenta atrás), igual que en SELAE.
 - EuroDreams: primer sorteo con `salesOpen`; importe `jackpot` si no es nulo, si no `upcomingDefaultAmount` (20.000). Siempre con la nota "al mes durante 30 años".
-- LNAC: nota con el día del sorteo ("sábado") y la etiqueta de SELAE: `1er premio a la serie` o `Premio especial al décimo`.
+- LNAC: nota con el día del sorteo ("sábado") y la etiqueta de SELAE: `1er premio a la serie` o `Premio especial al décimo`. Formato: `jueves · 1er premio a la serie`.
 - Tests con `TODOS.next.json` y `now = 2026-10-20T12:00`:
   - La Quiniela: jornada 15 sin bote y jornada 16 con `salesOpen: false` → sin importe.
   - Quinigol: `120.000 €`. Lotería Nacional: `300.000 €` (jueves).

@@ -67,7 +67,7 @@ Estrategia: el código actual (`src/services`, `src/components`, `src/hooks`, `s
 
 **T19 ✅ · Componentes base** — Los de la tabla de [05-ui-sistema.md](05-ui-sistema.md), un fichero por componente con su CSS al lado.
 
-**T20 · Selectores** — [06-ui-resultados.md](06-ui-resultados.md). `app/selectors/` con `selectWeekDraws` (pila de 7 días) y `selectBoardView`. Tests.
+**T20 ✅ · Selectores** — [06-ui-resultados.md](06-ui-resultados.md). `app/selectors/` con `selectWeekDraws` (pila de 7 días) y `selectBoardView`. Tests.
 
 **T21 · Tarjetas de resultados** — `ui/results/NumbersCard.tsx`, `QuinielaCard.tsx`, `QuinigolCard.tsx`.
 

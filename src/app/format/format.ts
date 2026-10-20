@@ -31,6 +31,19 @@ export const formatHeaderDate = (value: string): string => {
 export const formatJoker = (value: string): string =>
   value.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 
+const WEEKDAY_NAMES = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+
+/** `'2026-10-22'` → `"jueves"`. */
+export const formatWeekdayName = (value: string): string =>
+  WEEKDAY_NAMES[parseCalendarDate(value).getUTCDay()];
+
+/** Local ISO instant `'2026-10-17T18:30:00'` → `"sáb 18:30"`. */
+export const formatKickoff = (value: string): string =>
+  `${WEEKDAYS[parseCalendarDate(value.slice(0, 10)).getUTCDay()]} ${value.slice(11, 16)}`;
+
+/** Local ISO instant `'2026-10-14T21:45:10'` → `"21:45"`. */
+export const formatTime = (value: string): string => value.slice(11, 16);
+
 export const formatAmount = (value: number): string => {
   if (!Number.isFinite(value)) throw new RangeError('Amount must be finite');
   return `${new Intl.NumberFormat('es-ES', { maximumFractionDigits: 2 }).format(value)} €`;

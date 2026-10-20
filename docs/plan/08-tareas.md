@@ -82,7 +82,7 @@ Estrategia: el código actual (`src/services`, `src/components`, `src/hooks`, `s
 
 ## Fase 7: Cierre
 
-**T25 · Borrar código antiguo** — Eliminar `src/services`, `src/components`, `src/hooks`, `src/pages`, `src/types`, `src/config`, `src/sanity`, `src/styles.css` y `VITE_USE_MOCK`, comprobando que nada los importa.
+**T25 ✅ · Borrar código antiguo** — Eliminar `src/services`, `src/components`, `src/hooks`, `src/pages`, `src/types`, `src/config`, `src/sanity`, `src/styles.css` y `VITE_USE_MOCK`, comprobando que nada los importa.
 
 **T26 · Documentación** — Reescribir `README.md` (rutas, Sanity, mock, despliegue, kiosko con extensión anti-CORS) y revisar `AGENTS.md`.
 

@@ -65,7 +65,7 @@ Estrategia: el código actual (`src/services`, `src/components`, `src/hooks`, `s
 
 **T18 ✅ · Tema, escenario y logos** — [05-ui-sistema.md](05-ui-sistema.md). `ui/theme/tokens.css` con los colores de la tabla, Public Sans con `@fontsource/public-sans`, `ui/stage/Stage.tsx`. Los logos ya están en `ui/assets/logos/`.
 
-**T19 · Componentes base** — Los de la tabla de [05-ui-sistema.md](05-ui-sistema.md), un fichero por componente con su CSS al lado.
+**T19 ✅ · Componentes base** — Los de la tabla de [05-ui-sistema.md](05-ui-sistema.md), un fichero por componente con su CSS al lado.
 
 **T20 · Selectores** — [06-ui-resultados.md](06-ui-resultados.md). `app/selectors/` con `selectWeekDraws` (pila de 7 días) y `selectBoardView`. Tests.
 

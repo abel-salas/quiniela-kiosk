@@ -1,0 +1,17 @@
+.ball {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  box-shadow: var(--shadow-ball);
+  font-size: 20px;
+  font-weight: var(--font-bold);
+  line-height: 1;
+}
+
+.ball--soft {
+  box-shadow: none;
+}

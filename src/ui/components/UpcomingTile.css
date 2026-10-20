@@ -1,0 +1,61 @@
+.upcoming-tile {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: stretch;
+  min-height: 96px;
+  background: var(--color-card);
+  box-shadow: var(--shadow-card);
+}
+
+.upcoming-tile__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.upcoming-tile__logo img {
+  max-width: 56px;
+  max-height: 54px;
+  object-fit: contain;
+}
+
+.upcoming-tile__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: 10px 14px;
+}
+
+.upcoming-tile__topline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.upcoming-tile__name {
+  overflow: hidden;
+  font-size: 18px;
+  font-weight: var(--font-bold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upcoming-tile__countdown {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: var(--font-semibold);
+}
+
+.upcoming-tile__amount {
+  margin-top: 4px;
+  font-size: 24px;
+  font-weight: var(--font-bold);
+}
+
+.upcoming-tile__note {
+  margin-top: 2px;
+  font-size: 13px;
+}

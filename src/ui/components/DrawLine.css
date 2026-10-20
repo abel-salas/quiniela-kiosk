@@ -1,0 +1,22 @@
+.draw-line {
+  display: grid;
+  grid-template-columns: 92px auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+  padding: 8px 12px;
+}
+
+.draw-line__date {
+  font-size: 16px;
+  font-weight: var(--font-semibold);
+  white-space: nowrap;
+}
+
+.draw-line__extras {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  min-width: 0;
+}

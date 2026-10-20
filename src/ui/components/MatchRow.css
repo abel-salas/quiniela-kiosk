@@ -1,0 +1,29 @@
+.match-row {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 104px 56px;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 6px 10px;
+  font-size: 18px;
+}
+
+.match-row__position {
+  text-align: right;
+  font-weight: var(--font-semibold);
+}
+
+.match-row__teams {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.match-row__detail {
+  text-align: center;
+  font-size: 16px;
+}
+
+.match-row--highlight {
+  font-weight: var(--font-bold);
+}

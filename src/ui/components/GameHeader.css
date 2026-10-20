@@ -1,0 +1,26 @@
+.game-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 64px;
+  padding: 8px 20px;
+  color: var(--color-on-brand);
+  font-size: 24px;
+  font-weight: var(--font-bold);
+}
+
+.game-header__logo {
+  width: 52px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.game-header__name {
+  min-width: 0;
+}
+
+.game-header__date {
+  margin-left: auto;
+  font-size: 20px;
+  font-weight: var(--font-semibold);
+}

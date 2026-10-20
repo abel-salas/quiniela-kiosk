@@ -1,0 +1,19 @@
+.sign-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  min-height: 44px;
+  padding: 4px;
+  border: 2px solid;
+  border-radius: 4px;
+  color: white;
+  font-size: 20px;
+  font-weight: var(--font-bold);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.sign-box--empty {
+  color: transparent;
+}

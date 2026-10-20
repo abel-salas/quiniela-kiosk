@@ -3,6 +3,7 @@ import { ProviderError } from '../../domain/repository';
 export interface FetchJsonOptions {
   timeoutMs?: number;
   fetcher?: typeof fetch;
+  useProxy?: boolean;
 }
 
 /** Akamai blocks intermittently with 403 and, at times, 406. */
@@ -10,6 +11,19 @@ const BLOCKED_STATUSES = new Set([403, 406]);
 
 const errorMessage = (error: unknown): string =>
   error instanceof Error ? error.message : String(error);
+
+/** Detect if running in production (Vercel) to use proxy */
+const isProduction = () => {
+  // In production build (Vercel), use proxy
+  // In development, direct requests to SELAE
+  return import.meta.env.PROD;
+};
+
+/** Build proxy URL for production */
+const getProxyUrl = (targetUrl: string): string => {
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+  return `${baseUrl}/api/proxy?url=${encodeURIComponent(targetUrl)}`;
+};
 
 export const fetchJson = async (
   url: string,
@@ -24,10 +38,14 @@ export const fetchJson = async (
   const fetcher = options.fetcher ?? globalThis.fetch;
   let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
+  // Determine if we should use the proxy
+  const useProxy = options.useProxy ?? isProduction();
+  const targetUrl = useProxy ? getProxyUrl(url) : url;
+
   const request = (async (): Promise<unknown> => {
     let response: Response;
     try {
-      response = await fetcher(url, {
+      response = await fetcher(targetUrl, {
         headers: {
           Accept: 'application/json',
           'Accept-Language': 'es-ES,es;q=0.9',

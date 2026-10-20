@@ -22,7 +22,8 @@ Si algo de este fichero contradice `docs/`, manda `docs/`.
 
 ## Reglas obligatorias
 
-- Fuentes: SELAE (`buscadorSorteos`, `proximosv3`) como principal y Sanity (en la nube) como respaldo manual y origen de las imágenes de `/slide`. Sin proxy ni widgets de terceros.
+- Fuentes: SELAE (`buscadorSorteos`, `proximosv3`) como principal con proxy en Vercel (`api/proxy.ts`). Sanity (en la nube) solo para ruta `/quini` (manual) y origen de las imágenes de `/slide`. Sin fallback a Sanity cuando SELAE falla.
+- **Proxy en Vercel**: En producción (`import.meta.env.PROD`), las peticiones a SELAE pasan por `/api/proxy?url=...` para evitar errores 406/403 de Akamai. En desarrollo, peticiones directas a SELAE.
 - SELAE solo se conoce en `src/data/selae/` y Sanity solo en `src/data/sanity/`. Cada petición tiene su mapper `unknown → dominio` con tests contra fixtures.
 - La UI solo consume view models de `src/app/selectors/`; nunca datos crudos del proveedor ni `src/data/`.
 - No inventar campos: si no aparece en los fixtures reales, no existe.
@@ -30,6 +31,29 @@ Si algo de este fichero contradice `docs/`, manda `docs/`.
 - No derivar ventanas de consulta de días de la semana fijos; el refresco se guía por `proximosv3`.
 - Ficheros de código de 150 líneas o menos (máximo 200). Prohibido `any`.
 - Al terminar: `npm run typecheck`, `npm test` y `npm run build` deben pasar.
+
+## Arquitectura de fuentes de datos
+
+### Ruta `/` (auto)
+- SELAE con proxy en Vercel
+- Sin fallback a Sanity
+- Si SELAE falla, se mantiene el último dato disponible y se reporta el error
+
+### Ruta `/quini` (manualOnly)
+- Resultados exclusivamente de Sanity
+- Próximos sorteos desde SELAE (con proxy)
+- Si Sanity no está configurado, no se muestra nada
+
+### Ruta `/slide`
+- Imágenes desde Sanity
+- Próximos sorteos desde SELAE (con proxy)
+
+## Pendientes de Sanity
+
+- **Deploy de schemas**: `npx sanity deploy` requiere Node.js >=22.12 (actual v22.11.0)
+  - Solución: actualizar Node.js o hacer el deploy manual desde Sanity dashboard
+  - Schemas locales están en `sanity/schemas/` y listos para deploy
+- **CORS en Sanity**: Si se usa la ruta `/quini` en producción, configurar CORS en Sanity dashboard para permitir el dominio de Vercel
 
 ## Tests
 

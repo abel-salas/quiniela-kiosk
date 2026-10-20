@@ -12,7 +12,7 @@ import type { DateWindow } from './window';
 
 export interface SourceDeps {
   selae: ResultsRepository;
-  manual: ManualRepository;
+  manual?: ManualRepository; // Optional: only needed for forced mode (/quini route)
   retryDelaysMs?: readonly number[];
   wait?: Sleep;
 }
@@ -35,6 +35,7 @@ const errorKind = (error: unknown): ProviderErrorKind =>
   error instanceof ProviderError ? error.kind : 'network';
 
 const readManual = async (deps: SourceDeps, input: ResolveDrawsInput): Promise<Draw[] | null> => {
+  if (!deps.manual) return null;
   try {
     return await deps.manual.getRecentDraws(input.gameId, input.window.from, input.window.to);
   } catch {
@@ -43,8 +44,9 @@ const readManual = async (deps: SourceDeps, input: ResolveDrawsInput): Promise<D
 };
 
 /**
- * One round for one game: forced → Sanity only; otherwise SELAE with retries and, if every
- * attempt fails, Sanity. Results are merged by date with what is already in memory.
+ * One round for one game: forced → Sanity only (for /quini route); otherwise SELAE with retries.
+ * With the proxy, SELAE should always work, so no fallback to Sanity is needed.
+ * Results are merged by date with what is already in memory.
  */
 export const resolveDraws = async (deps: SourceDeps, input: ResolveDrawsInput): Promise<ResolveDrawsResult> => {
   const { gameId, window, forced, current } = input;
@@ -62,16 +64,18 @@ export const resolveDraws = async (deps: SourceDeps, input: ResolveDrawsInput): 
     );
     return { draws: mergeByDate(current, selae, 'selae'), selaeError: null };
   } catch (error) {
-    const manual = await readManual(deps, input);
-    return { draws: manual ? mergeByDate(current, manual, 'selae') : current, selaeError: errorKind(error) };
+    // No fallback to Sanity: with the proxy, SELAE should work.
+    // If it fails, we keep the current data and report the error.
+    return { draws: current, selaeError: errorKind(error) };
   }
 };
 
-/** Reads the forced games; keeps the previous list if Sanity fails. */
+/** Reads the forced games; keeps the previous list if Sanity fails or manual repo is not provided. */
 export const resolveForcedGames = async (
-  manual: ManualRepository,
+  manual: ManualRepository | undefined,
   previous: ResultGameId[],
 ): Promise<ResultGameId[]> => {
+  if (!manual) return previous;
   try {
     return await manual.getForcedGames();
   } catch {

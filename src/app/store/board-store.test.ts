@@ -66,7 +66,7 @@ describe('createBoardStore', () => {
     store.stop();
   });
 
-  it('falls back to Sanity after the retries and counts the error', async () => {
+  it('keeps current data when SELAE fails and counts the error (no fallback to Sanity)', async () => {
     const selae = spySelae(['BONO']);
     const { store } = setup({ selae });
     store.start();
@@ -75,7 +75,7 @@ describe('createBoardStore', () => {
     const bono = store.getSnapshot().results.BONO;
     expect(selae.getRecentDraws.mock.calls.filter(([id]) => id === 'BONO')).toHaveLength(3);
     expect(bono).toMatchObject({ errorCount: 1, lastErrorKind: 'blocked' });
-    expect(sources(store, 'BONO')).toEqual(['sanity']);
+    expect(sources(store, 'BONO')).toEqual([]); // No data since no cache and SELAE failed
     expect(sources(store, 'EMIL').every((source) => source === 'selae')).toBe(true);
 
     await vi.advanceTimersByTimeAsync(90_000);

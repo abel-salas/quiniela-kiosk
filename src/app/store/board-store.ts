@@ -10,7 +10,7 @@ import type { BoardSnapshot } from './types';
 
 export interface BoardStoreDeps {
   selae: SelaeRepository;
-  manual: ManualRepository;
+  manual?: ManualRepository; // Optional: only needed for forced mode (/quini route)
   clock: Clock;
   /** `/quini`: results always from Sanity, upcoming draws still from SELAE. */
   sourceMode?: SourceMode;

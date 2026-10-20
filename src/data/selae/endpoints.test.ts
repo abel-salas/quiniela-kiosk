@@ -11,6 +11,12 @@ describe('SELAE endpoints', () => {
     expect(url.searchParams.get('celebrados')).toBe('true');
   });
 
+  it('converts domain calendar dates to the SELAE date format', () => {
+    const url = new URL(resultsUrl('BONO', '2026-10-01', '2026-10-20'));
+    expect(url.searchParams.get('fechaInicioInclusiva')).toBe('20261001');
+    expect(url.searchParams.get('fechaFinInclusiva')).toBe('20261020');
+  });
+
   it('builds the all-games upcoming URL', () => {
     const url = new URL(nextDrawUrl());
     expect(url.pathname).toBe('/servicios/proximosv3');

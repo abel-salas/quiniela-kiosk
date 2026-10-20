@@ -111,7 +111,7 @@ export type ProviderErrorKind = 'blocked' | 'network' | 'timeout' | 'invalid';
 export class ProviderError extends Error { constructor(public kind: ProviderErrorKind, message: string) }
 
 export interface ResultsRepository {
-  getRecentDraws(gameId: ResultGameId, from: string, to: string): Promise<Draw[]>; // asc por date
+  getRecentDraws(gameId: ResultGameId, from: string, to: string): Promise<Draw[]>; // from/to en YYYY-MM-DD; asc por date
 }
 export interface SelaeRepository extends ResultsRepository {
   getUpcoming(): Promise<NextDraw[]>; // todos los juegos, en el orden de la API

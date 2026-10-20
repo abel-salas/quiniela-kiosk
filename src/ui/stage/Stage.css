@@ -1,0 +1,16 @@
+.stage {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--color-page);
+}
+
+.stage__canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--stage-width);
+  height: var(--stage-height);
+  overflow: hidden;
+  transform-origin: center center;
+}

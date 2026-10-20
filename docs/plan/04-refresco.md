@@ -39,6 +39,7 @@ Para cada juego de resultados, en cada ronda:
 5. Si ni SELAE ni Sanity tienen datos, se mantiene lo que hubiera en memoria; sin nada, la tarjeta muestra "Pendiente de resultado".
 
 - `forcedGames` se lee de Sanity al arrancar y cada 60 s.
+- Ventana de consulta de resultados: los últimos 30 días hasta hoy (`source/window.ts`); el recorte a la semana lo hace el selector.
 - Los próximos sorteos (`next`) solo vienen de SELAE. Si fallan, se mantiene el último valor en memoria.
 
 ## Ciclo de vida de un sorteo
@@ -51,7 +52,7 @@ stateDiagram-v2
   provisional --> upToDate: llega resultado definitivo
 ```
 
-- `expectedAt` = `next.drawAt ?? next.date + game.resultsFromTime`.
+- `expectedAt` = `next.drawAt ?? next.date + game.resultsFromTime`. En fútbol (`resultsFromTime: null`): `next.salesCloseAt`, y si falta, las 00:00 de `next.date`.
 - **Definitivo**: números con `combinacion` completa; fútbol con `status: 'final'`.
 - **Provisional**: fútbol con `status: 'open'`.
 - Al pasar a definitivo, en la misma ronda se pide también `next` (nuevo bote y fecha). La tarjeta cambia con un fundido de 400 ms.
@@ -68,8 +69,8 @@ decideNextCheck(input: { now: Date; game: GameInfo; state: GameState }):
 Reglas, en orden de prioridad:
 
 1. **Error previo** (`errorCount > 0`): siguiente ronda en 1, 2, 5, 10, 15 min según `errorCount` (máximo 15).
-2. **Sin datos**: consultar ya.
-3. **Próximo sorteo caducado** (`next.date` < hoy, o último `draw.date` ≥ `next.date`): `fetchUpcoming` ya.
+2. **Sin datos** (sin `next`): consultar ya lo que falte (resultados si no hay sorteos, y próximos).
+3. **Próximo sorteo caducado**: ya hay resultado definitivo con `date ≥ next.date` → `fetchUpcoming` ya. Mientras falte ese resultado no se aplica, aunque `next.date` sea anterior a hoy: manda la regla 5 para no perder el sorteo pendiente.
 4. **Provisional** (fútbol):
    - Algún partido en `kickoff ≤ now ≤ kickoff + 2h15`: cada 5 min.
    - Todos los partidos terminados: cada 5 min hasta `status: 'final'`.
@@ -91,10 +92,12 @@ Tests en tabla con instantes fijos, al menos:
 
 - Un `setTimeout` por juego hacia `at`. Al vencer: resuelve la fuente, actualiza el estado y vuelve a decidir.
 - Próximos sorteos: una sola llamada `getUpcoming()` para todos los juegos. Se pide al arrancar, cuando una política devuelve `fetchUpcoming`, cuando pasa algún `salesCloseAt` de la lista y, en reposo, cada 6 h. Varias peticiones coincidentes se agrupan en una.
-- `GameState.next` de cada juego de resultados es el primer elemento de esa lista con su `gameId`.
+- `GameState.next` de cada juego de resultados es el primer elemento de esa lista con su `gameId`. Excepción: si el resultado del `next` anterior aún no ha llegado y su fecha es de los últimos 2 días, se conserva para seguir buscándolo (`refresh/next-pick.ts`).
+- Entre dos rondas del mismo juego pasan al menos 60 s, y los próximos sorteos no se vuelven a pedir antes de 60 s tras un éxito: así las decisiones "consultar ya" no entran en bucle.
+- Un temporizador que vence siempre ejecuta su ronda. Las replanificaciones (nuevos próximos sorteos, `online`, `visibilitychange`, 00:05) solo pueden adelantar una ronda, nunca retrasarla.
 - Cola global: máximo 2 peticiones simultáneas a SELAE y 500 ms entre arranques.
 - Reprogramar todo en: evento `online`, cambio de día (00:05) y `visibilitychange` a visible.
-- Recarga completa de la página a las 05:00 (configurable) para evitar fugas de memoria del kiosko.
+- Recarga completa de la página a las 05:00 (constante `DAILY_RELOAD_AT` en `app/config.ts`) para evitar fugas de memoria del kiosko.
 
 ## Store (`store/`)
 

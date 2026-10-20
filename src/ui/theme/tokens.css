@@ -1,0 +1,56 @@
+/* Colours taken from loterias_sass.css of loteriasyapuestas.es (see docs/plan/05-ui-sistema.md). */
+:root {
+  /* Brand colour per game. */
+  --game-bono: #7a8634;
+  --game-edms: #6e368c;
+  --game-elgr: #dc3f47;
+  --game-lapr: #008547;
+  --game-emil: #001367;
+  --game-laqu: #cb1517;
+  --game-qgol: #74bacd;
+  --game-lnac: #007ac0;
+  --game-qupl: #eab842;
+  --game-lotu: #d16929;
+
+  /* Soft variant (complementario): brand colour at 31 % as in SELAE, text in the brand colour. */
+  --game-bono-soft: rgba(122, 134, 52, 0.31);
+  --game-edms-soft: rgba(110, 54, 140, 0.31);
+  --game-elgr-soft: rgba(220, 63, 71, 0.31);
+  --game-lapr-soft: rgba(0, 133, 71, 0.31);
+  --game-emil-soft: rgba(0, 19, 103, 0.31);
+  --game-laqu-soft: rgba(203, 21, 23, 0.31);
+  --game-qgol-soft: rgba(116, 186, 205, 0.31);
+  --game-lnac-soft: rgba(0, 122, 192, 0.31);
+  --game-qupl-soft: rgba(234, 184, 66, 0.31);
+  --game-lotu-soft: rgba(209, 105, 41, 0.31);
+
+  /* Alternate shaded rows of the football tables. */
+  --game-laqu-row: rgba(227, 6, 19, 0.05);
+  --game-qgol-row: rgba(64, 186, 206, 0.08);
+
+  /* Neutrals. */
+  --color-page: #f6f6f6;
+  --color-card: #fff;
+  --color-text: #575756;
+  --color-neutral: #f6f6f6;
+  --color-on-brand: #fff;
+
+  --shadow-ball: 0 1px 5px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  --font-family: 'Public Sans', system-ui, sans-serif;
+  --font-regular: 400;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  --stage-width: 1920px;
+  --stage-height: 1080px;
+
+  --fade-duration: 400ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --fade-duration: 0ms;
+  }
+}

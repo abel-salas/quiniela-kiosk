@@ -51,19 +51,19 @@ Estrategia: el código actual (`src/services`, `src/components`, `src/hooks`, `s
 
 ## Fase 4: Aplicación
 
-**T13 · Config y reloj** — `app/config.ts` (`mock`, `now`, hora de recarga) y `app/clock.ts`. Tests de lectura de query params.
+**T13 ✅ · Config y reloj** — `app/config.ts` (`mock`, `now`, hora de recarga) y `app/clock.ts`. Tests de lectura de query params.
 
-**T14 · Política de refresco** — [04-refresco.md](04-refresco.md) § Política. `app/refresh/policy.ts` con todos los tests listados.
+**T14 ✅ · Política de refresco** — [04-refresco.md](04-refresco.md) § Política. `app/refresh/policy.ts` con todos los tests listados.
 
-**T15 · Resolución de fuente** — § Resolución de fuente. `app/source/` con reintentos (5 s, 10 s), fallback a Sanity, juegos forzados y combinación por fecha. Tests con repositorios falsos y `vi.useFakeTimers`.
+**T15 ✅ · Resolución de fuente** — § Resolución de fuente. `app/source/` con reintentos (5 s, 10 s), fallback a Sanity, juegos forzados y combinación por fecha. Tests con repositorios falsos y `vi.useFakeTimers`.
 
-**T16 · Planificador y store** — `app/refresh/scheduler.ts`, `app/store/` (`createBoardStore`, `useBoard`, `useNow`), `sourceMode: 'manualOnly'`. Tests con repositorios falsos.
+**T16 ✅ · Planificador y store** — `app/refresh/scheduler.ts`, `app/store/` (`createBoardStore`, `useBoard`, `useNow`), `sourceMode: 'manualOnly'`. Tests con repositorios falsos.
 
 ## Fase 5: Interfaz
 
-**T17 · Formato** — [05-ui-sistema.md](05-ui-sistema.md) § Formato. `app/format/` con tests de todos los ejemplos.
+**T17 ✅ · Formato** — [05-ui-sistema.md](05-ui-sistema.md) § Formato. `app/format/` con tests de todos los ejemplos.
 
-**T18 · Tema, escenario y logos** — [05-ui-sistema.md](05-ui-sistema.md). `ui/theme/tokens.css` con los colores de la tabla, Public Sans con `@fontsource/public-sans`, `ui/stage/Stage.tsx`. Los logos ya están en `ui/assets/logos/`.
+**T18 ✅ · Tema, escenario y logos** — [05-ui-sistema.md](05-ui-sistema.md). `ui/theme/tokens.css` con los colores de la tabla, Public Sans con `@fontsource/public-sans`, `ui/stage/Stage.tsx`. Los logos ya están en `ui/assets/logos/`.
 
 **T19 · Componentes base** — Los de la tabla de [05-ui-sistema.md](05-ui-sistema.md), un fichero por componente con su CSS al lado.
 

@@ -66,7 +66,7 @@ sanity.cli.ts
 
 Parámetros de desarrollo:
 - `?mock=1`: repositorios con fixtures (SELAE y Sanity).
-- `?now=2026-10-14T21:40`: solo con mock, fija el reloj.
+- `?now=2026-10-14T21:40`: solo con mock; el reloj arranca en ese instante (hora local) y sigue avanzando.
 
 ## Tooling
 

@@ -1,0 +1,40 @@
+[
+  {
+    "fecha": "2026-10-15 21:00:00",
+    "dia_semana": "jueves",
+    "id_sorteo": "1325609083",
+    "game_id": "LNAC",
+    "apertura": "2026-10-02 00:00:00",
+    "cierre": "2026-10-15 20:30:00",
+    "anyo": "2026",
+    "nombre": "SORTEO DEL JUEVES",
+    "lugar": "Madrid Sede Central",
+    "precio": 3,
+    "premio_bote": null,
+    "destacar_bote": "0",
+    "cdc": "13256",
+    "recaudacion": null,
+    "estado": "abierto",
+    "premio_especial": null,
+    "primer_premio": 300000
+  },
+  {
+    "fecha": "2026-10-17 13:00:00",
+    "dia_semana": "sábado",
+    "id_sorteo": "1325809084",
+    "game_id": "LNAC",
+    "apertura": "2026-10-04 00:00:00",
+    "cierre": "2026-10-17 12:30:00",
+    "anyo": "2026",
+    "nombre": "SORTEO DE LOTERÍA NACIONAL",
+    "lugar": "Madrid Sede Central",
+    "precio": 6,
+    "premio_bote": null,
+    "destacar_bote": "0",
+    "cdc": "13258",
+    "recaudacion": null,
+    "estado": "abierto",
+    "premio_especial": null,
+    "primer_premio": 600000
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "fecha": "2026-10-18 00:00:00",
+    "dia_semana": "domingo",
+    "id_sorteo": "1325903065",
+    "game_id": "LOTU",
+    "apertura": "2026-10-12 00:00:00",
+    "cierre": "2026-10-18 10:45:00",
+    "anyo": "2026",
+    "premio_bote": "1875000",
+    "destacar_bote": "0",
+    "cdc": "13259",
+    "recaudacion": null,
+    "estado": "abierto",
+    "jornada": 65
+  }
+]

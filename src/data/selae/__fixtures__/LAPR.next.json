@@ -1,0 +1,42 @@
+[
+  {
+    "fecha": "2026-10-15 00:00:00",
+    "dia_semana": "jueves",
+    "id_sorteo": "1325604124",
+    "game_id": "LAPR",
+    "apertura": "2026-10-12 21:25:00",
+    "cierre": "2026-10-15 21:15:00",
+    "anyo": "2026",
+    "premio_bote": "36500000",
+    "destacar_bote": "0",
+    "cdc": "13256",
+    "recaudacion": null,
+    "estado": "abierto",
+    "joker": {
+      "gameid": "LAJO",
+      "relsorteoid_asociado": "1325610124",
+      "bote_joker": 1000000,
+      "activo": "1"
+    }
+  },
+  {
+    "fecha": "2026-10-17 00:00:00",
+    "dia_semana": "sábado",
+    "id_sorteo": "1325804125",
+    "game_id": "LAPR",
+    "apertura": "2026-10-12 21:25:00",
+    "cierre": "2026-10-15 21:15:00",
+    "anyo": "2026",
+    "premio_bote": null,
+    "destacar_bote": "0",
+    "cdc": "13258",
+    "recaudacion": null,
+    "estado": "abierto",
+    "joker": {
+      "gameid": "LAJO",
+      "relsorteoid_asociado": "1325810125",
+      "bote_joker": 1000000,
+      "activo": "1"
+    }
+  }
+]

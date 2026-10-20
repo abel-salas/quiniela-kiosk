@@ -35,3 +35,6 @@ test-sanity.js
 populate-sanity.js
 populate-all-games.js
 capture-api.js
+
+# Material de referencia local (capturas y copia de la web de SELAE)
+docs/referencia/

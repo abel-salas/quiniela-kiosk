@@ -1,0 +1,340 @@
+[
+  {
+    "fecha_sorteo": "2026-10-14 00:00:00",
+    "dia_semana": "miércoles",
+    "id_sorteo": "1325507067",
+    "game_id": "QGOL",
+    "anyo": "2026",
+    "numero": 67,
+    "premio_bote": "90000",
+    "cdc": "13255",
+    "apuestas": "0",
+    "recaudacion": null,
+    "combinacion": null,
+    "premios": "0",
+    "fondo_bote": "8142780",
+    "escrutinio": [],
+    "partidos": [
+      {
+        "posicion": 1,
+        "idLocal": 20,
+        "local": "Villarreal",
+        "idVisitante": 291,
+        "visitante": "Nápoles",
+        "signo": "M-1",
+        "marcador": "3 - 1",
+        "fecha": "13-10-2026",
+        "hora": "21:00",
+        "fecha_completa": "2026-10-13 21:00:00"
+      },
+      {
+        "posicion": 2,
+        "idLocal": 3,
+        "local": "At. Madrid",
+        "idVisitante": 4633,
+        "visitante": "Manchester United",
+        "signo": "2-0",
+        "marcador": "2 - 0",
+        "fecha": "13-10-2026",
+        "hora": "21:00",
+        "fecha_completa": "2026-10-13 21:00:00"
+      },
+      {
+        "posicion": 3,
+        "idLocal": 468,
+        "local": "Galatasaray",
+        "idVisitante": 4,
+        "visitante": "Barcelona",
+        "signo": "1-M",
+        "marcador": "1 - 4",
+        "fecha": "13-10-2026",
+        "hora": "21:00",
+        "fecha_completa": "2026-10-13 21:00:00"
+      },
+      {
+        "posicion": 4,
+        "idLocal": 11,
+        "local": "Betis",
+        "idVisitante": 3305,
+        "visitante": "Oporto",
+        "signo": null,
+        "marcador": null,
+        "fecha": "14-10-2026",
+        "hora": "21:00",
+        "fecha_completa": "2026-10-14 21:00:00"
+      },
+      {
+        "posicion": 5,
+        "idLocal": 111,
+        "local": "Celta",
+        "idVisitante": 335,
+        "visitante": "Juventus",
+        "signo": null,
+        "marcador": null,
+        "fecha": "15-10-2026",
+        "hora": "21:00",
+        "fecha_completa": "2026-10-15 21:00:00"
+      },
+      {
+        "posicion": 6,
+        "idLocal": 83,
+        "local": "Roma",
+        "idVisitante": 12,
+        "visitante": "Real Madrid",
+        "signo": null,
+        "marcador": null,
+        "fecha": "14-10-2026",
+        "hora": "21:00",
+        "fecha_completa": "2026-10-14 21:00:00"
+      }
+    ],
+    "temporada": "2026-2027",
+    "jornada": "14"
+  },
+  {
+    "fecha_sorteo": "2026-10-11 20:33:00",
+    "dia_semana": "domingo",
+    "id_sorteo": "1325207066",
+    "game_id": "QGOL",
+    "anyo": "2026",
+    "numero": 66,
+    "premio_bote": "80000",
+    "cdc": "13252",
+    "apuestas": "150474",
+    "recaudacion": "15047400",
+    "combinacion": " 00 - 12 - M0 - M2 - M2 - 10",
+    "premios": "8276070",
+    "fondo_bote": "6638040",
+    "escrutinio": [
+      {
+        "tipo": "1ª  (6 Aciertos) ",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "2ª  (5 Aciertos) ",
+        "categoria": 2,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "3ª  (4 Aciertos) ",
+        "categoria": 3,
+        "premio": "568,46",
+        "ganadores": "45"
+      },
+      {
+        "tipo": "4ª  (3 Aciertos) ",
+        "categoria": 4,
+        "premio": "8,12",
+        "ganadores": "1482"
+      },
+      {
+        "tipo": "5ª  (2 Aciertos) ",
+        "categoria": 5,
+        "premio": "1,36",
+        "ganadores": "22156"
+      }
+    ],
+    "partidos": [
+      {
+        "posicion": 1,
+        "idLocal": 156,
+        "local": "Rayo Vallecano",
+        "idVisitante": 1,
+        "visitante": "Athletic Club",
+        "signo": "0-0",
+        "marcador": "0 - 0",
+        "fecha": "10-10-2026",
+        "hora": "14:00",
+        "fecha_completa": "2026-10-10 14:00:00"
+      },
+      {
+        "posicion": 2,
+        "idLocal": 374,
+        "local": "Alavés",
+        "idVisitante": 3,
+        "visitante": "At. Madrid",
+        "signo": "1-2",
+        "marcador": "1 - 2",
+        "fecha": "10-10-2026",
+        "hora": "16:15",
+        "fecha_completa": "2026-10-10 16:15:00"
+      },
+      {
+        "posicion": 3,
+        "idLocal": 4,
+        "local": "Barcelona",
+        "idVisitante": 5,
+        "visitante": "Getafe",
+        "signo": "M-0",
+        "marcador": "3 - 0",
+        "fecha": "10-10-2026",
+        "hora": "18:30",
+        "fecha_completa": "2026-10-10 18:30:00"
+      },
+      {
+        "posicion": 4,
+        "idLocal": 125,
+        "local": "Real Sociedad",
+        "idVisitante": 7,
+        "visitante": "Deportivo",
+        "signo": "M-2",
+        "marcador": "3 - 2",
+        "fecha": "11-10-2026",
+        "hora": "16:15",
+        "fecha_completa": "2026-10-11 16:15:00"
+      },
+      {
+        "posicion": 5,
+        "idLocal": 11,
+        "local": "Betis",
+        "idVisitante": 2,
+        "visitante": "Osasuna",
+        "signo": "M-2",
+        "marcador": "5 - 2",
+        "fecha": "11-10-2026",
+        "hora": "18:30",
+        "fecha_completa": "2026-10-11 18:30:00"
+      },
+      {
+        "posicion": 6,
+        "idLocal": 12,
+        "local": "Real Madrid",
+        "idVisitante": 20,
+        "visitante": "Villarreal",
+        "signo": "1-0",
+        "marcador": "1 - 0",
+        "fecha": "10-11-2026",
+        "hora": "21:00",
+        "fecha_completa": "2026-11-10 21:00:00"
+      }
+    ],
+    "temporada": "2026-2027",
+    "jornada": "13"
+  },
+  {
+    "fecha_sorteo": "2026-10-04 20:28:00",
+    "dia_semana": "domingo",
+    "id_sorteo": "1324507065",
+    "game_id": "QGOL",
+    "anyo": "2026",
+    "numero": 65,
+    "premio_bote": "60000",
+    "cdc": "13245",
+    "apuestas": "111974",
+    "recaudacion": "11197400",
+    "combinacion": " 1M - M0 - 2M - M2 - 11 - M1",
+    "premios": "6158570",
+    "fondo_bote": "5518300",
+    "escrutinio": [
+      {
+        "tipo": "1ª  (6 Aciertos) ",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "2ª  (5 Aciertos) ",
+        "categoria": 2,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "3ª  (4 Aciertos) ",
+        "categoria": 3,
+        "premio": "906,46",
+        "ganadores": "21"
+      },
+      {
+        "tipo": "4ª  (3 Aciertos) ",
+        "categoria": 4,
+        "premio": "22,62",
+        "ganadores": "396"
+      },
+      {
+        "tipo": "5ª  (2 Aciertos) ",
+        "categoria": 5,
+        "premio": "3,31",
+        "ganadores": "6760"
+      }
+    ],
+    "partidos": [
+      {
+        "posicion": 1,
+        "idLocal": 105,
+        "local": "Albacete",
+        "idVisitante": 124,
+        "visitante": "Eibar",
+        "signo": "1-M",
+        "marcador": "1 - 3",
+        "fecha": "03-10-2026",
+        "hora": "14:00",
+        "fecha_completa": "2026-10-03 14:00:00"
+      },
+      {
+        "posicion": 2,
+        "idLocal": 110,
+        "local": "Cádiz",
+        "idVisitante": 1151,
+        "visitante": "Leganés",
+        "signo": "M-0",
+        "marcador": "4 - 0",
+        "fecha": "03-10-2026",
+        "hora": "18:30",
+        "fecha_completa": "2026-10-03 18:30:00"
+      },
+      {
+        "posicion": 3,
+        "idLocal": 3536,
+        "local": "Real Sociedad B",
+        "idVisitante": 564,
+        "visitante": "Granada",
+        "signo": "2-M",
+        "marcador": "2 - 3",
+        "fecha": "04-10-2026",
+        "hora": "14:00",
+        "fecha_completa": "2026-10-04 14:00:00"
+      },
+      {
+        "posicion": 4,
+        "idLocal": 107,
+        "local": "Sporting",
+        "idVisitante": 4590,
+        "visitante": "Celta Fortuna",
+        "signo": "M-2",
+        "marcador": "3 - 2",
+        "fecha": "04-10-2026",
+        "hora": "16:15",
+        "fecha_completa": "2026-10-04 16:15:00"
+      },
+      {
+        "posicion": 5,
+        "idLocal": 130,
+        "local": "Castellón",
+        "idVisitante": 836,
+        "visitante": "Ceuta",
+        "signo": "1-1",
+        "marcador": "1 - 1",
+        "fecha": "04-10-2026",
+        "hora": "18:30",
+        "fecha_completa": "2026-10-04 18:30:00"
+      },
+      {
+        "posicion": 6,
+        "idLocal": 181,
+        "local": "España",
+        "idVisitante": 225,
+        "visitante": "Rep. Checa",
+        "signo": "M-1",
+        "marcador": "3 - 1",
+        "fecha": "03-10-2026",
+        "hora": "20:45",
+        "fecha_completa": "2026-10-03 20:45:00"
+      }
+    ],
+    "temporada": "2026-2027",
+    "jornada": "12"
+  }
+]

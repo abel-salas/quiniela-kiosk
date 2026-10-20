@@ -1,0 +1,200 @@
+[
+  {
+    "fecha_sorteo": "2026-10-11 21:19:00",
+    "dia_semana": "domingo",
+    "id_sorteo": "1325203064",
+    "game_id": "LOTU",
+    "anyo": "2026",
+    "numero": 64,
+    "premio_bote": "1865000",
+    "cdc": "13252",
+    "apuestas": "78053",
+    "recaudacion": "7805300",
+    "combinacion": "1 - 2 - 3 - 22 - 23 - 24 C(5) R(1)",
+    "combinacion_acta": "23 - 24 - 3 - 22 - 1 - 2 C(5) R(1)",
+    "premios": "4292915",
+    "fondo_bote": "185520823",
+    "escrutinio": [
+      {
+        "tipo": "1ª  (6 Números + Caballo Ganador) ",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "2ª  (6 Números) ",
+        "categoria": 2,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "3ª  (5 Números + Caballo Ganador) ",
+        "categoria": 3,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "4ª  (5 Números) ",
+        "categoria": 4,
+        "premio": "496,7",
+        "ganadores": "11"
+      },
+      {
+        "tipo": "5ª  (4 Números + Caballo Ganador) ",
+        "categoria": 5,
+        "premio": "24,78",
+        "ganadores": "63"
+      },
+      {
+        "tipo": "6ª  (4 Números) ",
+        "categoria": 6,
+        "premio": "7,56",
+        "ganadores": "413"
+      },
+      {
+        "tipo": "7ª  (3 Números + Caballo Ganador) ",
+        "categoria": 7,
+        "premio": "4,85",
+        "ganadores": "644"
+      },
+      {
+        "tipo": "Reintegro",
+        "categoria": 8,
+        "premio": "1",
+        "ganadores": "7662"
+      }
+    ]
+  },
+  {
+    "fecha_sorteo": "2026-10-06 21:51:00",
+    "dia_semana": "martes",
+    "id_sorteo": "1324703063",
+    "game_id": "LOTU",
+    "anyo": "2026",
+    "numero": 63,
+    "premio_bote": "1855000",
+    "cdc": "13247",
+    "apuestas": "46499",
+    "recaudacion": "4649900",
+    "combinacion": "7 - 16 - 19 - 20 - 28 - 30 C(5) R(3)",
+    "combinacion_acta": "16 - 20 - 30 - 19 - 28 - 7 C(5) R(3)",
+    "premios": "2557445",
+    "fondo_bote": "184916336",
+    "escrutinio": [
+      {
+        "tipo": "1ª  (6 Números + Caballo Ganador) ",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "2ª  (6 Números) ",
+        "categoria": 2,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "3ª  (5 Números + Caballo Ganador) ",
+        "categoria": 3,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "4ª  (5 Números) ",
+        "categoria": 4,
+        "premio": "325,49",
+        "ganadores": "10"
+      },
+      {
+        "tipo": "5ª  (4 Números + Caballo Ganador) ",
+        "categoria": 5,
+        "premio": "33,21",
+        "ganadores": "28"
+      },
+      {
+        "tipo": "6ª  (4 Números) ",
+        "categoria": 6,
+        "premio": "8,77",
+        "ganadores": "212"
+      },
+      {
+        "tipo": "7ª  (3 Números + Caballo Ganador) ",
+        "categoria": 7,
+        "premio": "8,53",
+        "ganadores": "218"
+      },
+      {
+        "tipo": "Reintegro",
+        "categoria": 8,
+        "premio": "1",
+        "ganadores": "4806"
+      }
+    ]
+  },
+  {
+    "fecha_sorteo": "2026-10-04 21:21:00",
+    "dia_semana": "domingo",
+    "id_sorteo": "1324503062",
+    "game_id": "LOTU",
+    "anyo": "2026",
+    "numero": 62,
+    "premio_bote": "1845000",
+    "cdc": "13245",
+    "apuestas": "76903",
+    "recaudacion": "7690300",
+    "combinacion": "3 - 7 - 11 - 25 - 29 - 31 C(6) R(4)",
+    "combinacion_acta": "31 - 7 - 25 - 29 - 11 - 3 C(6) R(4)",
+    "premios": "4229665",
+    "fondo_bote": "183916597",
+    "escrutinio": [
+      {
+        "tipo": "1ª  (6 Números + Caballo Ganador) ",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "2ª  (6 Números) ",
+        "categoria": 2,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "3ª  (5 Números + Caballo Ganador) ",
+        "categoria": 3,
+        "premio": "2307,09",
+        "ganadores": "1"
+      },
+      {
+        "tipo": "4ª  (5 Números) ",
+        "categoria": 4,
+        "premio": "219,72",
+        "ganadores": "14"
+      },
+      {
+        "tipo": "5ª  (4 Números + Caballo Ganador) ",
+        "categoria": 5,
+        "premio": "53,04",
+        "ganadores": "29"
+      },
+      {
+        "tipo": "6ª  (4 Números) ",
+        "categoria": 6,
+        "premio": "7,63",
+        "ganadores": "403"
+      },
+      {
+        "tipo": "7ª  (3 Números + Caballo Ganador) ",
+        "categoria": 7,
+        "premio": "7,93",
+        "ganadores": "388"
+      },
+      {
+        "tipo": "Reintegro",
+        "categoria": 8,
+        "premio": "1",
+        "ganadores": "7068"
+      }
+    ]
+  }
+]

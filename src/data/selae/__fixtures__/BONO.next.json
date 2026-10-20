@@ -1,0 +1,30 @@
+[
+  {
+    "fecha": "2026-10-15 00:00:00",
+    "dia_semana": "jueves",
+    "id_sorteo": "1325601288",
+    "game_id": "BONO",
+    "apertura": "2026-10-14 21:10:00",
+    "cierre": "2026-10-15 21:00:00",
+    "anyo": "2026",
+    "premio_bote": "700000",
+    "destacar_bote": "0",
+    "cdc": "13256",
+    "recaudacion": null,
+    "estado": "abierto"
+  },
+  {
+    "fecha": "2026-10-16 00:00:00",
+    "dia_semana": "viernes",
+    "id_sorteo": "1325701289",
+    "game_id": "BONO",
+    "apertura": "2026-10-14 21:10:00",
+    "cierre": "2026-10-15 21:00:00",
+    "anyo": "2026",
+    "premio_bote": null,
+    "destacar_bote": "0",
+    "cdc": "13257",
+    "recaudacion": null,
+    "estado": "abierto"
+  }
+]

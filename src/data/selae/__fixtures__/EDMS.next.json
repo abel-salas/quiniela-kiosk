@@ -1,0 +1,30 @@
+[
+  {
+    "fecha": "2026-10-15 00:00:00",
+    "dia_semana": "jueves",
+    "id_sorteo": "1325614083",
+    "game_id": "EDMS",
+    "apertura": "2026-10-12 20:40:00",
+    "cierre": "2026-10-15 20:30:00",
+    "anyo": "2026",
+    "premio_bote": "50000",
+    "destacar_bote": "0",
+    "cdc": "13256",
+    "recaudacion": null,
+    "estado": "abierto"
+  },
+  {
+    "fecha": "2026-10-19 00:00:00",
+    "dia_semana": "lunes",
+    "id_sorteo": "1326014084",
+    "game_id": "EDMS",
+    "apertura": "2026-10-15 20:40:00",
+    "cierre": "2026-10-19 20:30:00",
+    "anyo": "2026",
+    "premio_bote": null,
+    "destacar_bote": "0",
+    "cdc": "13260",
+    "recaudacion": null,
+    "estado": "cerrado"
+  }
+]

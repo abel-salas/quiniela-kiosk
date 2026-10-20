@@ -1,0 +1,96 @@
+[
+  {
+    "fecha_sorteo": "2026-10-18 00:00:00",
+    "dia_semana": "domingo",
+    "id_sorteo": "1325906059",
+    "game_id": "LAQU",
+    "anyo": "2026",
+    "premio_bote": "2000000",
+    "cdc": "13259",
+    "apuestas": "0",
+    "recaudacion": null,
+    "combinacion": null,
+    "premios": "0",
+    "fondo_bote": "1192393",
+    "escrutinio": [],
+    "partidos": [
+      {
+        "local": "Espanyol (m)",
+        "visitante": "At. Madrid (m)",
+        "fecha": "2026\\/10\\/17 14:00:00"
+      },
+      {
+        "local": "Villarreal (m)",
+        "visitante": "Elche (m)",
+        "fecha": "2026\\/10\\/17 16:15:00"
+      },
+      {
+        "local": "Betis (m)",
+        "visitante": "Barcelona (m)",
+        "fecha": "2026\\/10\\/17 18:30:00"
+      },
+      {
+        "local": "Valencia (m)",
+        "visitante": "Athletic Club (m)",
+        "fecha": "2026\\/10\\/17 21:00:00"
+      },
+      {
+        "local": "Celta (m)",
+        "visitante": "Alavés (m)",
+        "fecha": "2026\\/10\\/18 16:15:00"
+      },
+      {
+        "local": "Málaga (m)",
+        "visitante": "Real Sociedad (m)",
+        "fecha": "2026\\/10\\/18 18:30:00"
+      },
+      {
+        "local": "Real Madrid (m)",
+        "visitante": "Sevilla (m)",
+        "fecha": "2026\\/10\\/18 21:00:00"
+      },
+      {
+        "local": "Eibar (m)",
+        "visitante": "Mallorca (m)",
+        "fecha": "2026\\/10\\/17 16:15:00"
+      },
+      {
+        "local": "Las Palmas (m)",
+        "visitante": "Castellón (m)",
+        "fecha": "2026\\/10\\/17 21:00:00"
+      },
+      {
+        "local": "Burgos (m)",
+        "visitante": "Sabadell (m)",
+        "fecha": "2026\\/10\\/18 21:00:00"
+      },
+      {
+        "local": "Athletic Club (f)",
+        "visitante": "Valencia (f)",
+        "fecha": "2026\\/10\\/17 16:30:00"
+      },
+      {
+        "local": "Real Madrid (f)",
+        "visitante": "Espanyol (f)",
+        "fecha": "2026\\/10\\/17 20:30:00"
+      },
+      {
+        "local": "Eibar (f)",
+        "visitante": "Deportivo (f)",
+        "fecha": "2026\\/10\\/18 16:00:00"
+      },
+      {
+        "local": "At. Madrid (f)",
+        "visitante": "Madrid Cff (f)",
+        "fecha": "2026\\/10\\/18 18:00:00"
+      },
+      {
+        "local": "Getafe (m)",
+        "visitante": "Rayo Vallecano (m)",
+        "fecha": "2026\\/10\\/19 21:00:00"
+      }
+    ],
+    "temporada": "2026-2027",
+    "jornada": "14"
+  }
+]

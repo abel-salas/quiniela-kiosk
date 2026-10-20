@@ -1,0 +1,51 @@
+[
+  {
+    "fecha_sorteo": "2026-10-18 00:00:00",
+    "dia_semana": "domingo",
+    "id_sorteo": "1325907068",
+    "game_id": "QGOL",
+    "anyo": "2026",
+    "premio_bote": "0",
+    "cdc": "13259",
+    "apuestas": "0",
+    "recaudacion": null,
+    "combinacion": null,
+    "premios": "0",
+    "fondo_bote": "0",
+    "escrutinio": [],
+    "partidos": [
+      {
+        "local": "Espanyol",
+        "visitante": "At. Madrid",
+        "fecha": "2026\\/10\\/17 14:00:00"
+      },
+      {
+        "local": "Villarreal",
+        "visitante": "Elche",
+        "fecha": "2026\\/10\\/17 16:15:00"
+      },
+      {
+        "local": "Betis",
+        "visitante": "Barcelona",
+        "fecha": "2026\\/10\\/17 18:30:00"
+      },
+      {
+        "local": "Valencia",
+        "visitante": "Athletic Club",
+        "fecha": "2026\\/10\\/17 21:00:00"
+      },
+      {
+        "local": "Málaga",
+        "visitante": "Real Sociedad",
+        "fecha": "2026\\/10\\/18 18:30:00"
+      },
+      {
+        "local": "Real Madrid",
+        "visitante": "Sevilla",
+        "fecha": "2026\\/10\\/18 21:00:00"
+      }
+    ],
+    "temporada": "2026-2027",
+    "jornada": "15"
+  }
+]

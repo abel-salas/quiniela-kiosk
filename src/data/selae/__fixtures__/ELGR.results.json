@@ -1,0 +1,218 @@
+[
+  {
+    "fecha_sorteo": "2026-10-11 21:42:00",
+    "dia_semana": "domingo",
+    "id_sorteo": "1325205041",
+    "game_id": "ELGR",
+    "anyo": "2026",
+    "numero": 41,
+    "premio_bote": "18600000",
+    "cdc": "13252",
+    "apuestas": "2659670",
+    "recaudacion": "398950500",
+    "combinacion": "05 - 27 - 43 - 49 - 52 R(4)",
+    "combinacion_acta": "05 - 49 - 52 - 27 - 43 R(4)",
+    "premios": "219422775",
+    "fondo_bote": "1796582728",
+    "escrutinio": [
+      {
+        "tipo": "1ª   (5 + 1) ",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "2ª   (5 + 0) ",
+        "categoria": 2,
+        "premio": "86737,39",
+        "ganadores": "2"
+      },
+      {
+        "tipo": "3ª   (4 + 1) ",
+        "categoria": 3,
+        "premio": "2252,92",
+        "ganadores": "14"
+      },
+      {
+        "tipo": "4ª   (4 + 0) ",
+        "categoria": 4,
+        "premio": "252,04",
+        "ganadores": "146"
+      },
+      {
+        "tipo": "5ª   (3 + 1) ",
+        "categoria": 5,
+        "premio": "49,48",
+        "ganadores": "850"
+      },
+      {
+        "tipo": "6ª   (3 + 0) ",
+        "categoria": 6,
+        "premio": "17,01",
+        "ganadores": "8034"
+      },
+      {
+        "tipo": "7ª   (2 + 1) ",
+        "categoria": 7,
+        "premio": "7,21",
+        "ganadores": "14585"
+      },
+      {
+        "tipo": "8ª   (2 + 0) ",
+        "categoria": 8,
+        "premio": "3",
+        "ganadores": "130635"
+      },
+      {
+        "tipo": "Reintegro",
+        "categoria": 9,
+        "premio": "1,5",
+        "ganadores": "271205"
+      }
+    ]
+  },
+  {
+    "fecha_sorteo": "2026-10-04 21:42:00",
+    "dia_semana": "domingo",
+    "id_sorteo": "1324505040",
+    "game_id": "ELGR",
+    "anyo": "2026",
+    "numero": 40,
+    "premio_bote": "17900000",
+    "cdc": "13245",
+    "apuestas": "2661548",
+    "recaudacion": "399232200",
+    "combinacion": "02 - 03 - 20 - 41 - 47 R(8)",
+    "combinacion_acta": "02 - 47 - 20 - 03 - 41 R(8)",
+    "premios": "219577710",
+    "fondo_bote": "1728713254",
+    "escrutinio": [
+      {
+        "tipo": "1ª   (5 + 1) ",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "2ª   (5 + 0) ",
+        "categoria": 2,
+        "premio": "56586,1",
+        "ganadores": "3"
+      },
+      {
+        "tipo": "3ª   (4 + 1) ",
+        "categoria": 3,
+        "premio": "1714,73",
+        "ganadores": "18"
+      },
+      {
+        "tipo": "4ª   (4 + 0) ",
+        "categoria": 4,
+        "premio": "229,36",
+        "ganadores": "157"
+      },
+      {
+        "tipo": "5ª   (3 + 1) ",
+        "categoria": 5,
+        "premio": "45,22",
+        "ganadores": "910"
+      },
+      {
+        "tipo": "6ª   (3 + 0) ",
+        "categoria": 6,
+        "premio": "16,64",
+        "ganadores": "8039"
+      },
+      {
+        "tipo": "7ª   (2 + 1) ",
+        "categoria": 7,
+        "premio": "6,96",
+        "ganadores": "14790"
+      },
+      {
+        "tipo": "8ª   (2 + 0) ",
+        "categoria": 8,
+        "premio": "3",
+        "ganadores": "134605"
+      },
+      {
+        "tipo": "Reintegro",
+        "categoria": 9,
+        "premio": "1,5",
+        "ganadores": "268532"
+      }
+    ]
+  },
+  {
+    "fecha_sorteo": "2026-09-27 21:41:00",
+    "dia_semana": "domingo",
+    "id_sorteo": "1323805039",
+    "game_id": "ELGR",
+    "anyo": "2026",
+    "numero": 39,
+    "premio_bote": "17200000",
+    "cdc": "13238",
+    "apuestas": "2593577",
+    "recaudacion": "389036550",
+    "combinacion": "12 - 21 - 33 - 35 - 51 R(2)",
+    "combinacion_acta": "21 - 33 - 35 - 12 - 51 R(2)",
+    "premios": "213970103",
+    "fondo_bote": "1662577040",
+    "escrutinio": [
+      {
+        "tipo": "1ª   (5 + 1) ",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "2ª   (5 + 0) ",
+        "categoria": 2,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "3ª   (4 + 1) ",
+        "categoria": 3,
+        "premio": "12064,41",
+        "ganadores": "16"
+      },
+      {
+        "tipo": "4ª   (4 + 0) ",
+        "categoria": 4,
+        "premio": "191,42",
+        "ganadores": "181"
+      },
+      {
+        "tipo": "5ª   (3 + 1) ",
+        "categoria": 5,
+        "premio": "48,82",
+        "ganadores": "811"
+      },
+      {
+        "tipo": "6ª   (3 + 0) ",
+        "categoria": 6,
+        "premio": "15,93",
+        "ganadores": "8077"
+      },
+      {
+        "tipo": "7ª   (2 + 1) ",
+        "categoria": 7,
+        "premio": "7,06",
+        "ganadores": "14022"
+      },
+      {
+        "tipo": "8ª   (2 + 0) ",
+        "categoria": 8,
+        "premio": "3",
+        "ganadores": "133278"
+      },
+      {
+        "tipo": "Reintegro",
+        "categoria": 9,
+        "premio": "1,5",
+        "ganadores": "246653"
+      }
+    ]
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "fecha": "2026-10-18 00:00:00",
+    "dia_semana": "domingo",
+    "id_sorteo": "1325907068",
+    "game_id": "QGOL",
+    "apertura": "2026-10-14 00:00:00",
+    "cierre": "2026-10-17 14:00:00",
+    "anyo": "2026",
+    "premio_bote": null,
+    "destacar_bote": "0",
+    "cdc": "13259",
+    "recaudacion": null,
+    "estado": "abierto",
+    "jornada": 15
+  },
+  {
+    "fecha": "2026-10-21 00:00:00",
+    "dia_semana": "miércoles",
+    "id_sorteo": "1326207069",
+    "game_id": "QGOL",
+    "apertura": null,
+    "cierre": null,
+    "anyo": "2026",
+    "premio_bote": null,
+    "destacar_bote": "0",
+    "cdc": "13262",
+    "recaudacion": null,
+    "estado": "cerrado",
+    "jornada": 16
+  }
+]

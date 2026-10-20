@@ -1,0 +1,236 @@
+[
+  {
+    "fecha_sorteo": "2026-10-12 20:59:00",
+    "dia_semana": "lunes",
+    "id_sorteo": "1325314082",
+    "game_id": "EDMS",
+    "anyo": "2026",
+    "numero": 82,
+    "premio_bote": "0",
+    "cdc": "13253",
+    "apuestas": null,
+    "recaudacion": null,
+    "combinacion": "03 - 04 - 06 - 19 - 30 - 36 C(2)",
+    "combinacion_acta": "36 - 19 - 03 - 06 - 04 - 30 C(2)",
+    "premios": null,
+    "fondo_bote": null,
+    "escrutinio": [
+      {
+        "tipo": "1ª       6      +      1",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0",
+        "ganadores_eu": "0",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      },
+      {
+        "tipo": "2ª       6      +      0",
+        "categoria": 2,
+        "premio": "0",
+        "ganadores": "0",
+        "ganadores_eu": "0",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      },
+      {
+        "tipo": "3ª       5      +     0/1",
+        "categoria": 3,
+        "premio": "468,87",
+        "ganadores": "23",
+        "ganadores_eu": "103",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      },
+      {
+        "tipo": "4ª       4      +     0/1",
+        "categoria": 4,
+        "premio": "33,15",
+        "ganadores": "654",
+        "ganadores_eu": "4084",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      },
+      {
+        "tipo": "5ª       3      +     0/1",
+        "categoria": 5,
+        "premio": "4,88",
+        "ganadores": "10472",
+        "ganadores_eu": "58268",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      },
+      {
+        "tipo": "6ª       2      +     0/1",
+        "categoria": 6,
+        "premio": "2,5",
+        "ganadores": "62262",
+        "ganadores_eu": "339214",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      }
+    ]
+  },
+  {
+    "fecha_sorteo": "2026-10-08 21:19:00",
+    "dia_semana": "jueves",
+    "id_sorteo": "1324914081",
+    "game_id": "EDMS",
+    "anyo": "2026",
+    "numero": 81,
+    "premio_bote": "0",
+    "cdc": "13249",
+    "apuestas": null,
+    "recaudacion": null,
+    "combinacion": "06 - 13 - 20 - 27 - 35 - 38 C(4)",
+    "combinacion_acta": "27 - 38 - 06 - 13 - 20 - 35 C(4)",
+    "premios": null,
+    "fondo_bote": null,
+    "escrutinio": [
+      {
+        "tipo": "1ª       6      +      1",
+        "categoria": 1,
+        "premio": "7200000",
+        "ganadores": "0",
+        "ganadores_eu": "2",
+        "num_pagos": 360,
+        "periodicidad": "M",
+        "cantidad_periodica": "20000"
+      },
+      {
+        "tipo": "2ª       6      +      0",
+        "categoria": 2,
+        "premio": "120000",
+        "ganadores": "1",
+        "ganadores_eu": "2",
+        "num_pagos": 60,
+        "periodicidad": "M",
+        "cantidad_periodica": "2000"
+      },
+      {
+        "tipo": "3ª       5      +     0/1",
+        "categoria": 3,
+        "premio": "443,15",
+        "ganadores": "35",
+        "ganadores_eu": "129",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      },
+      {
+        "tipo": "4ª       4      +     0/1",
+        "categoria": 4,
+        "premio": "34,07",
+        "ganadores": "1225",
+        "ganadores_eu": "4703",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      },
+      {
+        "tipo": "5ª       3      +     0/1",
+        "categoria": 5,
+        "premio": "5,38",
+        "ganadores": "16096",
+        "ganadores_eu": "62560",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      },
+      {
+        "tipo": "6ª       2      +     0/1",
+        "categoria": 6,
+        "premio": "2,5",
+        "ganadores": "92616",
+        "ganadores_eu": "365077",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      }
+    ]
+  },
+  {
+    "fecha_sorteo": "2026-10-05 21:11:00",
+    "dia_semana": "lunes",
+    "id_sorteo": "1324614080",
+    "game_id": "EDMS",
+    "anyo": "2026",
+    "numero": 80,
+    "premio_bote": "0",
+    "cdc": "13246",
+    "apuestas": null,
+    "recaudacion": null,
+    "combinacion": "03 - 06 - 16 - 24 - 29 - 40 C(2)",
+    "combinacion_acta": "29 - 03 - 16 - 06 - 24 - 40 C(2)",
+    "premios": null,
+    "fondo_bote": null,
+    "escrutinio": [
+      {
+        "tipo": "1ª       6      +      1",
+        "categoria": 1,
+        "premio": "7200000",
+        "ganadores": "0",
+        "ganadores_eu": "1",
+        "num_pagos": 360,
+        "periodicidad": "M",
+        "cantidad_periodica": "20000"
+      },
+      {
+        "tipo": "2ª       6      +      0",
+        "categoria": 2,
+        "premio": "0",
+        "ganadores": "0",
+        "ganadores_eu": "0",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      },
+      {
+        "tipo": "3ª       5      +     0/1",
+        "categoria": 3,
+        "premio": "460,78",
+        "ganadores": "23",
+        "ganadores_eu": "103",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      },
+      {
+        "tipo": "4ª       4      +     0/1",
+        "categoria": 4,
+        "premio": "32,14",
+        "ganadores": "1077",
+        "ganadores_eu": "4139",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      },
+      {
+        "tipo": "5ª       3      +     0/1",
+        "categoria": 5,
+        "premio": "4,81",
+        "ganadores": "15347",
+        "ganadores_eu": "58093",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      },
+      {
+        "tipo": "6ª       2      +     0/1",
+        "categoria": 6,
+        "premio": "2,5",
+        "ganadores": "86966",
+        "ganadores_eu": "333695",
+        "num_pagos": 0,
+        "periodicidad": null,
+        "cantidad_periodica": null
+      }
+    ]
+  }
+]

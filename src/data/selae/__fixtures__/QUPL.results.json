@@ -1,0 +1,146 @@
+[
+  {
+    "fecha_sorteo": "2026-10-11 14:14:00",
+    "dia_semana": "domingo",
+    "id_sorteo": "1325208064",
+    "game_id": "QUPL",
+    "anyo": "2026",
+    "numero": 64,
+    "premio_bote": "12000",
+    "cdc": "13252",
+    "apuestas": "12936",
+    "recaudacion": "1293600",
+    "combinacion": "4 - 6 - 10 - 5 - 4 C(8)",
+    "combinacion_acta": "4 - 6 - 10 - 5 - 4 C(8)",
+    "premios": "711480",
+    "fondo_bote": "474486",
+    "escrutinio": [
+      {
+        "tipo": "Especial (1 solo resguardo de 1ª Cat) ",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "1ª (5 Caballos Gan+2º de 5ªCarrera) ",
+        "categoria": 2,
+        "premio": "392,48",
+        "ganadores": "20"
+      },
+      {
+        "tipo": "2ª (5 Caballos Ganadores) ",
+        "categoria": 3,
+        "premio": "10,53",
+        "ganadores": "86"
+      },
+      {
+        "tipo": "3ª (4 Caballos Gan+2º de 5ªCarrera) ",
+        "categoria": 4,
+        "premio": "5,73",
+        "ganadores": "158"
+      },
+      {
+        "tipo": "4ª (4 Caballos Ganadores) ",
+        "categoria": 5,
+        "premio": "0",
+        "ganadores": "647"
+      }
+    ]
+  },
+  {
+    "fecha_sorteo": "2026-10-06 13:05:00",
+    "dia_semana": "martes",
+    "id_sorteo": "1324708063",
+    "game_id": "QUPL",
+    "anyo": "2026",
+    "numero": 63,
+    "premio_bote": "10000",
+    "cdc": "13247",
+    "apuestas": "3110",
+    "recaudacion": "311000",
+    "combinacion": "9 - 4 - 13 - 5 - 6 C(3)",
+    "combinacion_acta": "9 - 4 - 13 - 5 - 6 C(3)",
+    "premios": "171050",
+    "fondo_bote": "378076",
+    "escrutinio": [
+      {
+        "tipo": "Especial (1 solo resguardo de 1ª Cat) ",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "1ª (5 Caballos Gan+2º de 5ªCarrera) ",
+        "categoria": 2,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "2ª (5 Caballos Ganadores) ",
+        "categoria": 3,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "3ª (4 Caballos Gan+2º de 5ªCarrera) ",
+        "categoria": 4,
+        "premio": "27,21",
+        "ganadores": "8"
+      },
+      {
+        "tipo": "4ª (4 Caballos Ganadores) ",
+        "categoria": 5,
+        "premio": "11,46",
+        "ganadores": "19"
+      }
+    ]
+  },
+  {
+    "fecha_sorteo": "2026-10-04 13:58:00",
+    "dia_semana": "domingo",
+    "id_sorteo": "1324508062",
+    "game_id": "QUPL",
+    "anyo": "2026",
+    "numero": 62,
+    "premio_bote": "5000",
+    "cdc": "13245",
+    "apuestas": "12196",
+    "recaudacion": "1219600",
+    "combinacion": "2 - 1 - 2 - 6 - 2 C(1)",
+    "combinacion_acta": "2 - 1 - 2 - 6 - 2 C(1)",
+    "premios": "670780",
+    "fondo_bote": "0",
+    "escrutinio": [
+      {
+        "tipo": "Especial (1 solo resguardo de 1ª Cat) ",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "1ª (5 Caballos Gan+2º de 5ªCarrera) ",
+        "categoria": 2,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "2ª (5 Caballos Ganadores) ",
+        "categoria": 3,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "3ª (4 Caballos Gan+2º de 5ªCarrera) ",
+        "categoria": 4,
+        "premio": "170,74",
+        "ganadores": "5"
+      },
+      {
+        "tipo": "4ª (4 Caballos Ganadores) ",
+        "categoria": 5,
+        "premio": "40,65",
+        "ganadores": "21"
+      }
+    ]
+  }
+]

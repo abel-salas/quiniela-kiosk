@@ -1,0 +1,164 @@
+[
+  {
+    "fecha_sorteo": "2026-10-14 21:32:00",
+    "dia_semana": "miércoles",
+    "id_sorteo": "1325501287",
+    "game_id": "BONO",
+    "anyo": "2026",
+    "numero": 287,
+    "premio_bote": "0",
+    "cdc": "13255",
+    "apuestas": "4610567",
+    "recaudacion": "230528350",
+    "combinacion": "08 - 11 - 21 - 41 - 47 - 48 C(34) R(4)",
+    "combinacion_acta": "21 - 48 - 08 - 41 - 11 - 47 C(34) R(4)",
+    "premios": "126790593",
+    "fondo_bote": "0",
+    "escrutinio": [
+      {
+        "tipo": "1ª  (6 Aciertos) ",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "2ª  (5 Aciertos + C) ",
+        "categoria": 2,
+        "premio": "36060,68",
+        "ganadores": "4"
+      },
+      {
+        "tipo": "3ª  (5 Aciertos) ",
+        "categoria": 3,
+        "premio": "1126,9",
+        "ganadores": "64"
+      },
+      {
+        "tipo": "4ª  (4 Aciertos) ",
+        "categoria": 4,
+        "premio": "26,37",
+        "ganadores": "4102"
+      },
+      {
+        "tipo": "5ª  (3 Aciertos) ",
+        "categoria": 5,
+        "premio": "4",
+        "ganadores": "79041"
+      },
+      {
+        "tipo": "Reintegro",
+        "categoria": 6,
+        "premio": "0,5",
+        "ganadores": "463486"
+      }
+    ]
+  },
+  {
+    "fecha_sorteo": "2026-10-13 21:33:00",
+    "dia_semana": "martes",
+    "id_sorteo": "1325401286",
+    "game_id": "BONO",
+    "anyo": "2026",
+    "numero": 286,
+    "premio_bote": "900000",
+    "cdc": "13254",
+    "apuestas": "4946555",
+    "recaudacion": "247327750",
+    "combinacion": "11 - 13 - 28 - 31 - 41 - 42 C(20) R(0)",
+    "combinacion_acta": "28 - 41 - 11 - 31 - 42 - 13 C(20) R(0)",
+    "premios": "136030263",
+    "fondo_bote": "56758340",
+    "escrutinio": [
+      {
+        "tipo": "1ª  (6 Aciertos) ",
+        "categoria": 1,
+        "premio": "496105,69",
+        "ganadores": "2"
+      },
+      {
+        "tipo": "2ª  (5 Aciertos + C) ",
+        "categoria": 2,
+        "premio": "51470,06",
+        "ganadores": "3"
+      },
+      {
+        "tipo": "3ª  (5 Aciertos) ",
+        "categoria": 3,
+        "premio": "1118,91",
+        "ganadores": "69"
+      },
+      {
+        "tipo": "4ª  (4 Aciertos) ",
+        "categoria": 4,
+        "premio": "25,04",
+        "ganadores": "4624"
+      },
+      {
+        "tipo": "5ª  (3 Aciertos) ",
+        "categoria": 5,
+        "premio": "4",
+        "ganadores": "85231"
+      },
+      {
+        "tipo": "Reintegro",
+        "categoria": 6,
+        "premio": "0,5",
+        "ganadores": "494438"
+      }
+    ]
+  },
+  {
+    "fecha_sorteo": "2026-10-12 21:32:00",
+    "dia_semana": "lunes",
+    "id_sorteo": "1325301285",
+    "game_id": "BONO",
+    "anyo": "2026",
+    "numero": 285,
+    "premio_bote": "600000",
+    "cdc": "13253",
+    "apuestas": "2938270",
+    "recaudacion": "146913500",
+    "combinacion": "04 - 16 - 23 - 39 - 40 - 44 C(11) R(7)",
+    "combinacion_acta": "04 - 16 - 40 - 44 - 39 - 23 C(11) R(7)",
+    "premios": "80802425",
+    "fondo_bote": "31019949",
+    "escrutinio": [
+      {
+        "tipo": "1ª  (6 Aciertos) ",
+        "categoria": 1,
+        "premio": "0",
+        "ganadores": "0"
+      },
+      {
+        "tipo": "2ª  (5 Aciertos + C) ",
+        "categoria": 2,
+        "premio": "46797,08",
+        "ganadores": "2"
+      },
+      {
+        "tipo": "3ª  (5 Aciertos) ",
+        "categoria": 3,
+        "premio": "850,86",
+        "ganadores": "55"
+      },
+      {
+        "tipo": "4ª  (4 Aciertos) ",
+        "categoria": 4,
+        "premio": "28,02",
+        "ganadores": "2505"
+      },
+      {
+        "tipo": "5ª  (3 Aciertos) ",
+        "categoria": 5,
+        "premio": "4",
+        "ganadores": "48285"
+      },
+      {
+        "tipo": "Reintegro",
+        "categoria": 6,
+        "premio": "0,5",
+        "ganadores": "293659"
+      }
+    ]
+  }
+]

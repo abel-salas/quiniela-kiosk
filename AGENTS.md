@@ -31,6 +31,11 @@ Si algo de este fichero contradice `docs/`, manda `docs/`.
 - Ficheros de código de 150 líneas o menos (máximo 200). Prohibido `any`.
 - Al terminar: `npm run typecheck`, `npm test` y `npm run build` deben pasar.
 
+## Tests
+
+- Vitest en entorno Node. Los tests que necesitan DOM real (temporizadores de React) llevan `// @vitest-environment jsdom` (ver `src/ui/timers.dom.test.tsx`).
+- Los fixtures reales de SELAE están en `src/data/selae/__fixtures__/`; `src/test/fixture-board.ts` monta un tablero con ellos.
+
 ## Comprobar cambios visuales
 
 - `npm run dev` y abrir `http://localhost:4173/?mock=1&now=2026-10-14T22:00` (fixtures, sin red) a 1920×1080.

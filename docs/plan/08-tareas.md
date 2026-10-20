@@ -86,10 +86,10 @@ Estrategia: el código actual (`src/services`, `src/components`, `src/hooks`, `s
 
 **T26 ✅ · Documentación** — Reescribir `README.md` (rutas, Sanity, mock, despliegue, kiosko con extensión anti-CORS) y revisar `AGENTS.md`.
 
-**T27 · Validación en la TV y la tablet** — Legibilidad a 3–4 m, nombres largos de equipos, paso de provisional a definitivo, caída simulada de SELAE (bloquear el dominio en el navegador) y forzado desde el Studio.
+**T27 · Validación en la TV y la tablet** — Hecho en local: test de provisional → definitivo, caída de SELAE (tarjetas en "Pendiente de resultado" sin errores), nombres largos (2 líneas). Pendiente en los dispositivos: legibilidad a 3–4 m, nombres largos de equipos, paso de provisional a definitivo, caída simulada de SELAE (bloquear el dominio en el navegador) y forzado desde el Studio.
 
 **T28 · Pendientes finales** — Lo que ha quedado anotado durante el desarrollo:
-- Recarga diaria de la tablet (`/slide`) a las 05:00, como la TV, si va a estar encendida días seguidos.
-- Probar `/slide` con imágenes reales tras `npx sanity deploy` y subir slides en el Studio (los fixtures usan el favicon).
-- Comprobar que el navegador de la TV soporta `color-mix()` de CSS (Chrome 111+); si no, cambiar las bolas claras por los tokens `--game-*-soft`.
-- Test automático del tic de la cuenta atrás cada minuto (necesita un DOM simulado como `jsdom`; ahora solo está comprobado en el navegador).
+- ✅ Recarga diaria de la tablet (`/slide`) a las 05:00, como la TV (`createSlideStore` con `dailyReload`).
+- Pendiente (persona): probar `/slide` con imágenes reales tras `npx sanity deploy` y subir slides en el Studio (los fixtures usan el favicon).
+- ✅ Sin dependencia de `color-mix()`: los colores claros se calculan con `withAlpha` (`rgba`), válido en cualquier navegador.
+- ✅ Tests con `jsdom` del tic de la cuenta atrás cada minuto y de la rotación de slides (`src/ui/timers.dom.test.tsx`).

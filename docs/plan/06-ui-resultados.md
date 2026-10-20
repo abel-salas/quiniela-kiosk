@@ -62,6 +62,7 @@ Estilo de la tarjeta de SELAE (`docs/referencia/card-primitiva.png`), sin elemen
 
 - `GameHeader` con "Jornada N".
 - 15 `MatchRow`: posición, local – visitante y `SignBox`. Si el partido no se ha jugado, en lugar del signo se muestra la hora de inicio (`sáb 18:30`) y la casilla queda vacía.
+- Nombres de equipo largos: pasan a una segunda línea (máximo 2) en lugar de cortarse.
 - Fila 15 destacada como "Pleno al 15".
 - Con `status: 'open'`: etiqueta "PROVISIONAL" en la cabecera.
 

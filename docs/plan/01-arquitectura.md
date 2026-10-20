@@ -28,7 +28,7 @@ Reglas:
 
 ```
 src/
-  main.tsx                     arranque: config, repositorios, store, router
+  main.tsx                     arranque: config, reloj, repositorios, stores, router
   App.tsx                      rutas
   domain/                      games, draw, next-draw, repository
   data/
@@ -39,9 +39,10 @@ src/
     config.ts                  query params y env
     clock.ts
     source/                    resolución SELAE → Sanity, reintentos, juegos forzados
-    refresh/                   política pura + planificador
-    store/                     estado por juego + hooks
-    selectors/                 dominio → view models
+    refresh/                   política pura, planificador, cola de SELAE, ciclo de vida (00:05, 05:00)
+    store/                     estado por juego + hooks (useBoard, useNow, useBoardView, useUpcomingTiles)
+    slides/                    store de slides (cada 5 min) y rotación
+    selectors/                 dominio → view models (tablero, próximos, slides)
     format/                    fechas, importes, bolas
   ui/
     theme/                     tokens.css, base.css
@@ -50,10 +51,13 @@ src/
     results/                   ruta / y /quini
     upcoming/                  columna de próximos sorteos
     slides/                    ruta /slide
+    stage/                     lienzo 1920×1080 escalado
+  test/                        helpers de tests (tablero con fixtures)
 sanity/
   schemas/                     esquemas publicados en el Studio alojado
 sanity.config.ts               configuración mínima para `sanity deploy`
 sanity.cli.ts
+vercel.json                    rewrite SPA para /quini y /slide
 ```
 
 ## Rutas

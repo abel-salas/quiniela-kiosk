@@ -44,7 +44,9 @@ const store = createBoardStore({
   sourceMode: isQuini ? 'manualOnly' : 'auto',
   reloadAt: config.reloadAt,
 });
-const slides = createSlideStore(manual);
+const slides = createSlideStore(manual, {
+  dailyReload: { clock, at: config.reloadAt, reload: () => window.location.reload() },
+});
 if (isBoard) store.start();
 if (isSlide) slides.start();
 

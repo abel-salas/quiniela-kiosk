@@ -41,23 +41,31 @@ export interface LifecycleDeps {
 export const DAY_CHANGE_AT = '00:05';
 export const FORCED_GAMES_INTERVAL_MS = 60_000;
 
+/** Runs `action` every day at the local time 'HH:mm' of the app clock. Returns stop. */
+export const startDaily = (clock: Clock, time: string, action: () => void): (() => void) => {
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  const schedule = (): void => {
+    timer = setTimeout(() => {
+      action();
+      schedule();
+    }, msUntilLocalTime(clock.now(), time));
+  };
+  schedule();
+  return () => {
+    if (timer !== null) clearTimeout(timer);
+  };
+};
+
 /** Day-change replan (00:05), daily reload, forced-games polling and wake events. Returns stop. */
 export const startLifecycle = (deps: LifecycleDeps): (() => void) => {
-  const timers: ReturnType<typeof setTimeout>[] = [];
-  const daily = (time: string, action: () => void): void => {
-    timers.push(setTimeout(() => {
-      action();
-      daily(time, action);
-    }, msUntilLocalTime(deps.clock.now(), time)));
-  };
-
-  daily(DAY_CHANGE_AT, deps.onReplan);
-  daily(deps.reloadAt, deps.reload);
+  const stopDayChange = startDaily(deps.clock, DAY_CHANGE_AT, deps.onReplan);
+  const stopReload = startDaily(deps.clock, deps.reloadAt, deps.reload);
   const forced = setInterval(deps.onForcedTick, FORCED_GAMES_INTERVAL_MS);
   const stopWake = deps.events.onWake(deps.onReplan);
 
   return () => {
-    timers.forEach(clearTimeout);
+    stopDayChange();
+    stopReload();
     clearInterval(forced);
     stopWake();
   };

@@ -1,3 +1,4 @@
+import { withAlpha } from './color';
 import { SignBox } from './SignBox';
 import './MatchRow.css';
 
@@ -21,9 +22,9 @@ export const MatchRow = ({
   highlight = false,
 }: MatchRowProps) => {
   const backgroundColor = highlight
-    ? `color-mix(in srgb, ${color} 8%, white)`
+    ? withAlpha(color, 0.08)
     : position % 2 === 0
-      ? `color-mix(in srgb, ${color} 5%, white)`
+      ? withAlpha(color, 0.05)
       : undefined;
 
   return (

@@ -84,6 +84,7 @@ npx sanity deploy          # publica el Studio alojado con los esquemas del repo
 - Cada imagen a pantalla completa (`object-fit: contain`, fondo negro), con `?w=2048&fit=max` en la URL del asset.
 - Rotación cada 10 s con fundido cruzado de 700 ms.
 - La lista se vuelve a pedir cada 5 min; los cambios publicados en el Studio aparecen sin recargar.
+- Recarga completa de la página a las 05:00, como la TV (la tablet también está siempre encendida).
 - Sin slides: pantalla negra.
 
 ## Ruta `/quini`

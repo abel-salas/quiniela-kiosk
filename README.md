@@ -28,7 +28,8 @@ Ejemplo: `http://localhost:4173/?mock=1&now=2026-10-14T22:00`.
 - Cada juego consulta SELAE solo cuando puede haber datos nuevos, guiándose por `proximosv3` (hora de cierre y del sorteo). Con jornada de fútbol en curso, cada 5 min.
 - Si SELAE falla, reintenta a los 5 s y a los 10 s; si sigue fallando, usa los sorteos de Sanity para ese juego.
 - Desde Sanity se puede forzar que un juego se lea siempre de Sanity (`kioskSettings`).
-- Sin caché persistente: todo en memoria. La página se recarga sola cada día a las 05:00.
+- Las peticiones a SELAE van de una en una, con 1,5 s entre ellas: en ráfagas su antibots (Akamai) bloquea a ratos con 403 o 406, y la app lo trata como un fallo más (reintentos y respaldo).
+- Sin caché persistente: todo en memoria. La página (TV y tablet) se recarga sola cada día a las 05:00.
 
 ## Requisitos
 
@@ -45,7 +46,7 @@ cp .env.example .env   # y rellenar los valores
 | Script | Para qué |
 |---|---|
 | `npm run dev` | Servidor de desarrollo en `http://localhost:4173` |
-| `npm test` | Tests (Vitest) |
+| `npm test` | Tests (Vitest; los que necesitan DOM usan `jsdom`) |
 | `npm run typecheck` | Comprobación de tipos |
 | `npm run build` | Build de producción en `dist/` |
 | `npm run preview` | Sirve el build en `http://localhost:4173` |
@@ -99,7 +100,7 @@ TV:
 
 Tablet: abrir `https://<dominio>/slide` a pantalla completa (no necesita la extensión: solo lee Sanity).
 
-La página oculta el cursor, no tiene scroll y se recarga sola a las 05:00.
+Las dos pantallas ocultan el cursor, no tienen scroll y se recargan solas a las 05:00.
 
 ## Estructura
 

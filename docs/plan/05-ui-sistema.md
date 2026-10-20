@@ -32,7 +32,7 @@ Color de marca por juego, extraído de `loterias_sass.css` (`.c-ultimo-resultado
 | `--game-qupl` | Quíntuple Plus | `#eab842` | `cabecera--quintuple` |
 | `--game-lotu` | Lototurf | `#d16929` | `cabecera--lototurf` |
 
-- Variante clara por juego (`--game-*-soft`) para el complementario: mismo tono con mucha luminosidad y texto en el color de marca (ver `card-primitiva.png`).
+- Variante clara por juego (`--game-*-soft`) para el complementario: mismo tono con mucha luminosidad y texto en el color de marca (ver `card-primitiva.png`). Los componentes la calculan con `withAlpha(color, 0.31)` (`rgba`), sin `color-mix()`, que exige Chrome 111+.
 - Fondo de página, tarjeta, texto (`#575756`) y fondos neutros (`#f6f6f6`): del mismo CSS.
 - Separación por espacio y sombra suave; sin bordes salvo la caja del Joker/Millón.
 
@@ -76,14 +76,14 @@ Reciben view models ya formateados; no formatean ni calculan.
 
 | Componente | Props | Uso |
 |---|---|---|
-| `GameHeader` | `name; logo; color; dateText?` | Barra de color con logo y nombre, como la web de SELAE |
+| `GameHeader` | `name; logo; color; dateText?; badge?` | Barra de color con logo y nombre, como la web de SELAE |
 | `Ball` | `value: string; color: string; variant: 'solid' \| 'soft'` | Bola rellena (número, reintegro) o clara (complementario) |
 | `BallRow` | `values: string[]; color` | Bolas de la combinación |
 | `ExtraBall` | `label: string; value: string; color; variant` | Bola con etiqueta encima (C, R, Clave, Sueño, ★) |
 | `AddOnBox` | `logo: string; value: string` | Caja blanca con logo de Joker o Millón y su valor |
-| `DrawLine` | `dateText; balls; extras; addOn?` | Una línea por sorteo: fecha a la izquierda, bolas, extras y Joker/Millón a la derecha |
+| `DrawLine` | `dateText; balls; color; extras; addOn?` | Una línea por sorteo: fecha a la izquierda, bolas, extras y Joker/Millón a la derecha |
 | `SignBox` | `sign: string \| null; color` | Casilla 1/X/2 o resultado de Quinigol |
-| `MatchRow` | `position; home; away; detail; sign; highlight?` | Fila de partido |
+| `MatchRow` | `position; home; away; detail; sign; color; highlight?` | Fila de partido |
 | `UpcomingTile` | `name; logo; color; amount; note?; countdown` | Fila de próximos sorteos (ver captura) |
 | `StatusBar` | `updatedText; notice` | Pie con última actualización y aviso legal |
 

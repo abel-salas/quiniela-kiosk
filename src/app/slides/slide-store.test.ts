@@ -40,4 +40,21 @@ describe('createSlideStore', () => {
     await vi.advanceTimersByTimeAsync(3 * SLIDES_RELOAD_MS);
     expect(getSlides).toHaveBeenCalledTimes(2);
   });
+
+  it('reloads the page every day at the configured time', async () => {
+    vi.setSystemTime(new Date(2026, 9, 20, 22, 0));
+    const reload = vi.fn();
+    const store = createSlideStore({ getSlides: async () => [] }, {
+      dailyReload: { clock: { now: () => new Date() }, at: '05:00', reload },
+    });
+    store.start();
+    await vi.advanceTimersByTimeAsync(7 * 3_600_000 - 1_000);
+    expect(reload).not.toHaveBeenCalled();
+    await vi.advanceTimersByTimeAsync(1_000);
+    expect(reload).toHaveBeenCalledTimes(1);
+
+    store.stop();
+    await vi.advanceTimersByTimeAsync(48 * 3_600_000);
+    expect(reload).toHaveBeenCalledTimes(1);
+  });
 });

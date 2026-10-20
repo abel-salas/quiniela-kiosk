@@ -38,3 +38,6 @@ capture-api.js
 
 # Material de referencia local (capturas y copia de la web de SELAE)
 docs/referencia/
+
+# Lockfile local: se genera con el registro npm de cada equipo y no se versiona
+package-lock.json

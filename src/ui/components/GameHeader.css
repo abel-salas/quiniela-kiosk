@@ -2,16 +2,16 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  min-height: 64px;
-  padding: 8px 20px;
+  min-height: 44px;
+  padding: 4px 16px;
   color: var(--color-on-brand);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: var(--font-bold);
 }
 
 .game-header__logo {
-  width: 52px;
-  height: 44px;
+  width: 44px;
+  height: 34px;
   object-fit: contain;
 }
 
@@ -23,4 +23,14 @@
   margin-left: auto;
   font-size: 20px;
   font-weight: var(--font-semibold);
+}
+
+.game-header__badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--color-card);
+  font-size: 14px;
+  font-weight: var(--font-bold);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }

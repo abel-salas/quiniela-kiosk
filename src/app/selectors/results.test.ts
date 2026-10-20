@@ -1,27 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import type { ResultGameId } from '../../domain/games';
-import bono from '../../data/selae/__fixtures__/BONO.results.json';
-import edms from '../../data/selae/__fixtures__/EDMS.results.json';
-import elgr from '../../data/selae/__fixtures__/ELGR.results.json';
-import emil from '../../data/selae/__fixtures__/EMIL.results.json';
-import lapr from '../../data/selae/__fixtures__/LAPR.results.json';
-import laqu from '../../data/selae/__fixtures__/LAQU.results.json';
-import qgol from '../../data/selae/__fixtures__/QGOL.results.json';
-import todos from '../../data/selae/__fixtures__/TODOS.next.json';
-import { mapUpcoming } from '../../data/selae/mappers/next-draw';
-import { mapResults } from '../../data/selae/mappers/results';
-import { createInitialSnapshot, RESULT_GAMES, withGame } from '../store/snapshot';
-import type { BoardSnapshot } from '../store/types';
+import { fixtureSnapshot, FIXTURE_NOW as NOW } from '../../test/fixture-board';
+import { createInitialSnapshot, withGame } from '../store/snapshot';
 import { AWAITING_BADGE, PENDING_TEXT, PROVISIONAL_BADGE, selectBoardView } from './results';
-
-const RAW: Record<ResultGameId, unknown> = { BONO: bono, EDMS: edms, ELGR: elgr, LAPR: lapr, EMIL: emil, LAQU: laqu, QGOL: qgol };
-const NOW = new Date(2026, 9, 14, 22, 0);
-
-const fixtureSnapshot = (): BoardSnapshot => {
-  const base = { ...createInitialSnapshot(), upcoming: mapUpcoming(todos), lastUpdatedAt: '2026-10-14T21:45:10' };
-  return RESULT_GAMES.reduce<BoardSnapshot>(
-    (snapshot, id) => withGame(snapshot, id, { draws: mapResults(RAW[id], id) }), base);
-};
 
 const view = selectBoardView(fixtureSnapshot(), NOW);
 const card = (id: ResultGameId) => [...view.numbers, ...view.football].find((item) => item.gameId === id);

@@ -1,0 +1,31 @@
+.upcoming-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 384px;
+  height: 100%;
+  min-height: 0;
+}
+
+.upcoming-column__title {
+  margin: 0;
+  padding: 8px 4px 0;
+  font-size: 22px;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+}
+
+.upcoming-column__tiles {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+}
+
+/* The tiles share the column height evenly (up to 10 games). */
+.upcoming-column__tiles > .upcoming-tile {
+  flex: 1 1 0;
+  min-height: 0;
+  max-height: 120px;
+}

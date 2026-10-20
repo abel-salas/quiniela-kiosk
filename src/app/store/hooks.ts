@@ -1,5 +1,8 @@
-import { createContext, useContext, useEffect, useState, useSyncExternalStore } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { systemClock, type Clock } from '../clock';
+import { selectBoardView } from '../selectors/results';
+import { selectUpcomingTiles } from '../selectors/upcoming';
+import type { BoardView, UpcomingTileView } from '../selectors/types';
 import type { BoardStore } from './board-store';
 import type { BoardSnapshot } from './types';
 
@@ -24,4 +27,20 @@ export const useNow = (intervalMs = 60_000): Date => {
   }, [clock, intervalMs]);
 
   return now;
+};
+
+export const COUNTDOWN_INTERVAL_MS = 60_000;
+
+/** Board cards and status bar; recomputed only when the snapshot changes. */
+export const useBoardView = (): BoardView => {
+  const snapshot = useBoard();
+  const clock = useContext(ClockContext);
+  return useMemo(() => selectBoardView(snapshot, clock.now()), [snapshot, clock]);
+};
+
+/** Upcoming column tiles; countdowns refresh every minute. */
+export const useUpcomingTiles = (): UpcomingTileView[] => {
+  const { upcoming } = useBoard();
+  const now = useNow(COUNTDOWN_INTERVAL_MS);
+  return useMemo(() => selectUpcomingTiles(upcoming, now), [upcoming, now]);
 };

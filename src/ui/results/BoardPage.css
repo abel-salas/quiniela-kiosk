@@ -1,0 +1,34 @@
+/* 1920×1080 canvas: column 1 (numbers) 60 % / column 2 (football) 40 % of the space left by column 3 (384 px). */
+.board-page {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr) 384px;
+  grid-template-rows: minmax(0, 1fr) 48px;
+  gap: 12px;
+  width: var(--stage-width);
+  height: var(--stage-height);
+  padding: 12px 12px 0;
+}
+
+.board-page__numbers,
+.board-page__football {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.board-page__football {
+  gap: 12px;
+}
+
+.board-page__upcoming {
+  grid-row: 1;
+  grid-column: 3;
+  min-height: 0;
+}
+
+.board-page__status {
+  grid-column: 1 / -1;
+  align-self: center;
+}

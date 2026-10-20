@@ -1,0 +1,21 @@
+.slide-page {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+/* All slides are stacked; only the active one is visible (700 ms cross-fade). */
+.slide-page__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 700ms ease-in-out;
+}
+
+.slide-page__image--active {
+  opacity: 1;
+}

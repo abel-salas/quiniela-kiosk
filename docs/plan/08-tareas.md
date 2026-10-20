@@ -69,16 +69,16 @@ Estrategia: el código actual (`src/services`, `src/components`, `src/hooks`, `s
 
 **T20 ✅ · Selectores** — [06-ui-resultados.md](06-ui-resultados.md). `app/selectors/` con `selectWeekDraws` (pila de 7 días) y `selectBoardView`. Tests.
 
-**T21 · Tarjetas de resultados** — `ui/results/NumbersCard.tsx`, `QuinielaCard.tsx`, `QuinigolCard.tsx`.
+**T21 ✅ · Tarjetas de resultados** — `ui/results/NumbersCard.tsx`, `QuinielaCard.tsx`, `QuinigolCard.tsx`.
 
-**T22 · Columna de próximos sorteos** — `ui/upcoming/UpcomingColumn.tsx` con `UpcomingTile` y cuenta atrás.
+**T22 ✅ · Columna de próximos sorteos** — `ui/upcoming/UpcomingColumn.tsx` con `UpcomingTile` y cuenta atrás.
 
-**T23 · Página de tablero y rutas** — `ui/results/BoardPage.tsx` con el layout de 3 columnas; `App.tsx` monta `/` y `/quini` con las capas nuevas; `main.tsx` crea repositorios (reales o fixtures con `?mock=1`), reloj y store.
+**T23 ✅ · Página de tablero y rutas** — `ui/results/BoardPage.tsx` con el layout de 3 columnas; `App.tsx` monta `/` y `/quini` con las capas nuevas; `main.tsx` crea repositorios (reales o fixtures con `?mock=1`), reloj y store.
 - Hecho cuando: con `?mock=1&now=2026-10-14T22:00` se ven los 7 juegos y la columna de próximos sin desbordes en 1920×1080, y se decide la columna 1 (una o dos subcolumnas).
 
 ## Fase 6: Tablet
 
-**T24 · Ruta `/slide`** — [07-sanity.md](07-sanity.md) § Ruta `/slide`. `ui/slides/SlidePage.tsx` con rotación, fundido y recarga de la lista cada 5 min.
+**T24 ✅ · Ruta `/slide`** — [07-sanity.md](07-sanity.md) § Ruta `/slide`. `ui/slides/SlidePage.tsx` con rotación, fundido y recarga de la lista cada 5 min.
 
 ## Fase 7: Cierre
 
@@ -87,3 +87,9 @@ Estrategia: el código actual (`src/services`, `src/components`, `src/hooks`, `s
 **T26 · Documentación** — Reescribir `README.md` (rutas, Sanity, mock, despliegue, kiosko con extensión anti-CORS) y revisar `AGENTS.md`.
 
 **T27 · Validación en la TV y la tablet** — Legibilidad a 3–4 m, nombres largos de equipos, paso de provisional a definitivo, caída simulada de SELAE (bloquear el dominio en el navegador) y forzado desde el Studio.
+
+**T28 · Pendientes finales** — Lo que ha quedado anotado durante el desarrollo:
+- Recarga diaria de la tablet (`/slide`) a las 05:00, como la TV, si va a estar encendida días seguidos.
+- Probar `/slide` con imágenes reales tras `npx sanity deploy` y subir slides en el Studio (los fixtures usan el favicon).
+- Comprobar que el navegador de la TV soporta `color-mix()` de CSS (Chrome 111+); si no, cambiar las bolas claras por los tokens `--game-*-soft`.
+- Test automático del tic de la cuenta atrás cada minuto (necesita un DOM simulado como `jsdom`; ahora solo está comprobado en el navegador).

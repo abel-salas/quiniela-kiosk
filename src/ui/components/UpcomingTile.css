@@ -25,22 +25,24 @@
   flex-direction: column;
   justify-content: center;
   min-width: 0;
-  padding: 10px 14px;
+  padding: 6px 14px;
 }
 
 .upcoming-tile__topline {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 8px;
 }
 
 .upcoming-tile__name {
+  display: -webkit-box;
   overflow: hidden;
   font-size: 18px;
   font-weight: var(--font-bold);
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.15;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .upcoming-tile__countdown {
@@ -50,12 +52,18 @@
 }
 
 .upcoming-tile__amount {
-  margin-top: 4px;
-  font-size: 24px;
+  align-self: flex-end;
+  margin-top: 2px;
+  font-size: 30px;
   font-weight: var(--font-bold);
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 .upcoming-tile__note {
+  align-self: flex-end;
   margin-top: 2px;
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
 }

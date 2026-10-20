@@ -44,4 +44,4 @@ Tablón de resultados para una administración de loterías. Una TV horizontal m
 
 | Tema | Estado |
 |---|---|
-| Columna 1: una columna de 5 juegos o dos subcolumnas (3 + 2) | Se decide al maquetar con datos reales; ver [06-ui-resultados.md](06-ui-resultados.md) |
+| Columna 1: una columna de 5 juegos o dos subcolumnas (3 + 2) | Cerrada en T23: una sola columna con tamaños compactos; ver [06-ui-resultados.md](06-ui-resultados.md) |

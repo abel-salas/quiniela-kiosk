@@ -28,9 +28,12 @@ TV horizontal, lienzo 1920×1080. `/quini` usa exactamente el mismo layout con l
 - Columnas 1 y 2 se reparten el resto. Proporción inicial 60/40 entre ellas, a ajustar.
 - Pie de 48 px con `StatusBar`.
 
-### Columna 1: ¿una o dos subcolumnas?
+### Columna 1: una sola columna (decidido en T23)
 
-Contenido máximo: 15 líneas (Bonoloto 7, EuroDreams 2, El Gordo 1, La Primitiva 3, Euromillones 2) y 5 cabeceras. En una sola columna, con cabeceras de 56 px y líneas de 48 px, no cabe con márgenes legibles. Si se parte en dos, la propuesta es Bonoloto + El Gordo (8 líneas) | EuroDreams + La Primitiva + Euromillones (7 líneas). Se decide al maquetar con datos reales.
+Contenido máximo: 15 líneas (Bonoloto 7, EuroDreams 2, El Gordo 1, La Primitiva 3, Euromillones 2) y 5 cabeceras.
+- Dos subcolumnas no caben a lo ancho: cada una quedaría en ~440 px y una línea de La Primitiva (bolas, C, R y Joker) necesita ~720 px.
+- Una sola columna de ~890 px sí cabe con tamaños compactos: cabeceras de 44 px, líneas de ~49 px, bolas de 38 px y extras de 32 px. Medido con 15 líneas: sobran 21 px de los 1008 disponibles.
+- Columna 2 con filas de partido de 40 px: Quiniela (664 px) + Quinigol (284 px) caben en la misma altura.
 
 ## Semana en curso (pila)
 

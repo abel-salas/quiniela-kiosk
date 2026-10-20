@@ -15,7 +15,7 @@ export const MIN_REPEAT_MS = 60_000;
 
 export interface SchedulerDeps {
   selae: SelaeRepository;
-  manual?: ManualRepository; // Optional: only needed for forced mode (/quini route)
+  manual: ManualRepository;
   clock: Clock;
   store: SnapshotStore;
   sourceMode: SourceMode;
@@ -73,7 +73,7 @@ export const createScheduler = (deps: SchedulerDeps): Scheduler => {
     const window = resultsWindow(now);
     const forced = deps.sourceMode === 'manualOnly' || snapshot.forcedGames.includes(gameId);
     const result = await resolveDraws(
-      { selae, manual: manual, retryDelaysMs: deps.retryDelaysMs },
+      { selae, manual, retryDelaysMs: deps.retryDelaysMs },
       { gameId, window, forced, current: snapshot.results[gameId].draws },
     );
     const draws = result.draws.filter((draw) => draw.date >= window.from);

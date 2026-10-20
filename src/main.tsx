@@ -39,7 +39,7 @@ const createManual = (): ManualRepository => {
 const manual = createManual();
 const store = createBoardStore({
   selae: config.mock ? createSelaeFixtureRepository() : createSelaeRepository(),
-  manual: config.sanity ? manual : undefined, // Only pass manual if Sanity is configured
+  manual,
   clock,
   sourceMode: isQuini ? 'manualOnly' : 'auto',
   reloadAt: config.reloadAt,

@@ -7,18 +7,14 @@ const response = (body: string, status = 200): Response =>
 describe('fetchJson', () => {
   it('sends the required request options and returns parsed JSON', async () => {
     const fetcher: typeof fetch = vi.fn(async (_url, init) => {
-      expect(init?.headers).toEqual({
-        Accept: 'application/json',
-        'Accept-Language': 'es-ES,es;q=0.9',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      });
+      expect(init?.headers).toEqual({ Accept: 'application/json' });
       expect(init?.cache).toBe('no-cache');
       expect(init?.credentials).toBe('omit');
       expect(init?.signal).toBeInstanceOf(AbortSignal);
       return response('{"ok":true}');
     });
 
-    await expect(fetchJson('https://example.test', { fetcher, useProxy: false })).resolves.toEqual({ ok: true });
+    await expect(fetchJson('https://example.test', { fetcher })).resolves.toEqual({ ok: true });
     expect(fetcher).toHaveBeenCalledOnce();
   });
 

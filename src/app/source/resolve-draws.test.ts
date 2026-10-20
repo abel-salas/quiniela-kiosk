@@ -60,14 +60,26 @@ describe('resolveDraws', () => {
     expect(manual.getRecentDraws).not.toHaveBeenCalled();
   });
 
-  it('keeps memory when SELAE fails (no fallback to Sanity)', async () => {
+  it('falls back to Sanity after three failures and reports the SELAE error', async () => {
+    const selae = fakeSelae(blocked(), blocked(), blocked());
+    const manual = fakeManual([draw('2026-10-14', 'sanity'), draw('2026-10-13', 'sanity')]);
+    const pending = resolveDraws({ selae, manual },
+      { gameId: 'BONO', window: WINDOW, forced: false, current: [draw('2026-10-13', 'selae')] });
+
+    await vi.advanceTimersByTimeAsync(15_000);
+    const result = await pending;
+    expect(selae.getRecentDraws).toHaveBeenCalledTimes(3);
+    expect(result.selaeError).toBe('blocked');
+    expect(result.draws.map((d) => `${d.date}:${d.source}`)).toEqual(['2026-10-13:selae', '2026-10-14:sanity']);
+  });
+
+  it('keeps memory when SELAE and Sanity both fail', async () => {
     const current = [draw('2026-10-13', 'selae')];
-    const pending = resolveDraws({ selae: fakeSelae(new Error('x'), new Error('y'), new Error('z')), manual: fakeManual([draw('2026-10-14', 'sanity')]) },
+    const pending = resolveDraws({ selae: fakeSelae(new Error('x'), new Error('y'), new Error('z')), manual: fakeManual(new Error('down')) },
       { gameId: 'BONO', window: WINDOW, forced: false, current });
 
     await vi.advanceTimersByTimeAsync(15_000);
     await expect(pending).resolves.toEqual({ draws: current, selaeError: 'network' });
-    expect(manual.getRecentDraws).not.toHaveBeenCalled();
   });
 
   it('forced games read only Sanity, which wins on the same date', async () => {
@@ -92,9 +104,5 @@ describe('resolveForcedGames', () => {
   it('returns the Sanity list or keeps the previous one on failure', async () => {
     await expect(resolveForcedGames(fakeManual([], ['LAQU']), [])).resolves.toEqual(['LAQU']);
     await expect(resolveForcedGames(fakeManual([], new Error('down')), ['QGOL'])).resolves.toEqual(['QGOL']);
-  });
-
-  it('keeps previous list when manual repository is not provided', async () => {
-    await expect(resolveForcedGames(undefined, ['LAQU', 'QGOL'])).resolves.toEqual(['LAQU', 'QGOL']);
   });
 });

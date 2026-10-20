@@ -10,7 +10,7 @@ El proyecto está en reconstrucción. Las reglas vigentes están en:
 
 - `docs/contexto-apis.md`: contrato real de SELAE.
 - `docs/plan/00-indice.md`: decisiones, reglas de trabajo y fases.
-- `docs/plan/08-tareas.md`: backlog. Ejecutar una tarea por sesión, en orden.
+- `docs/plan/08-tareas.md`: backlog. Ejecutar una tarea por sesión, en orden, salvo los bloques agrupables que indica ese fichero.
 
 Si algo de este fichero contradice `docs/`, manda `docs/`.
 

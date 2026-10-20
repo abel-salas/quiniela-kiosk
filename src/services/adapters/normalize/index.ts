@@ -1,6 +1,6 @@
 import type { GameCode, LotteryDraw } from '../../../types/lottery';
 
-const normalizeQuinielaSign = (raw: string, matchDate?: string): '1' | 'X' | '2' | null => {
+const normalizeQuinielaSign = (raw: string): '1' | 'X' | '2' | null => {
   const value = String(raw ?? '').trim().toUpperCase();
 
   // Si no hay valor explícito, devolver null (no mostrar signo)
@@ -177,7 +177,7 @@ export const normalizeDraw = (payload: any, game: GameCode): LotteryDraw => {
         ? payload.partidos.map((partido: any) => ({
             local: String(partido.local ?? '').replace(/\s*\(m\)\s*$/i, '').trim(),
             visitor: String(partido.visitante ?? '').replace(/\s*\(m\)\s*$/i, '').trim(),
-            result: normalizeQuinielaSign(partido.signo ?? '', partido.fecha_completa ?? partido.fecha ?? partido.hora ?? ''),
+            result: normalizeQuinielaSign(partido.signo ?? ''),
             fecha_completa: partido.fecha_completa ?? partido.fecha ?? partido.hora ?? '',
           }))
         : [];

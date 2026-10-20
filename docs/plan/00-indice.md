@@ -31,7 +31,7 @@ Tablón de resultados para una administración de loterías. Una TV horizontal m
 
 ## Reglas para quien ejecute las tareas
 
-- Ejecutar una sola tarea de [08-tareas.md](08-tareas.md) por sesión, en orden.
+- Ejecutar una sola tarea de [08-tareas.md](08-tareas.md) por sesión, en orden, salvo los bloques agrupables que indica ese fichero.
 - Leer antes los documentos que la tarea indica. No modificar ficheros fuera del alcance de la tarea.
 - Cada fichero de código debe tener 150 líneas o menos; el límite duro es 200.
 - Prohibido `any`. Los datos externos (SELAE y Sanity) entran como `unknown` y se validan en su mapper.

@@ -1,8 +1,5 @@
 // Constantes de configuración
-
-// En desarrollo usamos proxy, en producción URL directa
-const isDev = import.meta.env.DEV;
-export const API_BASE_URL = isDev ? '/servicios' : 'https://www.loteriasyapuestas.es/servicios';
+export const API_BASE_URL = 'https://www.loteriasyapuestas.es/servicios';
 
 export const API_ENDPOINTS = {
   BUSCADOR_SORTEOS: `${API_BASE_URL}/buscadorSorteos`,

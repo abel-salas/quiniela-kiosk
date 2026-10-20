@@ -2,28 +2,11 @@ import { fallbackBoard, GAME_CONFIG } from '../../config/gameConfig';
 import type { GameCode, LotteryBoardItem, LotteryDraw } from '../../types/lottery';
 import { normalizeDraw } from '../adapters/normalize/index';
 import { getDateWindowForGame } from './DateWindowCalculator';
-import { CacheService } from '../cache/CacheService';
 import { HttpClient } from '../http/HttpClient';
 import { API_ENDPOINTS } from '../../config/constants';
 
 const useMock = import.meta.env.VITE_USE_MOCK === 'true';
 const storagePrefix = 'draw:';
-
-const toDateKey = (date: string) => date.replace(/-/g, '').slice(0, 8);
-
-const getLatestRow = (raw: unknown): any => {
-  const rows = Array.isArray(raw) ? raw : [];
-
-  if (rows.length === 0) {
-    return null;
-  }
-
-  return [...rows].sort((left: any, right: any) => {
-    const leftDate = new Date(left?.fecha_sorteo ?? left?.fecha ?? left?.date ?? '1970-01-01').getTime();
-    const rightDate = new Date(right?.fecha_sorteo ?? right?.fecha ?? right?.date ?? '1970-01-01').getTime();
-    return rightDate - leftDate;
-  })[0] ?? rows[0];
-};
 
 const getCacheKey = (game: GameCode, range: { start: string; end: string }) => `${storagePrefix}${game}:${range.start}:${range.end}`;
 
@@ -162,11 +145,6 @@ const resolveGameHistory = async (game: GameCode): Promise<LotteryDraw[]> => {
 
   inflightRequests.set(game, request);
   return request;
-};
-
-const resolveGameDraw = async (game: GameCode): Promise<LotteryDraw | null> => {
-  const history = await resolveGameHistory(game);
-  return history[history.length - 1] ?? null;
 };
 
 export const fetchBoard = async (): Promise<LotteryBoardItem[]> => {

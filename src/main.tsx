@@ -43,6 +43,7 @@ const store = createBoardStore({
   clock,
   sourceMode: isQuini ? 'manualOnly' : 'auto',
   reloadAt: config.reloadAt,
+  persist: !config.mock && !isQuini,
 });
 const slides = createSlideStore(manual, {
   dailyReload: { clock, at: config.reloadAt, reload: () => window.location.reload() },

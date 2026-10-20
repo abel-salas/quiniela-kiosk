@@ -121,6 +121,7 @@ export const createScheduler = (deps: SchedulerDeps): Scheduler => {
       active = true;
       await refreshForced();
       upcoming.start();
+      void upcoming.refresh();
       replanAll();
     },
     stop() {

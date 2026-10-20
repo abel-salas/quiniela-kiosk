@@ -22,7 +22,7 @@ Tablón de resultados para una administración de loterías. Una TV horizontal m
 - **Fuentes**: SELAE es la fuente principal. Sanity es el respaldo manual y la fuente de las imágenes de `/slide`.
 - **Resolución de fuente en `/`**: SELAE con 2 reintentos espaciados; si falla, Sanity. Desde Sanity se puede forzar que un juego se lea de Sanity aunque SELAE funcione.
 - **Sin proxy**: el navegador del kiosko usa una extensión anti-CORS. Se elimina el proxy de Vite.
-- **Sin caché persistente** por ahora: estado solo en memoria, siempre datos frescos de la fuente. La caché versionada queda para el futuro.
+- **Caché local**: el tablero real de `/` conserva resultados y próximos sorteos hasta 12 h para reducir peticiones al recargar. `?mock=1` y `/quini` no la usan.
 - **Diseño**: réplica del estilo de https://www.loteriasyapuestas.es/es/resultados (colores, logotipos y bolas de cada juego), sin elementos interactivos.
 - **Alcance de resultados**: Bonoloto, EuroDreams, El Gordo, La Primitiva, Euromillones (columna 1); La Quiniela y Quinigol (columna 2).
 - **Próximos sorteos**: columna 3, vertical, ~20 % del ancho, a toda la altura.

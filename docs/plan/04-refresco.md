@@ -2,11 +2,13 @@
 
 Todo en `src/app/`. La TV está encendida todo el día y nadie recarga la página: la app se actualiza sola, consulta SELAE solo cuando puede haber datos nuevos y, cuando un sorteo termina, muestra el resultado definitivo sin intervención.
 
-## Sin caché persistente
+## Caché local de 12 h
 
-- El estado vive solo en memoria. Al cargar la página se consulta todo.
-- No se usa `localStorage`. Al arrancar se borran las claves del formato antiguo (`draw:*`) para no dejar basura.
-- La caché persistente versionada queda fuera de alcance.
+- El tablero real de `/` persiste en `localStorage` con la clave `quiniela:board:v1` y una caducidad de 12 h. La caché evita volver a pedir resultados al recargar la TV.
+- Se guardan `draws`, `next`, `upcoming` y `lastUpdatedAt`; la fase y los errores se recalculan, y `forcedGames` se vuelve a leer de Sanity.
+- Antes de iniciar el planificador se valida e hidrata la caché. JSON inválido, versión desconocida, datos con forma incorrecta o antigüedad superior a 12 h hacen que se descarte y se borre.
+- `setItem` puede fallar por cuota o modo privado; el guardado es best-effort y no afecta al tablero en memoria.
+- `?mock=1` y `/quini` no leen ni escriben esta caché. Al arrancar se siguen borrando las claves antiguas `draw:*`.
 
 ## Estado por juego
 
@@ -95,7 +97,7 @@ Tests en tabla con instantes fijos, al menos:
 - `GameState.next` de cada juego de resultados es el primer elemento de esa lista con su `gameId`. Excepción: si el resultado del `next` anterior aún no ha llegado y su fecha es de los últimos 2 días, se conserva para seguir buscándolo (`refresh/next-pick.ts`).
 - Entre dos rondas del mismo juego pasan al menos 60 s, y los próximos sorteos no se vuelven a pedir antes de 60 s tras un éxito: así las decisiones "consultar ya" no entran en bucle.
 - Un temporizador que vence siempre ejecuta su ronda. Las replanificaciones (nuevos próximos sorteos, `online`, `visibilitychange`, 00:05) solo pueden adelantar una ronda, nunca retrasarla.
-- Cola global: una petición a SELAE cada vez y 1,5 s entre arranques (con 2 simultáneas y 500 ms, Akamai bloqueaba a ratos con 406).
+- Cola global: una petición a SELAE cada vez y 1,5 s entre arranques. Tras un error `blocked`, `network` o `timeout`, pausa la cola 20 s antes de continuar; `invalid` no la pausa. Si vuelve a fallar, reinicia la pausa.
 - Reprogramar todo en: evento `online`, cambio de día (00:05) y `visibilitychange` a visible.
 - Recarga completa de la página a las 05:00 (constante `DAILY_RELOAD_AT` en `app/config.ts`) para evitar fugas de memoria del kiosko.
 

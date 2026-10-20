@@ -1,8 +1,9 @@
 export const LEGACY_CACHE_PREFIX = 'draw:';
 
 export type LegacyStorage = Pick<Storage, 'length' | 'key' | 'removeItem'>;
+export type KioskStorage = LegacyStorage & Pick<Storage, 'getItem' | 'setItem'>;
 
-/** There is no persistent cache: removes the keys left by the old app (`draw:*`). */
+/** Removes only keys left by the old app (`draw:*`); the board cache has its own key. */
 export const clearLegacyCache = (storage: LegacyStorage | null): void => {
   if (!storage) return;
   const keys: string[] = [];
@@ -13,7 +14,7 @@ export const clearLegacyCache = (storage: LegacyStorage | null): void => {
   keys.forEach((key) => storage.removeItem(key));
 };
 
-export const browserStorage = (): LegacyStorage | null => {
+export const browserStorage = (): KioskStorage | null => {
   try {
     return typeof localStorage === 'undefined' ? null : localStorage;
   } catch {

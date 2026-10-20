@@ -31,6 +31,7 @@ API interna no documentada de la web oficial. Respuestas JSON.
 Acceso:
 - Protegido por Akamai. Responde `403 Access Denied` según cabeceras e IP. Con `Accept`, `Accept-Language` y `User-Agent` de navegador responde 200; con cabeceras mínimas, 403. El bloqueo es intermitente.
 - En ráfagas desde el navegador también responde a ratos `406` (observado el 2026-10-20: 4 de 8 peticiones seguidas con 406 y, minutos después, las mismas peticiones con las mismas cabeceras, todas 200). No depende de `Accept` ni de `cache`.
+- La app pausa la cola de peticiones SELAE durante 20 s tras un `403`/`406`.
 - **No envía `Access-Control-Allow-Origin`**: desde navegador solo funciona con la extensión anti-CORS del kiosko.
 - `Cache-Control: max-age=900`.
 

@@ -3,8 +3,9 @@ import type { Clock } from '../clock';
 import { DAILY_RELOAD_AT } from '../config';
 import { browserWakeEvents, startLifecycle, type WakeEvents } from '../refresh/lifecycle';
 import { createScheduler, type SourceMode } from '../refresh/scheduler';
-import { browserStorage, clearLegacyCache, type LegacyStorage } from './legacy-cache';
-import { createSnapshotStore } from './snapshot';
+import { browserStorage, clearLegacyCache, type KioskStorage } from './legacy-cache';
+import { loadBoardCache, saveBoardCache } from './board-cache';
+import { createSnapshotStore, RESULT_GAMES, withGame, type SnapshotStore } from './snapshot';
 import type { BoardSnapshot } from './types';
 
 export interface BoardStoreDeps {
@@ -16,7 +17,8 @@ export interface BoardStoreDeps {
   reloadAt?: string;
   reload?: () => void;
   events?: WakeEvents;
-  storage?: LegacyStorage | null;
+  storage?: KioskStorage | null;
+  persist?: boolean;
   retryDelaysMs?: readonly number[];
 }
 
@@ -33,11 +35,21 @@ const reloadPage = (): void => {
 
 export const createBoardStore = (deps: BoardStoreDeps): BoardStore => {
   const store = createSnapshotStore();
+  const storage = deps.storage === undefined ? browserStorage() : deps.storage;
+  let hydrating = false;
+  const snapshotStore: SnapshotStore = {
+    get: store.get,
+    subscribe: store.subscribe,
+    update(change) {
+      store.update(change);
+      if (deps.persist && !hydrating && storage) saveBoardCache(storage, store.get(), deps.clock.now());
+    },
+  };
   const scheduler = createScheduler({
     selae: deps.selae,
     manual: deps.manual,
     clock: deps.clock,
-    store,
+    store: snapshotStore,
     sourceMode: deps.sourceMode ?? 'auto',
     retryDelaysMs: deps.retryDelaysMs,
   });
@@ -48,7 +60,18 @@ export const createBoardStore = (deps: BoardStoreDeps): BoardStore => {
     subscribe: store.subscribe,
     start() {
       if (stopLifecycle) return;
-      clearLegacyCache(deps.storage === undefined ? browserStorage() : deps.storage);
+      clearLegacyCache(storage);
+      if (deps.persist && storage) {
+        const cache = loadBoardCache(storage, deps.clock.now());
+        if (cache) {
+          hydrating = true;
+          store.update((snapshot) => RESULT_GAMES.reduce(
+            (hydrated, gameId) => withGame(hydrated, gameId, cache.results[gameId]),
+            { ...snapshot, upcoming: cache.upcoming, lastUpdatedAt: cache.lastUpdatedAt },
+          ));
+          hydrating = false;
+        }
+      }
       stopLifecycle = startLifecycle({
         clock: deps.clock,
         reloadAt: deps.reloadAt ?? DAILY_RELOAD_AT,

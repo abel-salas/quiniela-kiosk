@@ -29,7 +29,7 @@ Ejemplo: `http://localhost:4173/?mock=1&now=2026-10-14T22:00`.
 - Si SELAE falla, reintenta a los 5 s y a los 10 s; si sigue fallando, usa los sorteos de Sanity para ese juego.
 - Desde Sanity se puede forzar que un juego se lea siempre de Sanity (`kioskSettings`).
 - Las peticiones a SELAE van de una en una, con 1,5 s entre ellas: en ráfagas su antibots (Akamai) bloquea a ratos con 403 o 406, y la app lo trata como un fallo más (reintentos y respaldo).
-- Sin caché persistente: todo en memoria. La página (TV y tablet) se recarga sola cada día a las 05:00.
+- El tablero real de `/` conserva resultados y próximos sorteos en `localStorage` durante un máximo de 12 h para reducir peticiones al recargar; `?mock=1` y `/quini` no usan esa caché. La página (TV y tablet) se recarga sola cada día a las 05:00.
 
 ## Requisitos
 

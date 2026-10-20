@@ -70,7 +70,7 @@ describe('createBoardStore', () => {
     const selae = spySelae(['BONO']);
     const { store } = setup({ selae });
     store.start();
-    await vi.advanceTimersByTimeAsync(30_000);
+    await vi.advanceTimersByTimeAsync(75_000);
 
     const bono = store.getSnapshot().results.BONO;
     expect(selae.getRecentDraws.mock.calls.filter(([id]) => id === 'BONO')).toHaveLength(3);

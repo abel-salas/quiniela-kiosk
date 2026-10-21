@@ -1,0 +1,21 @@
+api/probe-selae.ts
+  s_d86d6d35d4e8e7::t_3ce6938bb43196 1-62
+vercel.json
+  s_d86d6d35d4e8e7::t_e2b6933a5c155d 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "546eaff43806739003d807d8f8f80613663d4fd1",
+  "prompts": {},
+  "sessions": {
+    "s_d86d6d35d4e8e7": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "d39cf60a-bf62-432b-a460-47c00d2e8f37",
+        "model": "unknown"
+      },
+      "human_author": "abel-salas <abelsalasbcn@gmail.com>"
+    }
+  }
+}

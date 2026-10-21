@@ -15,17 +15,20 @@ const render = (slides: Slide[]) => {
 };
 
 describe('SlidePage', () => {
-  it('stacks every slide and shows the first one', () => {
+  it('renders Swiper with slides', () => {
     const html = render([
       { id: 'b', title: null, imageUrl: 'https://cdn.sanity.io/b.jpg', order: 2 },
       { id: 'a', title: 'Promo', imageUrl: 'https://cdn.sanity.io/a.jpg', order: 1 },
     ]);
+    expect(html).toContain('slide-page__swiper');
+    expect(html).toContain('slide-page__slide');
     expect(html.split('<img').length - 1).toBe(2);
-    expect(html).toContain('class="slide-page__image slide-page__image--active" src="https://cdn.sanity.io/a.jpg?w=2048&amp;fit=max" alt="Promo"');
-    expect(html).toContain('class="slide-page__image" src="https://cdn.sanity.io/b.jpg?w=2048&amp;fit=max"');
+    expect(html).toContain('src="https://cdn.sanity.io/a.jpg?w=2048&amp;fit=max" alt="Promo"');
+    expect(html).toContain('src="https://cdn.sanity.io/b.jpg?w=2048&amp;fit=max"');
+    expect(html).toContain('slide-page__progress-bar');
   });
 
   it('is a black screen without slides', () => {
-    expect(render([])).toBe('<main class="slide-page"></main>');
+    expect(render([])).toBe('<main class="slide-page slide-page--empty"></main>');
   });
 });

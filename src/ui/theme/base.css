@@ -14,7 +14,6 @@ body,
 
 body {
   overflow: hidden;
-  cursor: none;
   background: var(--color-page);
   color: var(--color-text);
   font-family: var(--font-family);

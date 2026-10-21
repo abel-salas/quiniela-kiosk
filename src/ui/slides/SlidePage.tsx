@@ -47,7 +47,7 @@ export const SlidePage = () => {
         onAutoplayTimeLeft={(_swiper, _timeLeft, percentage) => {
           setProgress(percentage * 100);
         }}
-        onAutoplay={(swiper) => {
+        onAutoplay={(_swiper) => {
           setProgress(100);
         }}
         className="slide-page__swiper"

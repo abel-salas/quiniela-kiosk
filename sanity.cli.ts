@@ -6,4 +6,7 @@ export default defineCliConfig({
     dataset: 'production',
   },
   studioHost: 'quini',
+  deployment: {
+    appId: 'n1sfb60ouw5p3s89hziwot9u',
+  },
 });

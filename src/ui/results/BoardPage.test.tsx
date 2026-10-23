@@ -35,6 +35,8 @@ describe('BoardPage', () => {
     const footer = html.slice(html.indexOf('class="status-bar"'));
     expect(footer.indexOf('class="nav-menu"')).toBeLessThan(footer.indexOf('Actualizado 21:45'));
     for (const href of ['href="/"', 'href="/slide"', 'href="/cms"']) expect(footer).toContain(href);
+    expect(footer).toContain('href="/" class="nav-menu__link active" aria-current="page"');
+    expect(footer).toContain('href="/slide" class="nav-menu__link" title="Slides"');
   });
 
   it('shows the 7 result games in column order', () => {

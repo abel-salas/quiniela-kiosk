@@ -8,11 +8,32 @@
   box-shadow: var(--shadow-card);
 }
 
+.result-card > .game-header {
+  flex-shrink: 0;
+}
+
 .result-card__body {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   min-height: 0;
   animation: result-card-fade var(--fade-duration) ease-out;
+}
+
+/*
+ * Numbers cards start at their minimum (every line at 44 px) and share the free height of the column
+ * in proportion to their line count (`--lines`), until every line reaches 62 px. Never shrunk, so
+ * nothing is clipped.
+ */
+.result-card--numbers {
+  flex: var(--lines, 0) 0 auto;
+  max-height: calc(var(--header-height) + 12px + var(--lines, 100) * 62px);
+}
+
+/* Air between the header and the first draw, and below the last one. */
+.result-card--numbers .result-card__body {
+  flex: 1 1 auto;
+  padding: 8px 0 4px;
 }
 
 /* Air between the header and the first match (La Quiniela must still fit 15 rows + "Pleno al 15"). */

@@ -4,8 +4,13 @@
   grid-template-columns: 162px auto minmax(max-content, 1fr) auto;
   align-items: center;
   gap: 14px;
-  min-height: 50px;
-  padding: 10px 14px;
+  /*
+   * From 44 px (ball plus label of the extras) up to 62 px when the column has room. A normal week
+   * has 15 lines in column 1: 7 Bonoloto + 3 Primitiva + 2 Euromillones + 2 EuroDreams + 1 Gordo.
+   */
+  flex: 1 0 44px;
+  max-height: 62px;
+  padding: 0 14px;
 }
 
 .draw-line__date {

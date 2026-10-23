@@ -1,127 +1,152 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { ResultGameId } from '../../domain/games';
-import { ProviderError, type ManualRepository, type SelaeRepository } from '../../domain/repository';
-import { createSanityFixtureRepository } from '../../data/sanity/fixture-repository';
+import { ProviderError, type SelaeRepository } from '../../domain/repository';
 import { createSelaeFixtureRepository } from '../../data/selae/fixture-repository';
 import { systemClock } from '../clock';
+import type { StorageEvents } from '../refresh/lifecycle';
 import { createBoardStore, type BoardStoreDeps } from './board-store';
+import { createEntryCache, createMemoryStorage, resultsKey } from './entry-cache';
+import type { KioskStorage } from './legacy-cache';
+
+// Wednesday 2026-10-14, same instant as the fixtures.
+const NOW = new Date(2026, 9, 14, 22, 0);
 
 const spySelae = (failing: ResultGameId[] = []) => {
   const fixture = createSelaeFixtureRepository();
+  const calls: string[] = [];
   const selae = {
     getRecentDraws: vi.fn<SelaeRepository['getRecentDraws']>(async (gameId, from, to) => {
-      if (failing.includes(gameId)) throw new ProviderError('blocked', '403');
+      calls.push(gameId);
+      if (failing.includes(gameId)) throw new ProviderError('invalid', 'bad JSON');
       return fixture.getRecentDraws(gameId, from, to);
     }),
-    getUpcoming: vi.fn<SelaeRepository['getUpcoming']>(() => fixture.getUpcoming()),
+    getUpcoming: vi.fn<SelaeRepository['getUpcoming']>(async () => {
+      calls.push('upcoming');
+      return fixture.getUpcoming();
+    }),
   };
-  return selae;
+  return { selae, calls };
 };
 
-const spyManual = (forced: ResultGameId[] = []) => {
-  const fixture = createSanityFixtureRepository();
-  const manual = {
-    getRecentDraws: vi.fn<ManualRepository['getRecentDraws']>((...args) => fixture.getRecentDraws(...args)),
-    getForcedGames: vi.fn<ManualRepository['getForcedGames']>(async () => forced),
-    getSlides: vi.fn<ManualRepository['getSlides']>(async () => []),
+const kioskStorage = (): KioskStorage => {
+  const memory = createMemoryStorage();
+  return { ...memory, length: 0, key: () => null };
+};
+
+const fakeEvents = () => {
+  const listeners = new Set<(key: string | null) => void>();
+  const events: StorageEvents = {
+    onChange: (listener) => {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
   };
-  return manual;
+  return { events, emit: (key: string) => listeners.forEach((listener) => listener(key)), listeners };
 };
 
 const setup = (overrides: Partial<BoardStoreDeps> = {}) => {
-  const selae = spySelae();
-  const manual = spyManual();
+  const { selae, calls } = spySelae();
+  const storage = kioskStorage();
   const reload = vi.fn();
-  const store = createBoardStore({
-    selae, manual, clock: systemClock, reload, storage: null, events: { onWake: () => () => undefined }, ...overrides,
-  });
-  return { store, selae, manual, reload };
+  const { events, emit, listeners } = fakeEvents();
+  const deps: BoardStoreDeps = {
+    selae, clock: systemClock, reload, storage, persist: true, events, wait: async () => undefined, ...overrides,
+  };
+  return { store: createBoardStore(deps), selae: deps.selae, calls, storage, reload, emit, listeners };
 };
 
-const sources = (store: ReturnType<typeof createBoardStore>, gameId: ResultGameId) =>
-  store.getSnapshot().results[gameId].draws.map((draw) => draw.source);
-
 describe('createBoardStore', () => {
-  beforeEach(() => vi.useFakeTimers({ now: new Date(2026, 9, 14, 22, 0) }));
+  beforeEach(() => vi.useFakeTimers({ now: NOW }));
   afterEach(() => vi.useRealTimers());
 
-  it('loads every game from SELAE and the upcoming list with a single call', async () => {
-    const { store, selae } = setup();
-    const listener = vi.fn();
-    store.subscribe(listener);
+  it('calls every prize in the fixed order and stores each one with its own entry', async () => {
+    const { store, selae, calls, storage } = setup();
     store.start();
-    // 8 SELAE requests, one at a time and 1.5 s apart.
     await vi.advanceTimersByTimeAsync(15_000);
     const snapshot = store.getSnapshot();
 
-    expect(selae.getRecentDraws).toHaveBeenCalledTimes(7);
-    expect(selae.getRecentDraws).toHaveBeenCalledWith('BONO', '2026-09-14', '2026-10-14');
-    expect(selae.getUpcoming).toHaveBeenCalledTimes(1);
+    expect(calls).toEqual(['upcoming', 'LAQU', 'QGOL', 'BONO', 'EMIL', 'LAPR', 'ELGR', 'EDMS']);
+    expect(selae.getRecentDraws).toHaveBeenCalledWith('BONO', '2026-10-07', '2026-10-14');
+    expect(selae.getRecentDraws).toHaveBeenCalledWith('LAQU', '2026-09-30', '2026-10-14');
     expect(snapshot.results.BONO.draws.map((draw) => draw.date)).toEqual(['2026-10-12', '2026-10-13', '2026-10-14']);
-    expect(snapshot.results.BONO.next?.date).toBe('2026-10-20');
-    expect(snapshot.results.LAQU.phase).toBe('provisional');
     expect(snapshot.upcoming).toHaveLength(20);
-    expect(snapshot.lastUpdatedAt).not.toBeNull();
-    expect(listener).toHaveBeenCalled();
+    expect(snapshot.lastUpdatedAt).toMatch(/^2026-10-14T22:00/);
+    expect(storage.getItem(resultsKey('BONO'))).toContain('"draws"');
     store.stop();
   });
 
-  it('falls back to Sanity after the retries and counts the error', async () => {
-    const selae = spySelae(['BONO']);
-    const { store } = setup({ selae });
+  it('checks the stored entries first and skips the calls that are not due', async () => {
+    const first = setup();
+    first.store.start();
+    await vi.advanceTimersByTimeAsync(15_000);
+    first.store.stop();
+
+    const second = setup({ storage: first.storage });
+    second.store.start();
+    expect(second.store.getSnapshot().results.EMIL.draws.length).toBeGreaterThan(0);
+    await vi.advanceTimersByTimeAsync(15_000);
+    expect(second.calls).toEqual([]);
+    second.store.stop();
+  });
+
+  it('skips a prize after two failed attempts and keeps its stored value', async () => {
+    const { selae, calls } = spySelae(['QGOL']);
+    const { store, storage } = setup({ selae });
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const stored = createEntryCache(storage).writeResults('QGOL', [], new Date(2026, 9, 10, 10, 0));
     store.start();
-    await vi.advanceTimersByTimeAsync(75_000);
+    await vi.advanceTimersByTimeAsync(20_000);
 
-    const bono = store.getSnapshot().results.BONO;
-    expect(selae.getRecentDraws.mock.calls.filter(([id]) => id === 'BONO')).toHaveLength(3);
-    expect(bono).toMatchObject({ errorCount: 1, lastErrorKind: 'blocked' });
-    expect(sources(store, 'BONO')).toEqual(['sanity']);
-    expect(sources(store, 'EMIL').every((source) => source === 'selae')).toBe(true);
-
-    await vi.advanceTimersByTimeAsync(90_000);
-    expect(store.getSnapshot().results.BONO.errorCount).toBe(2);
+    expect(calls).toEqual(['upcoming', 'LAQU', 'QGOL', 'QGOL', 'BONO', 'EMIL', 'LAPR', 'ELGR', 'EDMS']);
+    expect(createEntryCache(storage).readResults('QGOL', NOW)).toEqual(stored);
+    warn.mockRestore();
     store.stop();
   });
 
-  it('manualOnly reads results only from Sanity but upcoming from SELAE', async () => {
-    const { store, selae } = setup({ sourceMode: 'manualOnly' });
+  it('runs the cycle again every morning at 09:15', async () => {
+    const { store, calls } = setup();
     store.start();
-    await vi.advanceTimersByTimeAsync(10_000);
+    await vi.advanceTimersByTimeAsync(15_000);
+    calls.length = 0;
 
-    expect(selae.getRecentDraws).not.toHaveBeenCalled();
-    expect(selae.getUpcoming).toHaveBeenCalledTimes(1);
-    expect(sources(store, 'BONO')).toEqual(['sanity']);
-    expect(sources(store, 'QGOL')).toEqual(['sanity']);
+    await vi.advanceTimersByTimeAsync(11 * 3_600_000);
+    expect(calls).toEqual([]);
+    await vi.advanceTimersByTimeAsync(20 * 60_000);
+    expect(calls).toEqual(['upcoming']);
     store.stop();
   });
 
-  it('reads forced games from Sanity and reacts when the list changes', async () => {
-    const manual = spyManual(['BONO']);
-    const { store, selae } = setup({ manual });
+  it('shows entries saved from /cms in another tab', async () => {
+    const { store, storage, emit } = setup();
     store.start();
-    await vi.advanceTimersByTimeAsync(10_000);
+    await vi.advanceTimersByTimeAsync(15_000);
 
-    expect(store.getSnapshot().forcedGames).toEqual(['BONO']);
-    expect(selae.getRecentDraws.mock.calls.some(([id]) => id === 'BONO')).toBe(false);
-    expect(sources(store, 'BONO')).toEqual(['sanity']);
+    createEntryCache(storage).writeResults('BONO', [], new Date());
+    emit(resultsKey('BONO'));
+    expect(store.getSnapshot().results.BONO.draws).toEqual([]);
+    store.stop();
+  });
 
-    manual.getForcedGames.mockResolvedValue([]);
-    await vi.advanceTimersByTimeAsync(60_000);
-    expect(store.getSnapshot().forcedGames).toEqual([]);
-    expect(selae.getRecentDraws.mock.calls.some(([id]) => id === 'BONO')).toBe(true);
+  it('keeps everything in memory without persistence', async () => {
+    const { store, storage } = setup({ persist: false });
+    store.start();
+    await vi.advanceTimersByTimeAsync(15_000);
+    expect(store.getSnapshot().results.BONO.draws).toHaveLength(3);
+    expect(storage.getItem(resultsKey('BONO'))).toBeNull();
     store.stop();
   });
 
   it('reloads the page at 05:00 and stops every timer on stop', async () => {
-    const { store, selae, reload } = setup();
+    const { store, calls, reload, listeners } = setup();
     store.start();
-    await vi.advanceTimersByTimeAsync(7 * 3_600_000);
+    await vi.advanceTimersByTimeAsync(7 * 3_600_000 + 1_000);
     expect(reload).toHaveBeenCalledTimes(1);
 
     store.stop();
-    const calls = selae.getRecentDraws.mock.calls.length + selae.getUpcoming.mock.calls.length;
-    await vi.advanceTimersByTimeAsync(24 * 3_600_000);
-    expect(selae.getRecentDraws.mock.calls.length + selae.getUpcoming.mock.calls.length).toBe(calls);
+    expect(listeners.size).toBe(0);
+    const count = calls.length;
+    await vi.advanceTimersByTimeAsync(48 * 3_600_000);
+    expect(calls).toHaveLength(count);
     expect(reload).toHaveBeenCalledTimes(1);
   });
 });

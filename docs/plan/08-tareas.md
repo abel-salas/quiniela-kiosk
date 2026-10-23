@@ -146,3 +146,12 @@ Cambios:
 - Cambio: si el tile no tiene cuenta atrás (`salesCloseAt` `null`), mostrar en su lugar la fecha del sorteo, por ejemplo `"dom 25/10"`, y la hora si hay `drawAt` (`"dom 25/10 · 21:30"`). Nueva función `formatDrawDate` en `app/format/format.ts` con tests. En el view model, `countdown` pasa a ser el texto de arriba a la derecha (cuenta atrás o fecha); no hace falta un campo nuevo.
 - La regla del importe no cambia (se replica la web de SELAE: solo sorteos con `salesOpen`).
 - Tests: en `upcoming.test.ts`, con `now = 2026-10-20T23:00`, LAQU, QGOL y QUPL muestran `"dom 25/10"`, y EMIL sigue con cuenta atrás. Comprobar con `?mock=1&now=2026-10-20T23:00` en 1920×1080. Actualizar [06-ui-resultados.md](06-ui-resultados.md) § Columna de próximos sorteos (tile sin cuenta atrás → fecha del sorteo).
+
+**T35 ✅ · Ciclo de llamadas por calendario, caché por premio y `/cms`** — Sustituye a la política por fases (T14), al respaldo y forzado de Sanity (T15) y a la caché única de 12 h. Detalle en [04-refresco.md](04-refresco.md).
+- Orden fijo por ciclo: botes, LAQU, QGOL, BONO, EMIL, LAPR, ELGR y EDMS. Dos intentos por petición; si fallan, se conserva lo guardado y se pasa al siguiente.
+- Una entrada de `localStorage` por premio con TTL de 1 semana; solo se escribe con datos buenos. Antes de cada llamada se mira lo guardado.
+- Calendario: la mañana siguiente (09:15) a cada sorteo; Quiniela y Quinigol, la mañana siguiente al último partido de la jornada abierta o cada 3 días; botes, una vez al día. Ventana de 7 días (14 en fútbol).
+- Quiniela y Quinigol solo muestran jornadas finalizadas. Se eliminan los chips "PROVISIONAL" y "Resultado de hoy pendiente".
+- Nueva ruta `/cms` (carga manual del JSON de SELAE por juego). Se elimina `/quini`; Sanity queda solo para `/slide` y su Studio solo tiene el esquema `slide` (se borran `lotteryDraw`, `kioskSettings` y sus campos auxiliares).
+- Menú de navegación abajo a la izquierda en `/` y `/cms` (casa, imagen, llave); `/slide` no lo lleva.
+- `<title>` igual al `name` del manifest para que la ventana de la PWA no repita el título.

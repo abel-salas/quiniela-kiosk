@@ -9,37 +9,22 @@ export const msUntilLocalTime = (now: Date, time: string): number => {
   return (target ?? today).getTime() - now.getTime();
 };
 
-export interface WakeEvents {
-  /** Calls `listener` on `online` and when the page becomes visible. Returns an unsubscribe. */
-  onWake(listener: () => void): () => void;
+/** Daily timers fire this late so the target time has surely passed on the app clock. */
+export const DAILY_MARGIN_MS = 1_000;
+
+export interface StorageEvents {
+  /** Calls `listener` with the key of every localStorage change made by another tab. Returns an unsubscribe. */
+  onChange(listener: (key: string | null) => void): () => void;
 }
 
-export const browserWakeEvents: WakeEvents = {
-  onWake: (listener) => {
-    if (typeof window === 'undefined' || typeof document === 'undefined') return () => undefined;
-    const onVisibility = () => {
-      if (document.visibilityState === 'visible') listener();
-    };
-    window.addEventListener('online', listener);
-    document.addEventListener('visibilitychange', onVisibility);
-    return () => {
-      window.removeEventListener('online', listener);
-      document.removeEventListener('visibilitychange', onVisibility);
-    };
+export const browserStorageEvents: StorageEvents = {
+  onChange: (listener) => {
+    if (typeof window === 'undefined') return () => undefined;
+    const onStorage = (event: StorageEvent) => listener(event.key);
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
   },
 };
-
-export interface LifecycleDeps {
-  clock: Clock;
-  reloadAt: string;
-  reload: () => void;
-  events: WakeEvents;
-  onReplan: () => void;
-  onForcedTick: () => void;
-}
-
-export const DAY_CHANGE_AT = '00:05';
-export const FORCED_GAMES_INTERVAL_MS = 60_000;
 
 /** Runs `action` every day at the local time 'HH:mm' of the app clock. Returns stop. */
 export const startDaily = (clock: Clock, time: string, action: () => void): (() => void) => {
@@ -48,25 +33,10 @@ export const startDaily = (clock: Clock, time: string, action: () => void): (() 
     timer = setTimeout(() => {
       action();
       schedule();
-    }, msUntilLocalTime(clock.now(), time));
+    }, msUntilLocalTime(clock.now(), time) + DAILY_MARGIN_MS);
   };
   schedule();
   return () => {
     if (timer !== null) clearTimeout(timer);
-  };
-};
-
-/** Day-change replan (00:05), daily reload, forced-games polling and wake events. Returns stop. */
-export const startLifecycle = (deps: LifecycleDeps): (() => void) => {
-  const stopDayChange = startDaily(deps.clock, DAY_CHANGE_AT, deps.onReplan);
-  const stopReload = startDaily(deps.clock, deps.reloadAt, deps.reload);
-  const forced = setInterval(deps.onForcedTick, FORCED_GAMES_INTERVAL_MS);
-  const stopWake = deps.events.onWake(deps.onReplan);
-
-  return () => {
-    stopDayChange();
-    stopReload();
-    clearInterval(forced);
-    stopWake();
   };
 };

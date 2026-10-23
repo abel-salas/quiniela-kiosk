@@ -1,17 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { systemClock } from '../clock';
-import { msUntilLocalTime, startLifecycle, type WakeEvents } from './lifecycle';
-
-const fakeEvents = () => {
-  const listeners = new Set<() => void>();
-  const events: WakeEvents = {
-    onWake: (listener) => {
-      listeners.add(listener);
-      return () => listeners.delete(listener);
-    },
-  };
-  return { events, wake: () => listeners.forEach((listener) => listener()), listeners };
-};
+import { DAILY_MARGIN_MS, msUntilLocalTime, startDaily } from './lifecycle';
 
 describe('msUntilLocalTime', () => {
   it('returns the time to the next occurrence of HH:mm', () => {
@@ -21,35 +10,23 @@ describe('msUntilLocalTime', () => {
   });
 });
 
-describe('startLifecycle', () => {
+describe('startDaily', () => {
   beforeEach(() => vi.useFakeTimers({ now: new Date(2026, 9, 14, 22, 0) }));
   afterEach(() => vi.useRealTimers());
 
-  it('reloads daily at reloadAt, replans at 00:05 and on wake, polls forced games every 60 s', () => {
-    const reload = vi.fn();
-    const onReplan = vi.fn();
-    const onForcedTick = vi.fn();
-    const { events, wake, listeners } = fakeEvents();
-    const stop = startLifecycle({ clock: systemClock, reloadAt: '05:00', reload, events, onReplan, onForcedTick });
+  it('runs the action every day just after HH:mm until stopped', () => {
+    const action = vi.fn();
+    const stop = startDaily(systemClock, '05:00', action);
 
-    vi.advanceTimersByTime(60_000);
-    expect(onForcedTick).toHaveBeenCalledTimes(1);
-    vi.advanceTimersByTime(2 * 3_600_000);
-    expect(onReplan).toHaveBeenCalledTimes(0);
-    vi.advanceTimersByTime(5 * 60_000);
-    expect(onReplan).toHaveBeenCalledTimes(1);
-    expect(reload).not.toHaveBeenCalled();
-    vi.advanceTimersByTime(5 * 3_600_000);
-    expect(reload).toHaveBeenCalledTimes(1);
+    vi.advanceTimersByTime(7 * 3_600_000 + DAILY_MARGIN_MS - 1);
+    expect(action).not.toHaveBeenCalled();
+    vi.advanceTimersByTime(1);
+    expect(action).toHaveBeenCalledTimes(1);
     vi.advanceTimersByTime(24 * 3_600_000);
-    expect(reload).toHaveBeenCalledTimes(2);
-
-    wake();
-    expect(onReplan).toHaveBeenCalledTimes(3);
+    expect(action).toHaveBeenCalledTimes(2);
 
     stop();
-    expect(listeners.size).toBe(0);
     vi.advanceTimersByTime(48 * 3_600_000);
-    expect(reload).toHaveBeenCalledTimes(2);
+    expect(action).toHaveBeenCalledTimes(2);
   });
 });

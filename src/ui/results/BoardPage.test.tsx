@@ -1,4 +1,5 @@
 import { renderToStaticMarkup } from 'react-dom/server';
+import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import type { BoardStore } from '../../app/store/board-store';
 import { BoardStoreContext, ClockContext } from '../../app/store/hooks';
@@ -9,11 +10,13 @@ const render = () => {
   const snapshot = fixtureSnapshot();
   const store: BoardStore = { getSnapshot: () => snapshot, subscribe: () => () => undefined, start: vi.fn(), stop: vi.fn() };
   return renderToStaticMarkup(
-    <BoardStoreContext.Provider value={store}>
-      <ClockContext.Provider value={{ now: () => FIXTURE_NOW }}>
-        <BoardPage />
-      </ClockContext.Provider>
-    </BoardStoreContext.Provider>,
+    <MemoryRouter initialEntries={['/']}>
+      <BoardStoreContext.Provider value={store}>
+        <ClockContext.Provider value={{ now: () => FIXTURE_NOW }}>
+          <BoardPage />
+        </ClockContext.Provider>
+      </BoardStoreContext.Provider>
+    </MemoryRouter>,
   );
 };
 
@@ -26,6 +29,12 @@ describe('BoardPage', () => {
       expect(html).toContain(column);
     }
     expect(html).toContain('Actualizado 21:45');
+  });
+
+  it('shows the navigation menu at the left of the status bar', () => {
+    const footer = html.slice(html.indexOf('class="status-bar"'));
+    expect(footer.indexOf('class="nav-menu"')).toBeLessThan(footer.indexOf('Actualizado 21:45'));
+    for (const href of ['href="/"', 'href="/slide"', 'href="/cms"']) expect(footer).toContain(href);
   });
 
   it('shows the 7 result games in column order', () => {

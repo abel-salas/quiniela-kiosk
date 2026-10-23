@@ -1,115 +1,74 @@
-# Refresco y resolución de fuente
+# Refresco, caché y carga manual
 
-Todo en `src/app/`. La TV está encendida todo el día y nadie recarga la página: la app se actualiza sola, consulta SELAE solo cuando puede haber datos nuevos y, cuando un sorteo termina, muestra el resultado definitivo sin intervención.
+Todo en `src/app/`. La TV está encendida todo el día y nadie recarga la página: la app se actualiza sola, llama a SELAE solo cuando un premio tiene datos nuevos y conserva el último valor bueno si la API falla. Si SELAE no responde, los resultados se cargan a mano desde `/cms`.
 
-## Caché local de 12 h
+## Caché por premio (`store/entry-cache.ts`)
 
-- El tablero real de `/` persiste en `localStorage` con la clave `quiniela:board:v1` y una caducidad de 12 h. La caché evita volver a pedir resultados al recargar la TV.
-- Se guardan `draws`, `next`, `upcoming` y `lastUpdatedAt`; la fase y los errores se recalculan, y `forcedGames` se vuelve a leer de Sanity.
-- Antes de iniciar el planificador se valida e hidrata la caché. JSON inválido, versión desconocida, datos con forma incorrecta o antigüedad superior a 12 h hacen que se descarte y se borre.
+- Una entrada de `localStorage` por premio: `quiniela:results:{ID}` para cada juego de resultados y `quiniela:upcoming` para los botes (`proximosv3`).
+- Cada entrada guarda `{ version: 1, savedAt, draws | upcoming }`. `savedAt` es el instante ISO del último guardado correcto.
+- Caducidad: **1 semana** desde `savedAt`. JSON inválido, versión desconocida, datos con forma incorrecta (incluidos sorteos de otro juego) o caducados se descartan y se borran.
+- Solo se escribe tras una respuesta correcta de SELAE o un guardado desde `/cms`. Un fallo nunca borra ni sobrescribe la entrada.
 - `setItem` puede fallar por cuota o modo privado; el guardado es best-effort y no afecta al tablero en memoria.
-- `?mock=1` y `/quini` no leen ni escriben esta caché. Al arrancar se siguen borrando las claves antiguas `draw:*`.
+- `?mock=1` usa un almacenamiento en memoria y no toca `localStorage`. Al arrancar se borran las claves antiguas `draw:*` y la caché única anterior `quiniela:board:v1`.
 
-## Estado por juego
+## Ciclo de llamadas (`refresh/scheduler.ts`)
 
-```ts
-export type DrawPhase = 'upToDate' | 'awaitingResult' | 'provisional';
+Un ciclo recorre los premios **en este orden** y de uno en uno:
 
-export interface GameState {
-  draws: Draw[];                 // asc por date, solo semana en curso (ver 06-ui-resultados.md)
-  next: NextDraw | null;
-  phase: DrawPhase;
-  lastErrorKind: ProviderErrorKind | null;
-  errorCount: number;            // rondas consecutivas fallidas contra SELAE
-}
-export interface BoardSnapshot {
-  results: Record<ResultGameId, GameState>;
-  upcoming: NextDraw[];          // orden de la API
-  forcedGames: ResultGameId[];
-  lastUpdatedAt: string | null;
-}
-```
+`botes → LAQU → QGOL → BONO → EMIL → LAPR → ELGR → EDMS`
 
-## Resolución de fuente (`source/`)
+Para cada premio:
 
-Para cada juego de resultados, en cada ronda:
+1. Leer su entrada de `localStorage` (puede haberla actualizado `/cms`) y pintarla.
+2. Si con lo guardado no toca llamar (ver calendario), pasar al siguiente.
+3. Llamar a SELAE. Si falla, un reintento a los 5 s. Si los **2 intentos** fallan, se conserva el valor guardado y se pasa al siguiente premio; ese premio no se vuelve a intentar hasta el próximo ciclo.
+4. Si responde: combinar por `date` con lo guardado, recortar a la ventana y guardar la entrada.
 
-1. Si el juego está en `forcedGames` (marcado en Sanity): leer de Sanity y no llamar a SELAE.
-2. Si no: llamar a SELAE. Si falla, reintentar 2 veces más, a los 5 s y a los 10 s.
-3. Si los 3 intentos fallan: leer de Sanity y usar sus sorteos para ese juego. `errorCount + 1`.
-4. Combinar por `date` con lo que ya hubiera en memoria: SELAE gana a Sanity, salvo en juegos forzados, donde gana Sanity.
-5. Si ni SELAE ni Sanity tienen datos, se mantiene lo que hubiera en memoria; sin nada, la tarjeta muestra "Pendiente de resultado".
+Ciclos: al arrancar la página y cada día a las **09:15** (`MORNING_REFRESH_AT`). Como la página se recarga a las 05:00, un premio que falló se vuelve a intentar a las 05:00 y a las 09:15.
 
-- `forcedGames` se lee de Sanity al arrancar y cada 60 s.
-- Ventana de consulta de resultados: los últimos 30 días hasta hoy (`source/window.ts`); el recorte a la semana lo hace el selector.
-- Los próximos sorteos (`next`) solo vienen de SELAE. Si fallan, se mantiene el último valor en memoria.
+Cola global: una petición a SELAE cada vez y 1,5 s entre arranques. Tras un error `blocked`, `network` o `timeout`, pausa la cola 20 s; `invalid` no la pausa.
 
-## Ciclo de vida de un sorteo
+## Calendario (`refresh/calendar.ts`)
 
-```mermaid
-stateDiagram-v2
-  upToDate --> awaitingResult: now ≥ expectedAt
-  awaitingResult --> provisional: llega jornada abierta
-  awaitingResult --> upToDate: llega resultado definitivo
-  provisional --> upToDate: llega resultado definitivo
-```
+Funciones puras. Los sorteos de números se piden la mañana siguiente al sorteo, a partir de las 09:15:
 
-- `expectedAt` = `next.drawAt ?? next.date + game.resultsFromTime`. En fútbol (`resultsFromTime: null`): el instante más tardío entre `next.salesCloseAt` y las 00:00 de `next.date` (la jornada solo aparece en `buscadorSorteos`, como abierta, a partir de su fecha); si falta el cierre, las 00:00 de `next.date`. Así, entre el cierre de ventas y el día de la jornada el juego sigue `upToDate`.
-- **Definitivo**: números con `combinacion` completa; fútbol con `status: 'final'`.
-- **Provisional**: fútbol con `status: 'open'`.
-- Al pasar a definitivo, en la misma ronda se pide también `next` (nuevo bote y fecha). La tarjeta cambia con un fundido de 400 ms.
+| Juego | Días de sorteo | Se llama |
+|---|---|---|
+| Bonoloto | todos | cada día |
+| Euromillones | martes, viernes | miércoles, sábado |
+| La Primitiva | lunes, jueves, sábado | martes, viernes, domingo |
+| El Gordo | domingo | lunes |
+| EuroDreams | lunes, jueves | martes, viernes |
 
-## Política (`refresh/policy.ts`)
+- **Números** (`isResultsDue`): se calcula el último sorteo cuya mañana siguiente ya ha pasado (`expectedDrawDate`). Solo se llama si la entrada guardada no tiene un sorteo con esa fecha o posterior. Así, si ya se cargó desde `/cms`, no se llama.
+- **Quiniela y Quinigol** (`footballDueAt`): si lo último guardado es una jornada abierta con partidos, se llama la mañana siguiente al último partido. Si no (jornada final o sin horarios), se llama a las 09:15 del tercer día tras el último guardado.
+- **Botes** (`isUpcomingDue`): una vez al día, en el primer ciclo desde las 09:15.
 
-Función pura, sin timers:
+## Ventana de consulta (`source/window.ts`)
 
-```ts
-decideNextCheck(input: { now: Date; game: GameInfo; state: GameState }):
-  { at: Date; phase: DrawPhase; fetchResults: boolean; fetchUpcoming: boolean }
-```
+`buscadorSorteos` con los últimos **7 días** hasta hoy para los juegos de números y **14 días** para Quiniela y Quinigol, para que la jornada finalizada anterior siga dentro mientras la siguiente está abierta. La misma ventana se usa en los enlaces de `/cms`.
 
-Reglas, en orden de prioridad:
+## Qué se muestra
 
-1. **Error previo** (`errorCount > 0`): siguiente ronda en 1, 2, 5, 10, 15 min según `errorCount` (máximo 15).
-2. **Sin datos** (sin `next`): consultar ya lo que falte (resultados si no hay sorteos, y próximos).
-3. **Próximo sorteo caducado**: ya hay resultado definitivo con `date ≥ next.date` → `fetchUpcoming` ya. Mientras falte ese resultado no se aplica, aunque `next.date` sea anterior a hoy: manda la regla 5 para no perder el sorteo pendiente.
-4. **Provisional** (fútbol):
-   - Algún partido en `kickoff ≤ now ≤ kickoff + 2h15`: cada 5 min.
-   - Todos los partidos terminados: cada 5 min hasta `status: 'final'`.
-   - Sin partidos en juego y con partidos por empezar: en el siguiente `kickoff + 1h50`, como máximo 60 min.
-5. **Esperando resultado** (`now ≥ expectedAt` y no hay sorteo con `date === next.date`): cada 5 min durante 3 h, después cada 30 min.
-6. **Al día**: no consultar hasta `expectedAt`, con tope de 6 h y mínimo 1 min.
+- Números: la pila de la semana del último sorteo (`selectors/week.ts`).
+- Quiniela y Quinigol: **solo la última jornada finalizada**. Una jornada abierta (`combinacion: null`) se guarda para planificar, pero no se pinta: se sigue mostrando la anterior.
+- Sin datos: "Pendiente de resultado".
+- `lastUpdatedAt` (pie: "Actualizado HH:mm") es el `savedAt` más reciente de las entradas.
 
-Tests en tabla con instantes fijos, al menos:
-- BONO 14/10 20:00 con último sorteo 13/10 → `upToDate`, siguiente ronda 21:15.
-- BONO 14/10 21:20 sin sorteo del 14/10 → `awaitingResult`, 5 min.
-- BONO 14/10 21:40 con sorteo del 14/10 y `next` del 14/10 → `upToDate`, `fetchUpcoming` ya.
-- BONO 15/10 01:00 sin resultado del 14/10 → 30 min.
-- LAQU jornada abierta con partido a las 21:00 y now 21:30 → `provisional`, 5 min.
-- LAQU jornada abierta, último partido 21:00, now 23:30 → `provisional`, 5 min.
-- ELGR al día el lunes con `next` el domingo → 6 h.
-- errorCount 3 → 5 min.
+## Carga manual (`/cms`, `cms/cms.ts`)
 
-## Planificador (`refresh/scheduler.ts`)
-
-- Un `setTimeout` por juego hacia `at`. Al vencer: resuelve la fuente, actualiza el estado y vuelve a decidir.
-- Próximos sorteos: una sola llamada `getUpcoming()` para todos los juegos. Se pide al arrancar, cuando una política devuelve `fetchUpcoming`, cuando pasa algún `salesCloseAt` de la lista y, en reposo, cada 6 h. Varias peticiones coincidentes se agrupan en una.
-- `GameState.next` de cada juego de resultados es el primer elemento de esa lista con su `gameId`. Excepción: si el resultado del `next` anterior aún no ha llegado y su fecha es de los últimos 2 días, se conserva para seguir buscándolo (`refresh/next-pick.ts`).
-- Entre dos rondas del mismo juego pasan al menos 60 s, y los próximos sorteos no se vuelven a pedir antes de 60 s tras un éxito: así las decisiones "consultar ya" no entran en bucle.
-- Un temporizador que vence siempre ejecuta su ronda. Las replanificaciones (nuevos próximos sorteos, `online`, `visibilitychange`, 00:05) solo pueden adelantar una ronda, nunca retrasarla.
-- Cola global: una petición a SELAE cada vez y 1,5 s entre arranques. Tras un error `blocked`, `network` o `timeout`, pausa la cola 20 s antes de continuar; `invalid` no la pausa. Si vuelve a fallar, reinicia la pausa.
-- Reprogramar todo en: evento `online`, cambio de día (00:05) y `visibilitychange` a visible.
-- Recarga completa de la página a las 05:00 (constante `DAILY_RELOAD_AT` en `app/config.ts`) para evitar fugas de memoria del kiosko.
+- Un bloque por juego de resultados (no hay bloque de botes), en el orden del ciclo: logo, nombre, enlace que abre en otra pestaña la petición `buscadorSorteos` del juego con su ventana, caja de texto y botón "Guardar".
+- Al guardar, el JSON se valida con el mismo mapper de SELAE (`data/selae/importer.ts`, interfaz `ResultsImporter`). Se rechaza si no es JSON, si no trae sorteos de ese juego o si todos son anteriores a la ventana.
+- Lo válido se combina con la entrada del juego y se guarda en `localStorage`. Un tablero abierto en otra pestaña lo recibe por el evento `storage` y lo pinta al momento.
 
 ## Store (`store/`)
 
 ```ts
-createBoardStore(deps: { selae: SelaeRepository; manual: ManualRepository; clock: Clock }): {
+createBoardStore(deps: { selae: SelaeRepository; clock: Clock; persist?: boolean; ... }): {
   getSnapshot(): BoardSnapshot; subscribe(l: () => void): () => void; start(): void; stop(): void;
 }
-useBoard(): BoardSnapshot  // useSyncExternalStore
-useNow(intervalMs): Date   // tic para cuentas atrás, cada 60 s
 ```
 
-- Snapshot inmutable; el store se crea en `main.tsx` y se pasa por contexto.
-- `/quini` crea el store con `sourceMode: 'manualOnly'`: los resultados se leen siempre de Sanity, sin llamar a SELAE ni esperar reintentos. Los próximos sorteos siguen viniendo de SELAE.
+- `BoardSnapshot = { results: Record<ResultGameId, { draws }>; upcoming; lastUpdatedAt }`, inmutable.
+- `start()`: borra claves antiguas, pinta las entradas guardadas, lanza un ciclo y programa el ciclo de las 09:15, la recarga de las 05:00 (`DAILY_RELOAD_AT`) y la escucha de cambios de `localStorage`.
+- El store se crea en `main.tsx` y se pasa por contexto.

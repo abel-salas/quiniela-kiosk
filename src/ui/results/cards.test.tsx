@@ -29,12 +29,11 @@ describe('NumbersCard', () => {
     expect(renderToStaticMarkup(<NumbersCard card={numbers('EMIL')} />)).toContain('GRF94523');
   });
 
-  it('renders the pending text and the awaiting badge', () => {
-    const snapshot = withGame(withGame(createInitialSnapshot(), 'BONO', { phase: 'awaitingResult' }), 'BONO', { draws: [] });
+  it('renders the pending text', () => {
+    const snapshot = withGame(createInitialSnapshot(), 'BONO', { draws: [] });
     const card = selectBoardView(snapshot, FIXTURE_NOW).numbers[0];
     const html = renderToStaticMarkup(<NumbersCard card={card} />);
     expect(html).toContain('Pendiente de resultado');
-    expect(html).toContain('Resultado de hoy pendiente');
     expect(html).not.toContain('class="draw-line"');
   });
 });
@@ -42,17 +41,15 @@ describe('NumbersCard', () => {
 describe('QuinielaCard', () => {
   const html = renderToStaticMarkup(<QuinielaCard card={view.football[0]} />);
 
-  it('renders 15 matches with the jornada and the provisional badge', () => {
+  it('renders the 15 matches of the latest finished jornada', () => {
     expect(count(html, '<div class="match-row')).toBe(15);
-    expect(html).toContain('Jornada 13ª');
-    expect(html).toContain('PROVISIONAL');
-    expect(html).toContain('Villarreal (M) - Nápoles (M)');
+    expect(html).toContain('Jornada 12ª');
+    expect(html).not.toContain('PROVISIONAL');
   });
 
-  it('labels the 15th match as Pleno al 15 and shows its kickoff', () => {
+  it('labels the 15th match as Pleno al 15', () => {
     expect(count(html, 'Pleno al 15')).toBe(1);
     expect(html).toContain('match-row--highlight');
-    expect(html).toContain('mié 21:00');
   });
 });
 
@@ -60,7 +57,6 @@ describe('QuinigolCard', () => {
   it('renders 6 matches with the result in the sign box', () => {
     const html = renderToStaticMarkup(<QuinigolCard card={view.football[1]} />);
     expect(count(html, '<div class="match-row')).toBe(6);
-    expect(html).toContain('M-1');
     expect(html).not.toContain('Pleno al 15');
   });
 });

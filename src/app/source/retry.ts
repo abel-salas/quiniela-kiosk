@@ -1,4 +1,5 @@
-export const RETRY_DELAYS_MS = [5_000, 10_000];
+/** Two attempts per request: one retry after 5 s. */
+export const RETRY_DELAYS_MS = [5_000];
 
 export type Sleep = (ms: number) => Promise<void>;
 

@@ -1,16 +1,5 @@
-import { RESULT_COLUMNS, type ResultGameId } from '../../../domain/games';
 import type { Slide } from '../../../domain/slide';
 import { isRecord, optionalText } from '../parse';
-
-const RESULT_GAMES: readonly ResultGameId[] = [...RESULT_COLUMNS.numbers, ...RESULT_COLUMNS.football];
-
-const isResultGameId = (value: unknown): value is ResultGameId =>
-  typeof value === 'string' && RESULT_GAMES.some((id) => id === value);
-
-export const mapForcedGames = (value: unknown): ResultGameId[] => {
-  if (!Array.isArray(value)) return [];
-  return [...new Set(value.filter(isResultGameId))];
-};
 
 export const mapSlide = (value: unknown): Slide | null => {
   if (!isRecord(value)) return null;

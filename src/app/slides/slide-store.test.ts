@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { DAILY_MARGIN_MS } from '../refresh/lifecycle';
 import type { Slide } from '../../domain/slide';
 import { createSlideStore, SLIDES_RELOAD_MS } from './slide-store';
 
@@ -48,9 +49,9 @@ describe('createSlideStore', () => {
       dailyReload: { clock: { now: () => new Date() }, at: '05:00', reload },
     });
     store.start();
-    await vi.advanceTimersByTimeAsync(7 * 3_600_000 - 1_000);
+    await vi.advanceTimersByTimeAsync(7 * 3_600_000);
     expect(reload).not.toHaveBeenCalled();
-    await vi.advanceTimersByTimeAsync(1_000);
+    await vi.advanceTimersByTimeAsync(DAILY_MARGIN_MS);
     expect(reload).toHaveBeenCalledTimes(1);
 
     store.stop();

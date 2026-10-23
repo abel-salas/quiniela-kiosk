@@ -1,17 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import slides from '../__fixtures__/slides.json';
-import { mapForcedGames, mapSlides } from './settings';
-
-describe('mapForcedGames', () => {
-  it('keeps known result games once, in the received order', () => {
-    expect(mapForcedGames(['QGOL', 'BONO', 'QGOL', 'LNAC', 3, null])).toEqual(['QGOL', 'BONO']);
-  });
-
-  it('returns an empty list when the settings document or field is missing', () => {
-    expect(mapForcedGames(null)).toEqual([]);
-    expect(mapForcedGames(undefined)).toEqual([]);
-  });
-});
+import { mapSlides } from './settings';
 
 describe('mapSlides', () => {
   it('maps slides with an optional title', () => {

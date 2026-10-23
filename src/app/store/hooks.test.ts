@@ -8,8 +8,8 @@ import { clearLegacyCache } from './legacy-cache';
 import { createInitialSnapshot } from './snapshot';
 
 describe('clearLegacyCache', () => {
-  it('removes only draw:* keys', () => {
-    const data = new Map([['draw:BONO', '1'], ['draw:LAQU', '2'], ['other', '3']]);
+  it('removes only draw:* keys and the old single board cache', () => {
+    const data = new Map([['draw:BONO', '1'], ['quiniela:board:v1', '2'], ['quiniela:upcoming', '3'], ['other', '4']]);
     const storage = {
       get length() {
         return data.size;
@@ -20,7 +20,7 @@ describe('clearLegacyCache', () => {
       },
     };
     clearLegacyCache(storage);
-    expect([...data.keys()]).toEqual(['other']);
+    expect([...data.keys()]).toEqual(['quiniela:upcoming', 'other']);
     expect(() => clearLegacyCache(null)).not.toThrow();
   });
 });

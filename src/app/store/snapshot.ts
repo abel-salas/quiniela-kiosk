@@ -3,13 +3,7 @@ import type { BoardSnapshot, GameState } from './types';
 
 export const RESULT_GAMES: readonly ResultGameId[] = [...RESULT_COLUMNS.numbers, ...RESULT_COLUMNS.football];
 
-const emptyGame = (): GameState => ({
-  draws: [],
-  next: null,
-  phase: 'upToDate',
-  lastErrorKind: null,
-  errorCount: 0,
-});
+const emptyGame = (): GameState => ({ draws: [] });
 
 export const createInitialSnapshot = (): BoardSnapshot => ({
   results: {
@@ -22,7 +16,6 @@ export const createInitialSnapshot = (): BoardSnapshot => ({
     QGOL: emptyGame(),
   },
   upcoming: [],
-  forcedGames: [],
   lastUpdatedAt: null,
 });
 

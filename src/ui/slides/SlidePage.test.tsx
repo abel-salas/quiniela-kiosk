@@ -1,4 +1,5 @@
 import { renderToStaticMarkup } from 'react-dom/server';
+import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import { SlideStoreContext } from '../../app/slides/hooks';
 import type { SlideStore } from '../../app/slides/slide-store';
@@ -8,9 +9,11 @@ import { SlidePage } from './SlidePage';
 const render = (slides: Slide[]) => {
   const store: SlideStore = { getSnapshot: () => slides, subscribe: () => () => undefined, start: vi.fn(), stop: vi.fn() };
   return renderToStaticMarkup(
-    <SlideStoreContext.Provider value={store}>
-      <SlidePage />
-    </SlideStoreContext.Provider>,
+    <MemoryRouter initialEntries={['/slide']}>
+      <SlideStoreContext.Provider value={store}>
+        <SlidePage />
+      </SlideStoreContext.Provider>
+    </MemoryRouter>,
   );
 };
 
@@ -26,6 +29,7 @@ describe('SlidePage', () => {
     expect(html).toContain('src="https://cdn.sanity.io/a.jpg?w=2048&amp;fit=max" alt="Promo"');
     expect(html).toContain('src="https://cdn.sanity.io/b.jpg?w=2048&amp;fit=max"');
     expect(html).toContain('slide-page__progress-bar');
+    expect(html).not.toContain('nav-menu');
   });
 
   it('is a black screen without slides', () => {

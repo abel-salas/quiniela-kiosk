@@ -9,7 +9,7 @@ Referencias locales en `docs/referencia/` (en `.gitignore`; pueden no existir en
 
 ## Escenario de la TV (`ui/stage/`)
 
-- Ruta `/` y `/quini` se diseñan sobre un lienzo fijo de 1920×1080 px.
+- La ruta `/` se diseña sobre un lienzo fijo de 1920×1080 px. `/cms` es una página normal con scroll.
 - `Stage` escala el lienzo con `transform: scale(min(innerWidth/1920, innerHeight/1080))`, centrado.
 - Dentro del lienzo todas las medidas en px; prohibido `vw`/`vh`.
 - `body` sin scroll ni cursor (`cursor: none`).

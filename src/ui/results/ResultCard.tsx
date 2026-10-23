@@ -8,10 +8,10 @@ export interface ResultCardProps {
   children: ReactNode;
 }
 
-/** Card shell: header with status badge, "pending" text, and a body that fades in when its content changes. */
+/** Card shell: header, "pending" text, and a body that fades in when its content changes. */
 export const ResultCard = ({ card, children }: ResultCardProps) => (
   <section className={`result-card result-card--${card.kind}`} data-game={card.gameId}>
-    <GameHeader {...card.header} badge={card.badge} />
+    <GameHeader {...card.header} />
     <div key={card.contentKey} className="result-card__body">
       {card.emptyText ? <p className="result-card__empty">{card.emptyText}</p> : children}
     </div>

@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
+import { MemoryRouter } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { systemClock } from '../app/clock';
 import { SlideStoreContext } from '../app/slides/hooks';
@@ -58,9 +59,11 @@ describe('live timers in a DOM', () => {
     const slides = ['a', 'b', 'c'].map((id, order) => ({ id, title: id, imageUrl: `/${id}.jpg`, order }));
     const store: SlideStore = { getSnapshot: () => slides, subscribe: () => () => undefined, start: vi.fn(), stop: vi.fn() };
     act(() => root.render(
-      <SlideStoreContext.Provider value={store}>
-        <SlidePage />
-      </SlideStoreContext.Provider>,
+      <MemoryRouter initialEntries={['/slide']}>
+        <SlideStoreContext.Provider value={store}>
+          <SlidePage />
+        </SlideStoreContext.Provider>
+      </MemoryRouter>,
     ));
     expect(swiperContainer()).not.toBeNull();
   });

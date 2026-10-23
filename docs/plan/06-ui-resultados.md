@@ -1,6 +1,6 @@
 # Ruta `/`: resultados y próximos sorteos
 
-TV horizontal, lienzo 1920×1080. `/quini` usa exactamente el mismo layout con los resultados leídos de Sanity.
+TV horizontal, lienzo 1920×1080. El pie lleva a la izquierda el menú de navegación (casa, imagen, llave) y la hora de actualización.
 
 ## Layout
 
@@ -64,7 +64,7 @@ Estilo de la tarjeta de SELAE (`docs/referencia/card-primitiva.png`), sin elemen
 - 15 `MatchRow`: posición, local – visitante y `SignBox`. Si el partido no se ha jugado, en lugar del signo se muestra la hora de inicio (`sáb 18:30`) y la casilla queda vacía.
 - Nombres de equipo largos: pasan a una segunda línea (máximo 2) en lugar de cortarse.
 - Fila 15 destacada como "Pleno al 15".
-- Con `status: 'open'`: etiqueta "PROVISIONAL" en la cabecera.
+- Solo se pinta la última jornada con `status: 'final'`. Una jornada abierta no se muestra: se sigue viendo la anterior.
 
 ## Tarjeta de El Quinigol
 
@@ -97,10 +97,10 @@ Referencia: `docs/referencia/proximos-sorteos.png` (solo en local).
 
 | Estado | Qué se pinta |
 |---|---|
-| Sin datos | Tarjeta con cabecera y "Pendiente de resultado" |
-| `awaitingResult` | Solo juegos de números: semana actual + chip "Resultado de hoy pendiente" en la cabecera. En fútbol no hay chip: sigue la última jornada tal cual |
-| `provisional` | Fútbol, jornada abierta: datos parciales + etiqueta "PROVISIONAL" |
-| Llega el definitivo | Fundido de 400 ms; desaparecen chip y etiqueta |
+| Sin datos (o en fútbol solo una jornada abierta) | Tarjeta con cabecera y "Pendiente de resultado" |
+| Llega un sorteo o jornada nuevos | Fundido de 400 ms |
+
+Sin chips de estado: los resultados se piden la mañana siguiente al sorteo (ver [04-refresco.md](04-refresco.md)).
 
 ## Selector (`app/selectors/results.ts`)
 

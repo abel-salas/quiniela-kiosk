@@ -1,4 +1,5 @@
 import { useBoardView } from '../../app/store/hooks';
+import { NavMenu } from '../components/NavMenu';
 import { StatusBar } from '../components/StatusBar';
 import { Stage } from '../stage/Stage';
 import { LiveUpcomingColumn } from '../upcoming/UpcomingColumn';
@@ -8,8 +9,7 @@ import { QuinigolCard } from './QuinigolCard';
 import './BoardPage.css';
 
 /**
- * Routes `/` and `/quini` (same layout; the source mode is chosen when the store is created).
- * Column 1: numbers games in a single column. Column 2: football. Column 3: upcoming draws.
+ * Route `/`. Column 1: numbers games in a single column. Column 2: football. Column 3: upcoming draws.
  */
 export const BoardPage = () => {
   const view = useBoardView();
@@ -31,7 +31,7 @@ export const BoardPage = () => {
           <LiveUpcomingColumn />
         </div>
         <div className="board-page__status">
-          <StatusBar {...view.status} />
+          <StatusBar {...view.status} start={<NavMenu />} />
         </div>
       </main>
     </Stage>

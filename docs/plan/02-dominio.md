@@ -116,9 +116,12 @@ export interface ResultsRepository {
 export interface SelaeRepository extends ResultsRepository {
   getUpcoming(): Promise<NextDraw[]>; // todos los juegos, en el orden de la API
 }
-export interface ManualRepository extends ResultsRepository {
-  getForcedGames(): Promise<ResultGameId[]>;
+export interface SlidesRepository {          // Sanity, solo para /slide
   getSlides(): Promise<Slide[]>;
+}
+export interface ResultsImporter {            // /cms: petición a abrir en el navegador y su mapper
+  resultsUrl(gameId: ResultGameId, from: string, to: string): string;
+  parseResults(gameId: ResultGameId, raw: unknown): Draw[];
 }
 ```
 

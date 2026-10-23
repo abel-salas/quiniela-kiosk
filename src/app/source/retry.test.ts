@@ -6,10 +6,9 @@ describe('withRetries', () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => vi.useRealTimers());
 
-  it('retries at 5 s and 10 s and returns the first success', async () => {
+  it('makes two attempts, 5 s apart, and returns the first success', async () => {
     const task = vi.fn<() => Promise<string>>()
       .mockRejectedValueOnce(new Error('1'))
-      .mockRejectedValueOnce(new Error('2'))
       .mockResolvedValueOnce('ok');
     const result = withRetries(task);
 
@@ -19,28 +18,27 @@ describe('withRetries', () => {
     expect(task).toHaveBeenCalledTimes(1);
     await vi.advanceTimersByTimeAsync(1);
     expect(task).toHaveBeenCalledTimes(2);
-    await vi.advanceTimersByTimeAsync(10_000);
-    expect(task).toHaveBeenCalledTimes(3);
     await expect(result).resolves.toBe('ok');
   });
 
-  it('throws the last error after three failed attempts', async () => {
+  it('throws the last error after two failed attempts', async () => {
     const task = vi.fn<() => Promise<string>>()
       .mockRejectedValueOnce(new Error('first'))
-      .mockRejectedValueOnce(new Error('second'))
-      .mockRejectedValueOnce(new Error('third'));
+      .mockRejectedValueOnce(new Error('second'));
     const result = withRetries(task);
-    const assertion = expect(result).rejects.toThrow('third');
+    const assertion = expect(result).rejects.toThrow('second');
 
-    await vi.advanceTimersByTimeAsync(15_000);
+    await vi.advanceTimersByTimeAsync(5_000);
     await assertion;
-    expect(task).toHaveBeenCalledTimes(3);
+    expect(task).toHaveBeenCalledTimes(2);
   });
 });
 
 describe('resultsWindow', () => {
-  it('covers the last 30 days up to today in calendar dates', () => {
-    expect(resultsWindow(new Date(2026, 9, 14, 22, 0))).toEqual({ from: '2026-09-14', to: '2026-10-14' });
-    expect(resultsWindow(new Date(2026, 0, 5, 1, 0), 7)).toEqual({ from: '2025-12-29', to: '2026-01-05' });
+  it('covers one week for numbers games and two for football, up to today', () => {
+    const now = new Date(2026, 9, 14, 22, 0);
+    expect(resultsWindow(now, 'BONO')).toEqual({ from: '2026-10-07', to: '2026-10-14' });
+    expect(resultsWindow(now, 'LAQU')).toEqual({ from: '2026-09-30', to: '2026-10-14' });
+    expect(resultsWindow(new Date(2026, 0, 5, 1, 0), 'EMIL')).toEqual({ from: '2025-12-29', to: '2026-01-05' });
   });
 });

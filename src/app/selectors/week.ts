@@ -9,11 +9,13 @@ const shiftDate = (date: string, days: number): string => {
 
 /**
  * Current-week stack: draws with `date > latest - 7 days`, ascending (oldest on top).
- * Football shows only the most recent jornada.
+ * Football shows only the most recent finished jornada: an open one is never shown.
  */
 export const selectWeekDraws = (draws: Draw[]): Draw[] => {
-  if (draws.length === 0) return [];
-  const sorted = [...draws].sort((a, b) => a.date.localeCompare(b.date));
+  const sorted = [...draws]
+    .filter((draw) => draw.kind === 'numbers' || draw.status === 'final')
+    .sort((a, b) => a.date.localeCompare(b.date));
+  if (sorted.length === 0) return [];
   const latest = sorted[sorted.length - 1];
   if (latest.kind === 'football') return [latest];
 

@@ -23,7 +23,13 @@ export interface SelaeRepository extends ResultsRepository {
   getUpcoming(): Promise<NextDraw[]>;
 }
 
-export interface ManualRepository extends ResultsRepository {
-  getForcedGames(): Promise<ResultGameId[]>;
+/** Sanity: only the promotional images of `/slide`. */
+export interface SlidesRepository {
   getSlides(): Promise<Slide[]>;
+}
+
+/** Manual load from `/cms`: provider URL to open in the browser and parser for the JSON it returns. */
+export interface ResultsImporter {
+  resultsUrl(gameId: ResultGameId, from: string, to: string): string;
+  parseResults(gameId: ResultGameId, raw: unknown): Draw[];
 }

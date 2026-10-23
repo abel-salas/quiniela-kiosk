@@ -27,3 +27,7 @@ export const parseLocalIso = (value: string): Date | null => {
 
 /** Combines a calendar date with an 'HH:mm' time as local time. */
 export const atLocalTime = (date: string, time: string): Date | null => parseLocalIso(`${date}T${time}`);
+
+/** Local instant without zone, `aaaa-mm-ddTHH:mm:ss`. */
+export const toLocalStamp = (date: Date): string =>
+  `${toLocalDateKey(date)}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;

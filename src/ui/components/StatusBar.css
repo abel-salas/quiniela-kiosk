@@ -12,3 +12,9 @@
 .status-bar__notice {
   text-align: right;
 }
+
+.status-bar__start {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}

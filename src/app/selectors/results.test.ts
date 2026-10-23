@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { ResultGameId } from '../../domain/games';
 import { fixtureSnapshot, FIXTURE_NOW as NOW } from '../../test/fixture-board';
 import { createInitialSnapshot, withGame } from '../store/snapshot';
-import { AWAITING_BADGE, PENDING_TEXT, PROVISIONAL_BADGE, selectBoardView } from './results';
+import { PENDING_TEXT, selectBoardView } from './results';
 
 const view = selectBoardView(fixtureSnapshot(), NOW);
 const card = (id: ResultGameId) => [...view.numbers, ...view.football].find((item) => item.gameId === id);
@@ -40,42 +40,33 @@ describe('selectBoardView', () => {
     expect(numbers('EDMS')?.lines[1].extras[0]).toMatchObject({ label: 'SUEÑO', value: '2' });
   });
 
-  it('shows the latest open Quiniela jornada as provisional', () => {
+  it('skips the open Quiniela jornada and shows the latest finished one', () => {
     const laquCard = view.football[0];
-    expect(laquCard).toMatchObject({ header: { dateText: 'Jornada 13ª' }, badge: PROVISIONAL_BADGE, emptyText: null });
+    expect(laquCard).toMatchObject({ header: { dateText: 'Jornada 12ª' }, emptyText: null });
     expect(laquCard.matches).toHaveLength(15);
-    expect(laquCard.matches[0]).toMatchObject({ home: 'Villarreal (M)', away: 'Nápoles (M)', detail: '3-1', sign: '1' });
-    expect(laquCard.matches[14]).toMatchObject({ position: 15, detail: 'mié 21:00', sign: null, highlight: true });
+    expect(laquCard.matches.every((match) => match.sign !== null)).toBe(true);
+    expect(laquCard.matches[14]).toMatchObject({ position: 15, highlight: true });
   });
 
-  it('puts the Quinigol result in the sign box', () => {
+  it('puts the Quinigol result of the latest finished jornada in the sign box', () => {
     const qgolCard = view.football[1];
-    expect(qgolCard.header.dateText).toBe('Jornada 14ª');
+    expect(qgolCard.header.dateText).toBe('Jornada 13ª');
     expect(qgolCard.matches).toHaveLength(6);
-    expect(qgolCard.matches[0]).toMatchObject({ detail: null, sign: 'M-1', highlight: false });
-    expect(qgolCard.matches[5]).toMatchObject({ detail: 'mié 21:00', sign: null });
+    expect(qgolCard.matches.every((match) => match.detail === null && match.sign !== null)).toBe(true);
   });
 
-  it('shows pending and awaiting states', () => {
-    const snapshot = withGame(withGame(fixtureSnapshot(), 'ELGR', { draws: [] }), 'BONO', { phase: 'awaitingResult' });
+  it('shows the pending text without results and when only an open jornada is stored', () => {
+    const openOnly = fixtureSnapshot().results.LAQU.draws.filter((draw) => draw.kind === 'football' && draw.status === 'open');
+    const snapshot = withGame(withGame(fixtureSnapshot(), 'ELGR', { draws: [] }), 'LAQU', { draws: openOnly });
     const result = selectBoardView(snapshot, NOW);
     expect(result.numbers.find((item) => item.gameId === 'ELGR')).toMatchObject({ emptyText: PENDING_TEXT, lines: [], contentKey: 'empty' });
-    expect(result.numbers.find((item) => item.gameId === 'BONO')?.badge).toBe(AWAITING_BADGE);
-    expect(card('BONO')?.badge).toBeNull();
-  });
-
-  it('never shows the awaiting chip on football cards', () => {
-    const finalLaqu = fixtureSnapshot().results.LAQU.draws.map((draw) =>
-      draw.kind === 'football' ? { ...draw, status: 'final' as const } : draw);
-    const awaiting = withGame(fixtureSnapshot(), 'LAQU', { phase: 'awaitingResult', draws: finalLaqu });
-    expect(selectBoardView(awaiting, NOW).football[0]).toMatchObject({ badge: null, emptyText: null });
-    const open = withGame(fixtureSnapshot(), 'LAQU', { phase: 'awaitingResult' });
-    expect(selectBoardView(open, NOW).football[0].badge).toBe(PROVISIONAL_BADGE);
+    expect(result.football[0]).toMatchObject({ emptyText: PENDING_TEXT, matches: [], contentKey: 'empty' });
+    expect(card('BONO')?.emptyText).toBeNull();
   });
 
   it('changes the content key when a new result arrives', () => {
     expect(numbers('BONO')?.contentKey).toContain('2026-10-14');
-    expect(view.football[0].contentKey).toContain('open');
+    expect(view.football[0].contentKey).not.toBe('empty');
   });
 
   it('builds the upcoming column and the status bar', () => {

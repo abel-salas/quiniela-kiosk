@@ -4,7 +4,7 @@ Documento de referencia para consumir resultados y botes. Datos verificados el 2
 
 ## Decisiones
 
-- Fuente principal: SELAE. Respaldo manual: Sanity (ver `docs/plan/07-sanity.md`). Sin proxy ni widgets de terceros.
+- Fuente principal: SELAE. Respaldo manual: pegar en `/cms` el JSON de `buscadorSorteos` abierto en el navegador (ver `docs/plan/04-refresco.md`). Sin proxy ni widgets de terceros.
 - La app es estática; el kiosko accede a SELAE con la extensión anti-CORS de Chrome.
 - Resultados de 7 juegos (BONO, EDMS, ELGR, LAPR, EMIL, LAQU, QGOL) y próximos sorteos de los 10 del catálogo.
 
@@ -60,12 +60,12 @@ Los 10 `game_id` responden en `buscadorSorteos` y `proximosv3`. No hay más jueg
 
 ## Calendario y refresco
 
-- Los calendarios no son fijos por día de la semana (LOTU, QUPL, QGOL, extraordinarios de LNAC). No se deben derivar ventanas de consulta de días de la semana fijos.
-- `proximosv3` da la fecha del siguiente sorteo de cada juego; es la base del planificador de refresco.
+- Los calendarios de LOTU, QUPL, QGOL y los extraordinarios de LNAC no son fijos por día de la semana. Los 5 juegos de números que muestra la app sí lo son (tabla de arriba): el planificador los pide la mañana siguiente a cada sorteo (`src/app/refresh/calendar.ts`). Quiniela y Quinigol se planifican por el último partido de la jornada abierta.
+- `proximosv3` da la fecha del siguiente sorteo de cada juego y su bote; se pide una vez al día.
 - `proximosv3.fecha` llega a `00:00:00` en los juegos de números (sin hora real del sorteo); en LNAC trae la hora del sorteo. `cierre` es la hora límite de venta.
 - `cierre` del segundo elemento no siempre es fiable: en LAPR trae el mismo `cierre` que el primero. En jornadas futuras de LAQU, QGOL y QUPL llega `null` con `estado: "cerrado"`.
 - En resultados, `fecha_sorteo` con hora `00:00:00` y `combinacion: null` indica jornada abierta (LAQU, QGOL): hay datos parciales y el resultado definitivo llegará después.
-- Para "últimos N" se consulta `buscadorSorteos` con una ventana amplia (p. ej. 30 días) y se recorta a N por `fecha_sorteo` descendente.
+- La app consulta `buscadorSorteos` con los últimos 7 días (14 en Quiniela y Quinigol, para conservar la jornada finalizada anterior mientras la siguiente está abierta).
 
 ## Botes y próximos sorteos
 

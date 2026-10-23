@@ -43,8 +43,6 @@ export interface MatchRowView {
 interface CardViewBase {
   gameId: ResultGameId;
   header: GameHeaderView;
-  /** "PROVISIONAL" or "Resultado de hoy pendiente"; null when up to date. */
-  badge: string | null;
   /** "Pendiente de resultado" when there is nothing to show. */
   emptyText: string | null;
   /** Changes when the shown result changes: drives the 400 ms fade. */

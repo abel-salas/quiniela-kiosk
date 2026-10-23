@@ -1,4 +1,4 @@
-import type { ManualRepository } from '../../domain/repository';
+import type { SlidesRepository } from '../../domain/repository';
 import type { Slide } from '../../domain/slide';
 import type { Clock } from '../clock';
 import { startDaily } from '../refresh/lifecycle';
@@ -20,7 +20,7 @@ export interface SlideStoreOptions {
 
 /** Loads the active slides at start and every 5 min; keeps the last list if Sanity fails. */
 export const createSlideStore = (
-  manual: Pick<ManualRepository, 'getSlides'>,
+  manual: SlidesRepository,
   { reloadMs = SLIDES_RELOAD_MS, dailyReload }: SlideStoreOptions = {},
 ): SlideStore => {
   let slides: Slide[] = [];

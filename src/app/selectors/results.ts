@@ -8,8 +8,6 @@ import { selectUpcomingTiles } from './upcoming';
 import { selectWeekDraws } from './week';
 
 export const PENDING_TEXT = 'Pendiente de resultado';
-export const AWAITING_BADGE = 'Resultado de hoy pendiente';
-export const PROVISIONAL_BADGE = 'PROVISIONAL';
 export const LEGAL_NOTICE = 'Resultados informativos; compruebe su boleto con los resultados oficiales';
 
 const headerOf = (gameId: ResultGameId, dateText?: string): GameHeaderView => {
@@ -26,7 +24,6 @@ const numbersCard = (gameId: ResultGameId, state: GameState): NumbersCardView =>
     kind: 'numbers',
     gameId,
     header: headerOf(gameId),
-    badge: state.phase === 'awaitingResult' ? AWAITING_BADGE : null,
     emptyText: lines.length === 0 ? PENDING_TEXT : null,
     contentKey: lines.length === 0 ? 'empty' : lines[lines.length - 1].key,
     lines,
@@ -39,9 +36,8 @@ const footballCard = (gameId: ResultGameId, state: GameState): FootballCardView 
     kind: 'football',
     gameId,
     header: headerOf(gameId, jornada ? `Jornada ${jornada.jornada}ª` : undefined),
-    badge: jornada?.status === 'open' ? PROVISIONAL_BADGE : null,
     emptyText: jornada ? null : PENDING_TEXT,
-    contentKey: jornada ? `${jornada.drawId}-${jornada.status}` : 'empty',
+    contentKey: jornada ? jornada.drawId : 'empty',
     matches: jornada ? toMatchRows(jornada) : [],
   };
 };
